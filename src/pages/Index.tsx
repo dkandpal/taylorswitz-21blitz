@@ -74,7 +74,7 @@ const Index = () => {
               </div>
             </div>
           </div>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-gray-900 max-w-2xl mx-auto">
             Create stacks of 21 without fumbling!
           </p>
           
