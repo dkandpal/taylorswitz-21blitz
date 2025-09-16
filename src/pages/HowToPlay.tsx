@@ -53,7 +53,7 @@ const HowToPlay = () => {
             How to Play Blitz 21
           </h1>
           <p className="text-lg text-muted-foreground">
-            Master the art of strategic card placement
+            Channel your inner mastermind—stack your cards like Taylor stacks her eras.
           </p>
         </div>
 
