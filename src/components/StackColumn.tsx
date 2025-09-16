@@ -118,8 +118,8 @@ export function StackColumn({
           </Badge>
         )}
         {/* Stack label and clear count */}
-        <div className="text-center min-h-[3rem] flex flex-col justify-center">
-          <div className="text-xs font-medium text-muted-foreground leading-tight px-1">
+        <div className="text-center min-h-[4rem] flex flex-col justify-center">
+          <div className="text-sm font-medium text-muted-foreground leading-tight px-1">
             {(() => {
               const stackNames = [
                 '💅❤️ Red Zone',
