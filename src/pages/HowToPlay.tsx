@@ -64,7 +64,7 @@ const HowToPlay = () => {
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                 <Target className="w-5 h-5 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold text-foreground">Objective</h3>
+              <h3 className="text-xl font-semibold text-black">Objective</h3>
             </div>
             <p className="text-muted-foreground">
               Draw cards and place them on 4 stacks to make exactly 21. Avoid going over (busting)!
@@ -76,7 +76,7 @@ const HowToPlay = () => {
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                 <Spade className="w-5 h-5 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold text-foreground">Card Values</h3>
+              <h3 className="text-xl font-semibold text-black">Card Values</h3>
             </div>
             <ul className="space-y-2 text-muted-foreground">
               <li>• Numbers 2-10: Face value</li>
@@ -90,7 +90,7 @@ const HowToPlay = () => {
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                 <Gamepad2 className="w-5 h-5 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold text-foreground">Gameplay</h3>
+              <h3 className="text-xl font-semibold text-black">Gameplay</h3>
             </div>
             <ul className="space-y-2 text-muted-foreground">
               <li>• Draw one card at a time from the deck</li>
@@ -105,7 +105,7 @@ const HowToPlay = () => {
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                 <Trophy className="w-5 h-5 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold text-foreground">Scoring</h3>
+              <h3 className="text-xl font-semibold text-black">Scoring</h3>
             </div>
             <ul className="space-y-2 text-muted-foreground">
               <li>• 2-card 21 (Blackjack): +{GAME_CONSTANTS.TWO_CARD_21}</li>
