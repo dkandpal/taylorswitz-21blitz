@@ -60,6 +60,19 @@ const Index = () => {
                 <PlayingCard card={card} />
               </div>
             ))}
+            {/* Card back as fourth card */}
+            <div 
+              className="animate-float"
+              style={{ animationDelay: `${sampleCards.length * 0.2}s` }}
+            >
+              <div className="w-16 h-24 rounded-lg overflow-hidden shadow-lg">
+                <img 
+                  src="/card-back-taylor-swift.jpg" 
+                  alt="Card Back" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
           </div>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Create stacks of 21 without busting!
