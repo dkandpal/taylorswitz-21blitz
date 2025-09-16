@@ -143,9 +143,9 @@ const Leaderboard = () => {
         {/* Leaderboard tabs */}
         <Card className="p-6 bg-white border-gray-200">
           <Tabs defaultValue="all-time" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="all-time">All-Time</TabsTrigger>
-              <TabsTrigger value="today">Today</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 mb-6 bg-gray-100 text-gray-700">
+              <TabsTrigger value="all-time" className="data-[state=active]:bg-white data-[state=active]:text-gray-900">All-Time</TabsTrigger>
+              <TabsTrigger value="today" className="data-[state=active]:bg-white data-[state=active]:text-gray-900">Today</TabsTrigger>
             </TabsList>
             
             <TabsContent value="all-time" className="space-y-4">
