@@ -65,7 +65,7 @@ const Index = () => {
               className="animate-float"
               style={{ animationDelay: `${sampleCards.length * 0.2}s` }}
             >
-              <div className="w-16 h-24 rounded-lg overflow-hidden shadow-lg">
+              <div className="w-24 h-32 rounded-lg overflow-hidden shadow-lg">
                 <img 
                   src="/card-back-taylor-swift.jpg" 
                   alt="Card Back" 
