@@ -70,7 +70,7 @@ export function StackColumn({
       {/* Prediction tooltip */}
       {predictedTotal && nextCard && focused && !isEmpty && (
         <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 z-20">
-          <div className="bg-foreground text-background px-2 py-1 rounded text-xs whitespace-nowrap">
+          <div className="bg-gray-800 text-white px-2 py-1 rounded text-xs whitespace-nowrap">
             {total} → {predictedTotal}
           </div>
         </div>
@@ -121,7 +121,7 @@ export function StackColumn({
         )}
         {/* Stack label and clear count */}
         <div className="text-center min-h-[4rem] flex flex-col justify-center">
-          <div className="text-sm font-medium text-muted-foreground leading-tight px-1">
+          <div className="text-sm font-medium text-gray-700 leading-tight px-1">
             {(() => {
               const stackNames = [
                 '💅❤️ Red Zone',

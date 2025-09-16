@@ -185,11 +185,11 @@ const Play = () => {
         {gameState.ended && (
           <div className="text-center space-y-4">
             <div className="inline-block bg-white text-foreground px-6 py-4 rounded-lg max-w-sm border border-gray-200">
-              <h3 className="text-lg font-bold mb-2 text-foreground">Game Over!</h3>
-              <p className="text-sm">
+              <h3 className="text-lg font-bold mb-2 text-gray-800">Game Over!</h3>
+              <p className="text-sm text-gray-600">
                 Reason: {gameState.endReason === 'TIME' ? 'Time expired' : 'Deck exhausted'}
               </p>
-              <div className="mt-4 space-y-1">
+              <div className="mt-4 space-y-1 text-gray-700">
                 <div>Final Score: <span className="font-bold text-primary">{gameState.score}</span></div>
                 <div>Scores: {gameState.clears}</div>
                 <div>Fumbles: {gameState.busts}</div>
