@@ -52,7 +52,7 @@ const HowToPlay = () => {
           <h1 className="text-4xl font-bold text-gray-900">
             How to Play Blitz 21
           </h1>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-gray-900">
             Channel your inner mastermind—stack your cards like Taylor stacks her eras.
           </p>
         </div>
