@@ -44,7 +44,7 @@ export function DeckPanel({
       <div className="grid grid-cols-2 gap-4 items-start max-w-sm mx-auto">
         {/* Draw Pile */}
         <div className="text-center">
-          <h3 className="text-xs font-semibold tracking-wider uppercase text-slate-300/90 mb-4">
+          <h3 className="text-xs font-semibold tracking-wider uppercase text-gray-800 mb-4">
             Draw Pile
           </h3>
           
@@ -86,7 +86,7 @@ export function DeckPanel({
 
         {/* Next Card */}
         <div className="text-center">
-          <h3 className="text-xs font-semibold tracking-wider uppercase text-slate-300/90 mb-4">
+          <h3 className="text-xs font-semibold tracking-wider uppercase text-gray-800 mb-4">
             Next Card
           </h3>
           
