@@ -1,7 +1,7 @@
 import { Card } from '@/lib/types';
 import { getCardName } from '@/lib/blackjack';
 import { cn } from '@/lib/utils';
-import cardBackImage from '@/assets/card-back-taylor-swift.jpg';
+const cardBackImage = '/card-back-taylor-swift.jpg';
 
 interface PlayingCardProps {
   card?: Card;
