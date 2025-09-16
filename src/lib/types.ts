@@ -27,6 +27,7 @@ export interface GameState {
   lastClearAtMs: number | null;
   busts: number;
   clears: number;
+  stackBustCounts: number[];
   clearedAllFourOnce: boolean;
   flags: {
     paused: boolean;

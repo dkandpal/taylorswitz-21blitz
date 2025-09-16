@@ -9,6 +9,7 @@ interface StackColumnProps {
   stack: Stack;
   stackIndex: number;
   clearCount: number;
+  bustCount: number;
   onPlace: (stackIndex: number) => void;
   disabled?: boolean;
   className?: string;
@@ -23,6 +24,7 @@ export function StackColumn({
   stack, 
   stackIndex, 
   clearCount,
+  bustCount,
   onPlace, 
   disabled = false,
   className,
@@ -139,6 +141,11 @@ export function StackColumn({
           {/* Clear count */}
           <div className="text-xs text-primary font-medium mt-1">
             Scores: {clearCount}
+          </div>
+          
+          {/* Fumble count */}
+          <div className="text-xs text-red-500 font-medium">
+            Fumbles: {bustCount}
           </div>
         </div>
       

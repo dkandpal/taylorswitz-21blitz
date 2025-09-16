@@ -137,6 +137,7 @@ const Play = () => {
               stack={stack}
               stackIndex={index}
               clearCount={gameState.stackClearCounts[index]}
+              bustCount={gameState.stackBustCounts[index]}
               onPlace={placeOnStack}
               disabled={gameState.ended || gameState.flags.paused || !gameState.nextCard}
               nextCard={gameState.nextCard}

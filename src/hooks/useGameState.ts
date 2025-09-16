@@ -34,6 +34,7 @@ export function useGameState(initialSeed?: string, settings?: GameSettings) {
       lastClearAtMs: null,
       busts: 0,
       clears: 0,
+      stackBustCounts: [0, 0, 0, 0],
       clearedAllFourOnce: false,
       flags: {
         paused: false,
@@ -166,6 +167,7 @@ export function useGameState(initialSeed?: string, settings?: GameSettings) {
       let newLastClearAtMs = prev.lastClearAtMs;
       let newStacksClearedHistory = [...prev.stacksClearedHistory];
       let newStackClearCounts = [...prev.stackClearCounts];
+      let newStackBustCounts = [...prev.stackBustCounts];
       
       const now = Date.now();
       
@@ -199,6 +201,7 @@ export function useGameState(initialSeed?: string, settings?: GameSettings) {
         // Bust!
         newScore += GAME_CONSTANTS.BUST_PENALTY;
         newBusts++;
+        newStackBustCounts[stackIndex]++;
         newStreakCount = 0;
         
         // Clear the stack and maybe lock it
@@ -242,6 +245,7 @@ export function useGameState(initialSeed?: string, settings?: GameSettings) {
         clears: newClears,
         stacksClearedHistory: newStacksClearedHistory,
         stackClearCounts: newStackClearCounts,
+        stackBustCounts: newStackBustCounts,
       };
     });
   }, [endGame, toast]);
