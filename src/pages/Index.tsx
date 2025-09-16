@@ -44,7 +44,7 @@ const Index = () => {
         <div className="text-center space-y-6">
           <div className="flex justify-center mb-6">
             <img 
-              src="/tswizbanner.png" 
+              src="/TSWIZBANNER.png" 
               alt="Taylor's Wiz Banner" 
               className="max-w-full h-auto max-h-48 object-contain"
             />

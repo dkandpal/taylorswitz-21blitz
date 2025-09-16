@@ -110,7 +110,7 @@ const Play = () => {
       {/* Title Banner */}
       <div className="w-full bg-game-surface border-b border-game-border">
         <img 
-          src="/tswizbanner.png" 
+          src="/TSWIZBANNER.png" 
           alt="Taylor's Wiz Banner"
           className="w-full h-auto max-h-32 object-contain bg-gradient-to-r from-purple-600 to-pink-600"
         />
