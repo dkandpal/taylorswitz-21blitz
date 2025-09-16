@@ -64,6 +64,10 @@ export default {
           foreground: "hsl(var(--warning-foreground))",
           glow: "hsl(var(--warning-glow))",
         },
+        hotPink: {
+          DEFAULT: "hsl(var(--hot-pink))",
+          foreground: "hsl(var(--hot-pink-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

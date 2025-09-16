@@ -90,7 +90,7 @@ const Index = () => {
           <Button 
             onClick={handlePlay}
             size="lg"
-            className="text-xl px-8 py-6 bg-gradient-primary hover:scale-105 transition-transform"
+            className="text-xl px-8 py-6 bg-hotPink text-hotPink-foreground hover:scale-105 transition-transform hover:bg-hotPink/90"
           >
             <Play className="w-6 h-6 mr-2" />
             Play Now
