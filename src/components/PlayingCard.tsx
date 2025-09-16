@@ -1,6 +1,7 @@
 import { Card } from '@/lib/types';
 import { getCardName } from '@/lib/blackjack';
 import { cn } from '@/lib/utils';
+import cardBackImage from '@/assets/card-back-taylor-swift.jpg';
 
 interface PlayingCardProps {
   card?: Card;
@@ -23,17 +24,20 @@ export function PlayingCard({
     return (
       <div 
         className={cn(
-          "game-card flex items-center justify-center",
-          "bg-gradient-to-br from-blue-900 to-blue-700",
-          "border border-blue-600",
-          small ? "w-16 h-24 text-sm" : "w-24 h-32 text-base",
+          "game-card flex items-center justify-center overflow-hidden",
+          "border border-game-border",
+          small ? "w-16 h-24" : "w-24 h-32",
           onClick && "cursor-pointer hover:scale-105",
           className
         )}
         onClick={onClick}
         aria-label="Face down card"
       >
-        <div className="text-blue-300 font-bold">🂠</div>
+        <img 
+          src={cardBackImage} 
+          alt="Card back - Ghibli style Taylor Swift"
+          className="w-full h-full object-cover"
+        />
       </div>
     );
   }
