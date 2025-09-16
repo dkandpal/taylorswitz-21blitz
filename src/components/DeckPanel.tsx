@@ -24,6 +24,17 @@ export function DeckPanel({
   const isEmpty = cardsLeft === 0;
   const progressWidth = deckSize > 0 ? (cardsLeft / deckSize) * 100 : 0;
   
+  // Get suit-specific color class for card display
+  const getSuitColorForCard = (suit: string) => {
+    switch (suit) {
+      case '🎤': return 'text-yellow-600'; // Golden microphone
+      case '❤️': return 'text-red-500'; // Red heart
+      case '✍️': return 'text-amber-700'; // Sepia quill
+      case '✨': return 'text-pink-400'; // Pastel pink sparkle
+      default: return 'text-slate-900';
+    }
+  };
+  
   return (
     <div className={cn(
       "transition-all duration-300",
@@ -108,7 +119,7 @@ export function DeckPanel({
                 {/* Top rank and suit */}
                 <div className={cn(
                   "flex flex-col items-center leading-none",
-                  (nextCard.suit === '♥' || nextCard.suit === '♦') ? "text-red-600" : "text-slate-900"
+                  getSuitColorForCard(nextCard.suit)
                 )}>
                   <div className="font-semibold tabular-nums">{nextCard.rank}</div>
                   <div className="text-sm">{nextCard.suit}</div>
@@ -117,7 +128,7 @@ export function DeckPanel({
                 {/* Center suit */}
                 <div className={cn(
                   "text-center text-xl",
-                  (nextCard.suit === '♥' || nextCard.suit === '♦') ? "text-red-600" : "text-slate-900"
+                  getSuitColorForCard(nextCard.suit)
                 )}>
                   {nextCard.suit}
                 </div>
@@ -125,7 +136,7 @@ export function DeckPanel({
                 {/* Bottom rank and suit (rotated) */}
                 <div className={cn(
                   "flex flex-col items-center leading-none rotate-180",
-                  (nextCard.suit === '♥' || nextCard.suit === '♦') ? "text-red-600" : "text-slate-900"
+                  getSuitColorForCard(nextCard.suit)
                 )}>
                   <div className="font-semibold tabular-nums">{nextCard.rank}</div>
                   <div className="text-sm">{nextCard.suit}</div>

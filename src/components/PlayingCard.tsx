@@ -18,7 +18,18 @@ export function PlayingCard({
   className,
   onClick 
 }: PlayingCardProps) {
-  const isRed = card && (card.suit === '♥' || card.suit === '♦');
+  // Get suit-specific color class
+  const getSuitColor = (suit: string) => {
+    switch (suit) {
+      case '🎤': return 'text-yellow-600'; // Golden microphone
+      case '❤️': return 'text-red-500'; // Red heart
+      case '✍️': return 'text-amber-700'; // Sepia quill
+      case '✨': return 'text-pink-400'; // Pastel pink sparkle
+      default: return 'text-card-foreground';
+    }
+  };
+  
+  const suitColor = card ? getSuitColor(card.suit) : 'text-card-foreground';
   
   if (faceDown) {
     console.log('Rendering face down card with image:', cardBackImage);
@@ -101,7 +112,7 @@ export function PlayingCard({
       {/* Top rank and suit */}
       <div className={cn(
         "flex flex-col items-center leading-none",
-        isRed ? "text-danger" : "text-card-foreground"
+        suitColor
       )}>
         <div className="font-bold truncate">{card.rank}</div>
         <div className={small ? "text-xs" : "text-sm"}>{card.suit}</div>
@@ -112,7 +123,7 @@ export function PlayingCard({
         <div className={cn(
           "text-center self-center",
           small ? "text-lg" : "text-xl",
-          isRed ? "text-danger" : "text-card-foreground"
+          suitColor
         )}>
           {card.suit}
         </div>
@@ -121,7 +132,7 @@ export function PlayingCard({
       {/* Bottom rank and suit (rotated) */}
       <div className={cn(
         "flex flex-col items-center leading-none rotate-180",
-        isRed ? "text-danger" : "text-card-foreground"
+        suitColor
       )}>
         <div className="font-bold truncate">{card.rank}</div>
         <div className={small ? "text-xs" : "text-sm"}>{card.suit}</div>

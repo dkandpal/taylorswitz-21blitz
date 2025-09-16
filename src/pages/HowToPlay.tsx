@@ -19,9 +19,9 @@ const HowToPlay = () => {
   
   // Sample cards for demonstration
   const sampleCards = [
-    { rank: 'A', suit: '♠', value10: 1, isAce: true },
-    { rank: 'K', suit: '♥', value10: 10, isAce: false },
-    { rank: '10', suit: '♦', value10: 10, isAce: false },
+    { rank: 'A', suit: '🎤', value10: 1, isAce: true },
+    { rank: 'K', suit: '❤️', value10: 10, isAce: false },
+    { rank: '10', suit: '✨', value10: 10, isAce: false },
   ] as const;
 
   const handleStartGame = () => {
