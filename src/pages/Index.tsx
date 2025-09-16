@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PlayingCard } from '@/components/PlayingCard';
 import { GAME_CONSTANTS } from '@/lib/constants';
+import tswizBanner from '@/assets/tswizbanner.png';
 import { 
   Play, 
   HelpCircle, 
@@ -39,8 +40,16 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4">
       <div className="max-w-4xl w-full space-y-8">
-        {/* Header with sample cards */}
+        {/* Header with banner image */}
         <div className="text-center space-y-6">
+          <div className="flex justify-center mb-6">
+            <img 
+              src={tswizBanner} 
+              alt="Taylor's Wiz Banner" 
+              className="max-w-full h-auto max-h-48 object-contain"
+            />
+          </div>
+          
           <div className="flex justify-center items-center space-x-4 mb-6">
             {sampleCards.map((card, index) => (
               <div 
@@ -52,10 +61,6 @@ const Index = () => {
               </div>
             ))}
           </div>
-          
-          <h1 className="text-6xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            21 Blitz Template
-          </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Create stacks of 21 without busting!
           </p>

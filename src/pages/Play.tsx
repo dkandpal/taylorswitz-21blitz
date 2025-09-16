@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from 'react';
-import titleBanner from '@/assets/title-banner.jpg';
+import tswizBanner from '@/assets/tswizbanner.png';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useGameState } from '@/hooks/useGameState';
 import { loadSettings } from '@/lib/storage';
@@ -110,9 +110,9 @@ const Play = () => {
       {/* Title Banner */}
       <div className="w-full bg-game-surface border-b border-game-border">
         <img 
-          src={titleBanner} 
-          alt="21 Blitz Template" 
-          className="w-full h-auto max-h-32 object-cover"
+          src={tswizBanner} 
+          alt="Taylor's Wiz Banner" 
+          className="w-full h-auto max-h-32 object-contain bg-gradient-to-r from-purple-600 to-pink-600"
         />
       </div>
 
