@@ -1,0 +1,305 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Game Background */
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    
+    /* Game Surface Colors */
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --card-shadow: 222 47% 11% / 0.15;
+    
+    /* Game Table */
+    --game-surface: 220 26% 14%;
+    --game-border: 220 13% 18%;
+    
+    /* Interactive Elements */
+    --primary: 142 76% 36%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 142 76% 46%;
+    
+    --secondary: 220 26% 18%;
+    --secondary-foreground: 210 40% 98%;
+    
+    /* Game States */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --success-glow: 142 76% 46%;
+    
+    --danger: 0 84% 60%;
+    --danger-foreground: 0 0% 100%;
+    --danger-glow: 0 84% 70%;
+    
+    --warning: 45 93% 58%;
+    --warning-foreground: 0 0% 0%;
+    --warning-glow: 45 93% 68%;
+    
+    /* UI Elements */
+    --muted: 220 13% 18%;
+    --muted-foreground: 220 9% 46%;
+    
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 220 13% 18%;
+    --input: 220 13% 18%;
+    --ring: 142 76% 36%;
+    
+    /* Game Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-surface: linear-gradient(180deg, hsl(var(--game-surface)), hsl(220 26% 12%));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(0 0% 98%));
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Shadows */
+    --shadow-card: 0 4px 6px -1px hsl(var(--card-shadow)), 0 2px 4px -1px hsl(var(--card-shadow));
+    --shadow-success: 0 0 20px hsl(var(--success-glow) / 0.3);
+    --shadow-danger: 0 0 20px hsl(var(--danger-glow) / 0.3);
+    --shadow-warning: 0 0 20px hsl(var(--warning-glow) / 0.3);
+    
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Already optimized for dark theme - keep current variables */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background: linear-gradient(135deg, hsl(var(--background)), hsl(222 47% 8%));
+    min-height: 100vh;
+  }
+
+  /* Game-specific styles */
+  .game-card {
+    @apply bg-card text-card-foreground rounded-lg;
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+    transition: var(--transition-smooth);
+  }
+
+  .game-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card), 0 8px 25px -5px hsl(var(--card-shadow));
+  }
+
+  .success-glow {
+    box-shadow: var(--shadow-success);
+    animation: success-pulse 0.6s ease-out;
+  }
+
+  .danger-glow {
+    box-shadow: var(--shadow-danger);
+    animation: danger-shake 0.6s ease-out;
+  }
+
+  .warning-glow {
+    box-shadow: var(--shadow-warning);
+  }
+
+  /* Arcade Effects */
+  .neon-outline {
+    box-shadow: 
+      0 0 5px hsl(var(--primary) / 0.5),
+      inset 0 1px 0 hsl(0 0% 100% / 0.1),
+      inset 0 -1px 0 hsl(0 0% 0% / 0.2);
+  }
+
+  .inner-shadow {
+    box-shadow: 
+      inset 0 2px 4px hsl(0 0% 0% / 0.1),
+      inset 0 1px 2px hsl(0 0% 0% / 0.2);
+  }
+
+  .arcade-container {
+    background: hsl(var(--game-surface));
+    border-radius: 12px;
+    transition: var(--transition-smooth);
+  }
+
+  .arcade-container.focused {
+    transform: scale(1.02);
+    z-index: 10;
+  }
+
+  .arcade-container.dimmed {
+    opacity: 0.6;
+    filter: brightness(0.8);
+  }
+
+  /* Badge Animations */
+  .badge-neutral {
+    @apply bg-muted text-muted-foreground;
+  }
+
+  .badge-amber {
+    @apply bg-warning text-warning-foreground;
+    animation: amber-pulse 1.5s ease-in-out infinite;
+  }
+
+  .badge-green {
+    @apply bg-success text-success-foreground;
+    animation: green-flash 0.6s ease-out;
+  }
+
+  .badge-red {
+    @apply bg-danger text-danger-foreground;
+    animation: red-shake 0.4s ease-out;
+  }
+
+  @keyframes amber-pulse {
+    0%, 100% { 
+      opacity: 1;
+      box-shadow: 0 0 10px hsl(var(--warning-glow) / 0.3);
+    }
+    50% { 
+      opacity: 0.8;
+      box-shadow: 0 0 20px hsl(var(--warning-glow) / 0.5);
+    }
+  }
+
+  @keyframes green-flash {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes red-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+  }
+
+  /* Timer Ring Animation */
+  .timer-ring {
+    transform-origin: center;
+    transform: rotate(-90deg);
+  }
+
+  .timer-pulse {
+    animation: timer-pulse 1s ease-in-out infinite;
+  }
+
+  @keyframes timer-pulse {
+    0%, 100% { 
+      opacity: 1;
+      filter: drop-shadow(0 0 5px hsl(var(--danger-glow) / 0.5));
+    }
+    50% { 
+      opacity: 0.7;
+      filter: drop-shadow(0 0 15px hsl(var(--danger-glow) / 0.8));
+    }
+  }
+
+  /* Progress Bar */
+  .cards-progress {
+    background: linear-gradient(90deg, 
+      hsl(var(--success)) 0%, 
+      hsl(var(--warning)) 70%, 
+      hsl(var(--danger)) 100%);
+    height: 4px;
+    border-radius: 2px;
+    transition: width 0.3s ease-out;
+  }
+
+  /* Confetti animation for 21s */
+  .confetti-burst {
+    animation: confetti-burst 0.8s ease-out;
+  }
+
+  @keyframes confetti-burst {
+    0% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.1) rotate(180deg);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.9) rotate(360deg);
+    }
+  }
+
+  /* Container Shake */
+  .container-shake {
+    animation: container-shake 0.4s ease-out;
+  }
+
+  @keyframes container-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  /* Red Border Flash */
+  .red-flash {
+    animation: red-flash 0.4s ease-out;
+  }
+
+  @keyframes red-flash {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: hsl(var(--danger)); }
+  }
+
+  /* Card fan animation */
+  .card-fan {
+    transition: var(--transition-smooth);
+  }
+
+  .card-fan:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Smooth focus rings for accessibility */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  /* Floating animation for home page cards */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+}
