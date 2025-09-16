@@ -42,12 +42,12 @@ export function TopBar({
       {/* Left: Score and timer */}
       <div className="flex items-start space-x-6">
         <div className="text-center">
-          <div className="text-xs text-gray-800 mb-2">Score</div>
+          <div className="text-xs text-gray-900 mb-2">Score</div>
           <div className="text-2xl font-bold text-primary">{gameState.score}</div>
         </div>
         
         <div className="text-center">
-          <div className="text-xs text-gray-800 mb-2">Timer</div>
+          <div className="text-xs text-gray-900 mb-2">Timer</div>
           <div className="relative flex items-center justify-center">
             <TimerRing 
               timeLeft={gameState.timeLeft} 
