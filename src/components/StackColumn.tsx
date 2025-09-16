@@ -138,7 +138,7 @@ export function StackColumn({
           
           {/* Clear count */}
           <div className="text-xs text-primary font-medium mt-1">
-            Clears: {clearCount}
+            Scores: {clearCount}
           </div>
         </div>
       
