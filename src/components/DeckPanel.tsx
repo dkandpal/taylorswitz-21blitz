@@ -52,9 +52,7 @@ export function DeckPanel({
                   <div className="text-slate-400 text-xs">Empty</div>
                 </div>
               ) : (
-                <div className="w-full h-full rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 ring-1 ring-white/10 flex items-center justify-center">
-                  <div className="text-blue-100 text-2xl">🂠</div>
-                </div>
+                <PlayingCard faceDown={true} className="w-full h-full" />
               )}
             </div>
             
