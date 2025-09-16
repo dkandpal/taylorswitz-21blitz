@@ -56,7 +56,7 @@ export function TopBar({
             />
             <div className={cn(
               "text-xl font-bold z-10",
-              isLowTime ? "text-danger" : "text-gray-800"
+              isLowTime ? "text-danger" : "text-white"
             )}>
               {timeDisplay}
             </div>
