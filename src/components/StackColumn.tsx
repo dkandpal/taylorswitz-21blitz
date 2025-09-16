@@ -120,7 +120,15 @@ export function StackColumn({
         {/* Stack label and clear count */}
         <div className="text-center">
           <div className="text-sm font-medium text-muted-foreground">
-            Stack {stackIndex + 1}
+            {(() => {
+              const stackNames = [
+                '💅❤️ Red Zone',
+                '🖊️📖 Blank Space Playbook', 
+                '👠🌟 Style Points',
+                '✨🤍 Fearless Formation'
+              ];
+              return stackNames[stackIndex];
+            })()}
             {stack.locked && (
               <span className="ml-1" aria-label="locked">🔒</span>
             )}
