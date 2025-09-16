@@ -74,7 +74,7 @@ export function TopBar({
       {/* Right: Quit Button */}
       <div className="flex items-center">
         <Button
-          variant="outline"
+          variant="destructive"
           size="sm"
           onClick={onQuit}
           aria-label="Quit game"
