@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PlayingCard } from '@/components/PlayingCard';
 import { GAME_CONSTANTS } from '@/lib/constants';
-import tswizBanner from '@/assets/tswizbanner.png';
+
 import { 
   Play, 
   HelpCircle, 
@@ -44,7 +44,7 @@ const Index = () => {
         <div className="text-center space-y-6">
           <div className="flex justify-center mb-6">
             <img 
-              src={tswizBanner} 
+              src="/tswizbanner.png" 
               alt="Taylor's Wiz Banner" 
               className="max-w-full h-auto max-h-48 object-contain"
             />
