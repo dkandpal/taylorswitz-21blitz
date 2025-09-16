@@ -67,7 +67,7 @@ const HowToPlay = () => {
               <h3 className="text-xl font-semibold text-black">Objective</h3>
             </div>
             <p className="text-muted-foreground">
-              Draw cards and place them on 4 stacks to make exactly 21. Avoid going over (busting)!
+              Draw cards and place them on 4 stacks to make exactly 21. Avoid going over (fumbling)!
             </p>
           </Card>
 

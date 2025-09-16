@@ -75,7 +75,7 @@ const Index = () => {
             </div>
           </div>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Create stacks of 21 without busting!
+            Create stacks of 21 without fumbling!
           </p>
           
           {seed && (
@@ -114,7 +114,7 @@ const Index = () => {
               <div className="space-y-4 text-sm">
                 <div>
                   <h4 className="font-semibold mb-2 text-foreground">🎯 Objective</h4>
-                  <p className="text-muted-foreground">Draw cards and place them on 4 stacks to make exactly 21. Avoid going over (busting)!</p>
+                  <p className="text-muted-foreground">Draw cards and place them on 4 stacks to make exactly 21. Avoid going over (fumbling)!</p>
                 </div>
                 
                 <div>
