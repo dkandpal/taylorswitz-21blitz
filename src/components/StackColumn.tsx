@@ -118,16 +118,18 @@ export function StackColumn({
           </Badge>
         )}
         {/* Stack label and clear count */}
-        <div className="text-center">
-          <div className="text-sm font-medium text-muted-foreground">
+        <div className="text-center min-h-[3rem] flex flex-col justify-center">
+          <div className="text-xs font-medium text-muted-foreground leading-tight px-1">
             {(() => {
               const stackNames = [
                 '💅❤️ Red Zone',
-                '🖊️📖 Blank Space Playbook', 
+                '🖊️📖 Blank Space\nPlaybook', 
                 '👠🌟 Style Points',
-                '✨🤍 Fearless Formation'
+                '✨🤍 Fearless\nFormation'
               ];
-              return stackNames[stackIndex];
+              return stackNames[stackIndex].split('\n').map((line, idx) => (
+                <div key={idx}>{line}</div>
+              ));
             })()}
             {stack.locked && (
               <span className="ml-1" aria-label="locked">🔒</span>
@@ -135,7 +137,7 @@ export function StackColumn({
           </div>
           
           {/* Clear count */}
-          <div className="text-xs text-primary font-medium">
+          <div className="text-xs text-primary font-medium mt-1">
             Clears: {clearCount}
           </div>
         </div>
