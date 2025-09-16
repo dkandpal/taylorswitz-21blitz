@@ -49,7 +49,7 @@ const HowToPlay = () => {
             ))}
           </div>
           
-          <h1 className="text-4xl font-bold text-hotPink">
+          <h1 className="text-4xl font-bold text-gray-900">
             How to Play Blitz 21
           </h1>
           <p className="text-lg text-muted-foreground">
