@@ -105,7 +105,7 @@ const Leaderboard = () => {
             Back to Home
           </Button>
           
-          <h1 className="text-3xl font-bold flex items-center text-hotPink">
+          <h1 className="text-3xl font-bold flex items-center text-gray-900">
             <Trophy className="w-8 h-8 mr-2 text-hotPink" />
             Leaderboard
           </h1>
