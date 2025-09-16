@@ -150,9 +150,8 @@ const Play = () => {
 
         {/* Draw area and waste */}
         {!gameState.ended && (
-          <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8">
-            {/* Mobile: Draw pile and next card side by side */}
-            <div className="flex items-center justify-center space-x-4 md:contents">
+          <div className="flex items-center justify-center space-x-4 md:space-x-8">
+            {/* Draw pile and next card side by side on all screen sizes */}
               <DeckPanel
                 cardsLeft={gameState.deck.length - gameState.drawIndex}
                 deckSize={gameState.deck.length}
@@ -170,7 +169,6 @@ const Play = () => {
                   disabled={gameState.ended || gameState.flags.paused || !gameState.nextCard}
                 />
               )}
-            </div>
           </div>
         )}
 
