@@ -49,7 +49,7 @@ const HowToPlay = () => {
             ))}
           </div>
           
-          <h1 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold text-hotPink">
             How to Play Blitz 21
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -61,8 +61,8 @@ const HowToPlay = () => {
         <div className="grid md:grid-cols-2 gap-6">
           <Card className="p-6 bg-card border-border">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Target className="w-5 h-5 text-primary" />
+              <div className="w-10 h-10 rounded-lg bg-hotPink/10 flex items-center justify-center">
+                <Target className="w-5 h-5 text-hotPink" />
               </div>
               <h3 className="text-xl font-semibold text-black">Objective</h3>
             </div>
@@ -73,8 +73,8 @@ const HowToPlay = () => {
 
           <Card className="p-6 bg-card border-border">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Spade className="w-5 h-5 text-primary" />
+              <div className="w-10 h-10 rounded-lg bg-hotPink/10 flex items-center justify-center">
+                <Spade className="w-5 h-5 text-hotPink" />
               </div>
               <h3 className="text-xl font-semibold text-black">Card Values</h3>
             </div>
@@ -87,8 +87,8 @@ const HowToPlay = () => {
 
           <Card className="p-6 bg-card border-border">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Gamepad2 className="w-5 h-5 text-primary" />
+              <div className="w-10 h-10 rounded-lg bg-hotPink/10 flex items-center justify-center">
+                <Gamepad2 className="w-5 h-5 text-hotPink" />
               </div>
               <h3 className="text-xl font-semibold text-black">Gameplay</h3>
             </div>
@@ -102,8 +102,8 @@ const HowToPlay = () => {
 
           <Card className="p-6 bg-card border-border">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Trophy className="w-5 h-5 text-primary" />
+              <div className="w-10 h-10 rounded-lg bg-hotPink/10 flex items-center justify-center">
+                <Trophy className="w-5 h-5 text-hotPink" />
               </div>
               <h3 className="text-xl font-semibold text-black">Scoring</h3>
             </div>
@@ -123,7 +123,7 @@ const HowToPlay = () => {
           <Button 
             onClick={handleStartGame}
             size="lg"
-            className="text-xl px-8 py-6 bg-gradient-primary hover:scale-105 transition-transform"
+            className="text-xl px-8 py-6 bg-hotPink text-hotPink-foreground hover:scale-105 transition-transform hover:bg-hotPink/90"
           >
             <Play className="w-6 h-6 mr-2" />
             Start Playing
