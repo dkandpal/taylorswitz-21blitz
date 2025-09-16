@@ -150,24 +150,27 @@ const Play = () => {
 
         {/* Draw area and waste */}
         {!gameState.ended && (
-          <div className="flex items-center justify-center space-x-8">
-            <DeckPanel
-              cardsLeft={gameState.deck.length - gameState.drawIndex}
-              deckSize={gameState.deck.length}
-              nextCard={gameState.nextCard}
-              onDraw={drawNext}
-              focused={focusedElement === 'nextCard'}
-              dimmed={focusedElement !== null && focusedElement !== 'nextCard'}
-              onHover={handleElementFocus}
-            />
-            
-            {gameState.flags.wasteEnabled && (
-              <WasteSlot
-                card={gameState.waste}
-                onPlace={placeInWaste}
-                disabled={gameState.ended || gameState.flags.paused || !gameState.nextCard}
+          <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8">
+            {/* Mobile: Draw pile and next card side by side */}
+            <div className="flex items-center justify-center space-x-4 md:contents">
+              <DeckPanel
+                cardsLeft={gameState.deck.length - gameState.drawIndex}
+                deckSize={gameState.deck.length}
+                nextCard={gameState.nextCard}
+                onDraw={drawNext}
+                focused={focusedElement === 'nextCard'}
+                dimmed={focusedElement !== null && focusedElement !== 'nextCard'}
+                onHover={handleElementFocus}
               />
-            )}
+              
+              {gameState.flags.wasteEnabled && (
+                <WasteSlot
+                  card={gameState.waste}
+                  onPlace={placeInWaste}
+                  disabled={gameState.ended || gameState.flags.paused || !gameState.nextCard}
+                />
+              )}
+            </div>
           </div>
         )}
 
