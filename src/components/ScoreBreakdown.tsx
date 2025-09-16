@@ -52,7 +52,7 @@ export const ScoreBreakdown = ({ gameState }: ScoreBreakdownProps) => {
         <ScoreItem label={`21s Cleared (${gameState.clears})`} value={estimatedClearPoints} isBonus />
         <ScoreItem label={`Time Bonus (${gameState.timeLeft}s)`} value={timeBonus} isBonus />
         <ScoreItem label="Perfect Clear Bonus" value={perfectClearBonus} isBonus />
-        <ScoreItem label={`Busts (${gameState.busts})`} value={bustPenalty} isPenalty />
+        <ScoreItem label={`Fumbles (${gameState.busts})`} value={bustPenalty} isPenalty />
         <ScoreItem label={`Dead Stacks (${deadStacks})`} value={deadStackPenalty} isPenalty />
         <ScoreItem label={`Waste Cards (${wasteCount})`} value={wastePenalty} isPenalty />
         

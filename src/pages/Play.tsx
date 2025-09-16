@@ -191,7 +191,7 @@ const Play = () => {
               <div className="mt-4 space-y-1">
                 <div>Final Score: <span className="font-bold text-primary">{gameState.score}</span></div>
                 <div>Scores: {gameState.clears}</div>
-                <div>Busts: {gameState.busts}</div>
+                <div>Fumbles: {gameState.busts}</div>
               </div>
               <ScoreBreakdown gameState={gameState} />
             </div>

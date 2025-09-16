@@ -132,7 +132,7 @@ const Index = () => {
                     <li>Draw one card at a time from the deck</li>
                     <li>Place each card on one of 4 stacks (or waste if enabled)</li>
                     <li>Stack totaling exactly 21 clears and scores points</li>
-                    <li>Stack over 21 busts (penalty) and clears</li>
+                    <li>Stack over 21 fumbles (penalty) and clears</li>
                   </ul>
                 </div>
                 

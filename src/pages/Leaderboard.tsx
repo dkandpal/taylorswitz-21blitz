@@ -72,7 +72,7 @@ const Leaderboard = () => {
         
         <div className="text-center">
           <div className="text-danger">{score.busts}</div>
-          <div className="text-xs text-muted-foreground">busts</div>
+          <div className="text-xs text-muted-foreground">fumbles</div>
         </div>
         
         <div className="text-center">
