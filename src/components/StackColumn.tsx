@@ -78,7 +78,7 @@ export function StackColumn({
       
       <div 
         className={cn(
-          "arcade-container relative flex flex-col items-center space-y-3 p-4",
+          "arcade-container relative flex flex-col items-center space-y-3 p-4 bg-white border border-gray-200",
           "neon-outline inner-shadow h-64 transition-all duration-300",
           focused && "focused",
           dimmed && "dimmed",
