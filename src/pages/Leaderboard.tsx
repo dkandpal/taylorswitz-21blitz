@@ -31,7 +31,7 @@ const Leaderboard = () => {
     .slice(0, 50);
 
   const ScoreRow = ({ score, rank }: { score: ScoreRecord; rank: number }) => (
-    <div className="flex items-center justify-between p-4 border-b border-game-border last:border-b-0">
+    <div className="flex items-center justify-between p-4 border-b border-gray-200 last:border-b-0">
       <div className="flex items-center space-x-4">
         <div className="text-center min-w-[2rem]">
           {rank <= 3 ? (
@@ -43,13 +43,13 @@ const Leaderboard = () => {
               {rank === 1 ? '🥇' : rank === 2 ? '🥈' : '🥉'}
             </div>
           ) : (
-            <div className="text-muted-foreground">#{rank}</div>
+            <div className="text-gray-600">#{rank}</div>
           )}
         </div>
         
         <div>
-          <div className="font-medium text-foreground">{score.playerName}</div>
-          <div className="text-sm text-muted-foreground">
+          <div className="font-medium text-gray-900">{score.playerName}</div>
+          <div className="text-sm text-gray-600">
             {new Date(score.createdAt).toLocaleDateString()}
           </div>
         </div>
@@ -62,22 +62,22 @@ const Leaderboard = () => {
         
         <div className="text-center">
           <div className="font-bold text-hotPink">{score.score}</div>
-          <div className="text-xs text-muted-foreground">score</div>
+          <div className="text-xs text-gray-600">score</div>
         </div>
         
         <div className="text-center">
           <div className="text-success">{score.clears}</div>
-          <div className="text-xs text-muted-foreground">21s</div>
+          <div className="text-xs text-gray-600">21s</div>
         </div>
         
         <div className="text-center">
           <div className="text-danger">{score.busts}</div>
-          <div className="text-xs text-muted-foreground">fumbles</div>
+          <div className="text-xs text-gray-600">fumbles</div>
         </div>
         
         <div className="text-center">
-          <div className="text-foreground">{formatTime(score.durationSecs)}</div>
-          <div className="text-xs text-muted-foreground">time</div>
+          <div className="text-gray-900">{formatTime(score.durationSecs)}</div>
+          <div className="text-xs text-gray-600">time</div>
         </div>
         
         <Button
@@ -115,33 +115,33 @@ const Leaderboard = () => {
 
         {/* Stats overview */}
         <div className="grid md:grid-cols-3 gap-4">
-          <Card className="p-4 text-center bg-gradient-surface border-game-border">
+          <Card className="p-4 text-center bg-white border-gray-200">
             <Trophy className="w-8 h-8 mx-auto mb-2 text-hotPink" />
-            <div className="text-2xl font-bold text-foreground">
+            <div className="text-2xl font-bold text-gray-900">
               {allTimeScores[0]?.score || 0}
             </div>
-            <div className="text-sm text-muted-foreground">Best Score</div>
+            <div className="text-sm text-gray-600">Best Score</div>
           </Card>
           
-          <Card className="p-4 text-center bg-gradient-surface border-game-border">
+          <Card className="p-4 text-center bg-white border-gray-200">
             <Timer className="w-8 h-8 mx-auto mb-2 text-hotPink" />
-            <div className="text-2xl font-bold text-foreground">
+            <div className="text-2xl font-bold text-gray-900">
               {scores.length}
             </div>
-            <div className="text-sm text-muted-foreground">Games Played</div>
+            <div className="text-sm text-gray-600">Games Played</div>
           </Card>
           
-          <Card className="p-4 text-center bg-gradient-surface border-game-border">
+          <Card className="p-4 text-center bg-white border-gray-200">
             <Target className="w-8 h-8 mx-auto mb-2 text-hotPink" />
-            <div className="text-2xl font-bold text-foreground">
+            <div className="text-2xl font-bold text-gray-900">
               {scores.reduce((sum, s) => sum + s.clears, 0)}
             </div>
-            <div className="text-sm text-muted-foreground">Total 21s</div>
+            <div className="text-sm text-gray-600">Total 21s</div>
           </Card>
         </div>
 
         {/* Leaderboard tabs */}
-        <Card className="p-6 bg-gradient-surface border-game-border">
+        <Card className="p-6 bg-white border-gray-200">
           <Tabs defaultValue="all-time" className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-6">
               <TabsTrigger value="all-time">All-Time</TabsTrigger>
@@ -149,14 +149,14 @@ const Leaderboard = () => {
             </TabsList>
             
             <TabsContent value="all-time" className="space-y-4">
-              <h3 className="text-lg font-semibold text-foreground">Top Scores of All Time</h3>
-              <div className="border border-game-border rounded-lg overflow-hidden">
+              <h3 className="text-lg font-semibold text-gray-900">Top Scores of All Time</h3>
+              <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
                 {allTimeScores.length > 0 ? (
                   allTimeScores.map((score, index) => (
                     <ScoreRow key={score.id} score={score} rank={index + 1} />
                   ))
                 ) : (
-                  <div className="p-8 text-center text-muted-foreground">
+                  <div className="p-8 text-center text-gray-600">
                     No scores yet. Be the first to play!
                   </div>
                 )}
@@ -164,14 +164,14 @@ const Leaderboard = () => {
             </TabsContent>
             
             <TabsContent value="today" className="space-y-4">
-              <h3 className="text-lg font-semibold text-foreground">Today's Best</h3>
-              <div className="border border-game-border rounded-lg overflow-hidden">
+              <h3 className="text-lg font-semibold text-gray-900">Today's Best</h3>
+              <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
                 {todayScores.length > 0 ? (
                   todayScores.map((score, index) => (
                     <ScoreRow key={score.id} score={score} rank={index + 1} />
                   ))
                 ) : (
-                  <div className="p-8 text-center text-muted-foreground">
+                  <div className="p-8 text-center text-gray-600">
                     No games played today. Start playing to see your scores!
                   </div>
                 )}
