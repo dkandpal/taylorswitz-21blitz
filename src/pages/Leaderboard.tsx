@@ -61,7 +61,7 @@ const Leaderboard = () => {
         </Badge>
         
         <div className="text-center">
-          <div className="font-bold text-primary">{score.score}</div>
+          <div className="font-bold text-hotPink">{score.score}</div>
           <div className="text-xs text-muted-foreground">score</div>
         </div>
         
@@ -105,8 +105,8 @@ const Leaderboard = () => {
             Back to Home
           </Button>
           
-          <h1 className="text-3xl font-bold flex items-center text-foreground">
-            <Trophy className="w-8 h-8 mr-2 text-primary" />
+          <h1 className="text-3xl font-bold flex items-center text-hotPink">
+            <Trophy className="w-8 h-8 mr-2 text-hotPink" />
             Leaderboard
           </h1>
           
@@ -116,7 +116,7 @@ const Leaderboard = () => {
         {/* Stats overview */}
         <div className="grid md:grid-cols-3 gap-4">
           <Card className="p-4 text-center bg-gradient-surface border-game-border">
-            <Trophy className="w-8 h-8 mx-auto mb-2 text-warning" />
+            <Trophy className="w-8 h-8 mx-auto mb-2 text-hotPink" />
             <div className="text-2xl font-bold text-foreground">
               {allTimeScores[0]?.score || 0}
             </div>
@@ -124,7 +124,7 @@ const Leaderboard = () => {
           </Card>
           
           <Card className="p-4 text-center bg-gradient-surface border-game-border">
-            <Timer className="w-8 h-8 mx-auto mb-2 text-primary" />
+            <Timer className="w-8 h-8 mx-auto mb-2 text-hotPink" />
             <div className="text-2xl font-bold text-foreground">
               {scores.length}
             </div>
@@ -132,7 +132,7 @@ const Leaderboard = () => {
           </Card>
           
           <Card className="p-4 text-center bg-gradient-surface border-game-border">
-            <Target className="w-8 h-8 mx-auto mb-2 text-success" />
+            <Target className="w-8 h-8 mx-auto mb-2 text-hotPink" />
             <div className="text-2xl font-bold text-foreground">
               {scores.reduce((sum, s) => sum + s.clears, 0)}
             </div>
@@ -184,7 +184,7 @@ const Leaderboard = () => {
         <div className="text-center space-x-4">
           <Button 
             onClick={() => navigate('/play')}
-            className="bg-gradient-primary"
+            className="bg-hotPink text-hotPink-foreground hover:bg-hotPink/90"
           >
             Play Now
           </Button>
