@@ -30,7 +30,7 @@ export function SeedPill({ seed, className }: SeedPillProps) {
             variant="outline" 
             className={cn(
               "cursor-pointer transition-all duration-200 px-3 py-1 text-xs",
-              "hover:bg-primary/10 hover:border-primary/50",
+              "hover:bg-primary/10 hover:border-primary/50 bg-white text-gray-800 border-gray-300",
               "flex items-center space-x-2",
               className
             )}
