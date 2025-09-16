@@ -9,8 +9,8 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Game Background */
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
+    --background: 330 100% 95%;
+    --foreground: 222 47% 11%;
     
     /* Game Surface Colors */
     --card: 0 0% 100%;
@@ -102,8 +102,41 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    background: linear-gradient(135deg, hsl(var(--background)), hsl(222 47% 8%));
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(255, 192, 203, 0.4) 0%, transparent 50%),
+      repeating-conic-gradient(from 0deg at 50% 50%, 
+        transparent 0deg, 
+        rgba(139, 69, 19, 0.1) 15deg, 
+        transparent 30deg, 
+        rgba(255, 20, 147, 0.2) 45deg, 
+        transparent 60deg
+      ),
+      linear-gradient(135deg, hsl(var(--background)), hsl(330 100% 92%));
+    background-size: 300px 300px, 400px 400px, 80px 80px, 100% 100%;
+    background-position: 0 0, 100px 100px, 40px 40px, 0 0;
     min-height: 100vh;
+  }
+  
+  body::before {
+    content: '🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️ 🏈❤️';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    font-size: 24px;
+    opacity: 0.1;
+    pointer-events: none;
+    z-index: -1;
+    animation: float-pattern 20s linear infinite;
+    line-height: 80px;
+    letter-spacing: 60px;
+  }
+  
+  @keyframes float-pattern {
+    0% { transform: translate(-50px, -50px) rotate(0deg); }
+    100% { transform: translate(-150px, -150px) rotate(360deg); }
   }
 
   /* Game-specific styles */
