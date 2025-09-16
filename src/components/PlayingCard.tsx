@@ -22,10 +22,11 @@ export function PlayingCard({
   
   if (faceDown) {
     console.log('Rendering face down card with image:', cardBackImage);
+    console.log('Full image URL:', window.location.origin + cardBackImage);
     return (
       <div 
         className={cn(
-          "rounded-lg shadow-sm flex items-center justify-center overflow-hidden bg-card",
+          "rounded-lg shadow-sm flex items-center justify-center overflow-hidden",
           "border border-game-border",
           small ? "w-16 h-24" : "w-24 h-32",
           onClick && "cursor-pointer hover:scale-105 transition-transform",
@@ -33,16 +34,28 @@ export function PlayingCard({
         )}
         onClick={onClick}
         aria-label="Face down card"
+        style={{
+          backgroundImage: `url(${cardBackImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
       >
         <img 
           src={cardBackImage} 
           alt="Card back - Ghibli style Taylor Swift"
-          className="w-full h-full object-cover rounded-lg"
+          className="w-full h-full object-cover rounded-lg opacity-0"
           onError={(e) => {
             console.error('Failed to load card back image:', e);
             console.log('Image src:', cardBackImage);
+            console.log('Current URL:', window.location.href);
+            // Fallback to background image if img fails
+            (e.target as HTMLElement).style.display = 'none';
           }}
-          onLoad={() => console.log('Card back image loaded successfully')}
+          onLoad={(e) => {
+            console.log('Card back image loaded successfully');
+            (e.target as HTMLElement).style.opacity = '1';
+          }}
         />
       </div>
     );
