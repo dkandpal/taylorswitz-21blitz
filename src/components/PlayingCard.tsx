@@ -21,13 +21,14 @@ export function PlayingCard({
   const isRed = card && (card.suit === '♥' || card.suit === '♦');
   
   if (faceDown) {
+    console.log('Rendering face down card with image:', cardBackImage);
     return (
       <div 
         className={cn(
-          "game-card flex items-center justify-center overflow-hidden",
+          "rounded-lg shadow-sm flex items-center justify-center overflow-hidden bg-card",
           "border border-game-border",
           small ? "w-16 h-24" : "w-24 h-32",
-          onClick && "cursor-pointer hover:scale-105",
+          onClick && "cursor-pointer hover:scale-105 transition-transform",
           className
         )}
         onClick={onClick}
@@ -36,7 +37,12 @@ export function PlayingCard({
         <img 
           src={cardBackImage} 
           alt="Card back - Ghibli style Taylor Swift"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover rounded-lg"
+          onError={(e) => {
+            console.error('Failed to load card back image:', e);
+            console.log('Image src:', cardBackImage);
+          }}
+          onLoad={() => console.log('Card back image loaded successfully')}
         />
       </div>
     );
