@@ -30,7 +30,7 @@ export function DeckPanel({
       focused && "scale-105 z-10",
       dimmed && "opacity-60 filter brightness-75"
     )}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start max-w-sm mx-auto md:max-w-none">
+      <div className="grid grid-cols-2 gap-4 items-start max-w-sm mx-auto">
         {/* Draw Pile */}
         <div className="text-center">
           <h3 className="text-xs font-semibold tracking-wider uppercase text-slate-300/90 mb-4">
