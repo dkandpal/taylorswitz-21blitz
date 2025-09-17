@@ -107,25 +107,40 @@ const Play = () => {
         </div>
       )}
 
-      {/* Title Banner */}
-      <div className="w-full bg-game-surface border-b border-game-border">
-        <img 
-          src="/TSWIZBANNER.png" 
-          alt="Taylor's Wiz Banner"
-          className="w-full h-auto max-h-32 object-contain bg-gradient-to-r from-purple-600 to-pink-600"
-        />
-      </div>
+      {/* Swiftie Hero */}
+      <section className="tsw-hero">
+        <div className="tsw-hero__inner">
+          <div className="tsw-hero__title">
+            <h1>TSWIZZLE<br/>21BLITZ</h1>
+          </div>
+          <div className="tsw-hero__image">
+            <img src="/TSWIZBANNER.png" alt="Taylor QB pose"/>
+          </div>
+        </div>
+      </section>
 
-      {/* Game header */}
-      <TopBar
-        gameState={gameState}
-        onPause={pauseGame}
-        onReset={() => resetGame()}
-        onToggleSound={toggleSound}
-        onSettings={handleSettings}
-        onQuit={handleBackHome}
-        showControls={true}
-      />
+      {/* Floating HUD */}
+      <div className="tsw-hud">
+        <div className="hud-chip">
+          <span className="label">Score</span>
+          <span className="value green" id="hudScore">{gameState.score}</span>
+        </div>
+        <div className="hud-chip">
+          <span className="label">Timer</span>
+          <span className="value warn" id="hudTimer">
+            {Math.floor(gameState.timeLeft / 60)}:{(gameState.timeLeft % 60).toString().padStart(2, '0')}
+          </span>
+        </div>
+        <div className="hud-chip code">
+          <span className="value" id="hudRoom">{gameState.seed}</span>
+          <button 
+            className="copy" 
+            aria-label="Copy code"
+            onClick={() => navigator.clipboard?.writeText(gameState.seed || '')}
+          >📋</button>
+        </div>
+        <button className="hud-quit" id="hudQuit" onClick={handleBackHome}>QUIT</button>
+      </div>
 
       {/* Main game area */}
       <div className="flex-1 p-4 space-y-6">
