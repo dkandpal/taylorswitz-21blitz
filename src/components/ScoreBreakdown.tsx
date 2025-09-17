@@ -56,12 +56,6 @@ export const ScoreBreakdown = ({ gameState }: ScoreBreakdownProps) => {
         <ScoreItem label={`Dead Stacks (${deadStacks})`} value={deadStackPenalty} isPenalty />
         <ScoreItem label={`Waste Cards (${wasteCount})`} value={wastePenalty} isPenalty />
         
-        <div className="border-t border-muted-foreground/20 mt-2 pt-2">
-          <div className="flex justify-between items-center text-sm font-bold">
-            <span>Final Score</span>
-            <span className="text-primary">{gameState.score}</span>
-          </div>
-        </div>
       </div>
     </div>
   );
