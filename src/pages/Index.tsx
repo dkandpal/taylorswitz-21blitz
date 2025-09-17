@@ -6,29 +6,30 @@ import { Badge } from '@/components/ui/badge';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PlayingCard } from '@/components/PlayingCard';
 import { GAME_CONSTANTS } from '@/lib/constants';
-
-import { 
-  Play, 
-  HelpCircle, 
-  Settings as SettingsIcon, 
-  Trophy, 
-  Timer, 
-  Infinity 
-} from 'lucide-react';
-
+import { Play, HelpCircle, Settings as SettingsIcon, Trophy, Timer, Infinity } from 'lucide-react';
 const Index = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const seed = searchParams.get('seed');
   const [showHowToPlay, setShowHowToPlay] = useState(false);
-  
-  // Sample cards for visual appeal
-  const sampleCards = [
-    { rank: 'A', suit: '🎤', value10: 1, isAce: true },
-    { rank: 'K', suit: '❤️', value10: 10, isAce: false },
-    { rank: '10', suit: '✨', value10: 10, isAce: false },
-  ] as const;
 
+  // Sample cards for visual appeal
+  const sampleCards = [{
+    rank: 'A',
+    suit: '🎤',
+    value10: 1,
+    isAce: true
+  }, {
+    rank: 'K',
+    suit: '❤️',
+    value10: 10,
+    isAce: false
+  }, {
+    rank: '10',
+    suit: '✨',
+    value10: 10,
+    isAce: false
+  }] as const;
   const handlePlay = () => {
     if (seed) {
       navigate(`/how-to-play?seed=${seed}`);
@@ -36,41 +37,26 @@ const Index = () => {
       navigate('/how-to-play');
     }
   };
-
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4">
+  return <div className="min-h-screen flex flex-col items-center justify-center p-4">
       <div className="max-w-4xl w-full space-y-8">
         {/* Header with banner image */}
         <div className="text-center space-y-6">
           <div className="flex justify-center mb-6">
-            <img 
-              src="/TSWIZBANNER.png" 
-              alt="Taylor's Wiz Banner" 
-              className="max-w-full h-auto max-h-48 sm:max-h-64 lg:max-h-80 xl:max-h-96 object-contain rounded-lg"
-            />
+            <img src="/TSWIZBANNER.png" alt="Taylor's Wiz Banner" className="max-w-full h-auto max-h-48 sm:max-h-64 lg:max-h-80 xl:max-h-96 object-contain rounded-lg" />
           </div>
           
           <div className="flex justify-center items-center space-x-4 mb-6">
-            {sampleCards.map((card, index) => (
-              <div 
-                key={index}
-                className="animate-float"
-                style={{ animationDelay: `${index * 0.2}s` }}
-              >
+            {sampleCards.map((card, index) => <div key={index} className="animate-float" style={{
+            animationDelay: `${index * 0.2}s`
+          }}>
                 <PlayingCard card={card} />
-              </div>
-            ))}
+              </div>)}
             {/* Card back as fourth card */}
-            <div 
-              className="animate-float"
-              style={{ animationDelay: `${sampleCards.length * 0.2}s` }}
-            >
+            <div className="animate-float" style={{
+            animationDelay: `${sampleCards.length * 0.2}s`
+          }}>
               <div className="w-24 h-32 rounded-lg overflow-hidden shadow-lg">
-                <img 
-                  src="/card-back-taylor-swift.jpg" 
-                  alt="Card Back" 
-                  className="w-full h-full object-cover"
-                />
+                <img src="/card-back-taylor-swift.jpg" alt="Card Back" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -78,20 +64,14 @@ const Index = () => {
             Create stacks of 21 without fumbling!
           </p>
           
-          {seed && (
-            <Badge variant="outline" className="text-lg px-4 py-2">
+          {seed && <Badge variant="outline" className="text-lg px-4 py-2">
               Replaying Seed: {seed}
-            </Badge>
-          )}
+            </Badge>}
         </div>
 
         {/* Main CTA */}
         <div className="text-center">
-          <Button 
-            onClick={handlePlay}
-            size="lg"
-            className="text-xl px-8 py-6 bg-hotPink text-hotPink-foreground hover:scale-105 transition-transform hover:bg-hotPink/90"
-          >
+          <Button onClick={handlePlay} size="lg" className="text-xl px-8 py-6 bg-hotPink text-hotPink-foreground hover:scale-105 transition-transform hover:bg-hotPink/90">
             <Play className="w-6 h-6 mr-2" />
             Play Now
           </Button>
@@ -109,7 +89,8 @@ const Index = () => {
             </DialogTrigger>
             <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle className="text-foreground">How to Play Blitz 21</DialogTitle>
+                <DialogTitle className="text-foreground">How to T-Swizzle 21 Blitz
+              </DialogTitle>
               </DialogHeader>
               <div className="space-y-4 text-sm">
                 <div>
@@ -152,19 +133,13 @@ const Index = () => {
             </DialogContent>
           </Dialog>
 
-          <Button 
-            variant="outline"
-            onClick={() => navigate('/leaderboard')}
-            className="focus-ring"
-          >
+          <Button variant="outline" onClick={() => navigate('/leaderboard')} className="focus-ring">
             <Trophy className="w-4 h-4 mr-2" />
             Leaderboard
           </Button>
           
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
