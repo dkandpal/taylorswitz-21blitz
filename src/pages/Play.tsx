@@ -190,7 +190,7 @@ const Play = () => {
                 Reason: {gameState.endReason === 'TIME' ? 'Time expired' : 'Deck exhausted'}
               </p>
               <div className="mt-4 space-y-1 text-gray-700">
-                <div>Final Score: <span className="font-bold text-primary">{gameState.score}</span></div>
+                <div><span className="font-bold">Final Score:</span> <span className="font-bold text-primary">{gameState.score}</span></div>
                 <div>Scores: {gameState.clears}</div>
                 <div>Fumbles: {gameState.busts}</div>
               </div>
