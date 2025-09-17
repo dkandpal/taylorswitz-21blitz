@@ -355,11 +355,11 @@ All colors MUST be HSL.
 
   /* Title: fixed 3 lines but centered */
   .tsw-card__title{
-    /* reserve exactly 3 lines */
+    /* reserve exactly 2 lines */
     line-height:1.15;
-    min-height:calc(1.15em * 3);
-    max-height:calc(1.15em * 3);
-    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical;
+    min-height:calc(1.15em * 2);
+    max-height:calc(1.15em * 2);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
     overflow:hidden; text-overflow:ellipsis;
 
     width:100%;
