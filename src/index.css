@@ -460,7 +460,7 @@ All colors MUST be HSL.
   .tsw-hero__title h1{
     font-size:clamp(28px,5vw,48px);
     line-height:1; letter-spacing:.5px; color:#fff;
-    text-align:center; text-shadow:0 2px 8px rgba(0,0,0,.18);
+    text-align:left; text-shadow:0 2px 8px rgba(0,0,0,.18);
   }
   .tsw-hero__image{ position:relative; overflow:hidden; }
   .tsw-hero__image img{
