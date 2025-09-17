@@ -353,14 +353,15 @@ All colors MUST be HSL.
     margin-top:14px;
   }
 
-  /* Title: fixed 3 lines but centered */
+  /* Title: fixed 2 lines but centered */
   .tsw-card__title{
     /* reserve exactly 2 lines */
     line-height:1.15;
     min-height:calc(1.15em * 2);
     max-height:calc(1.15em * 2);
-    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
-    overflow:hidden; text-overflow:ellipsis;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
     width:100%;
     text-align:center;
