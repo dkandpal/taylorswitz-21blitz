@@ -198,7 +198,7 @@ const Play = () => {
             </div>
             
             <div className="space-x-4">
-              <Button onClick={() => resetGame()} variant="default">
+              <Button onClick={() => resetGame()} className="bg-hotPink text-hotPink-foreground hover:bg-hotPink/90">
                 Play Again
               </Button>
               <Button onClick={handleBackHome} variant="outline">
