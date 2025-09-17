@@ -46,7 +46,7 @@ export const ScoreBreakdown = ({ gameState }: ScoreBreakdownProps) => {
   };
 
   return (
-    <div className="mt-3 p-3 bg-muted/50 rounded-md border">
+    <div className="mt-3 p-3 bg-white rounded-md border">
       <h4 className="text-sm font-semibold mb-2 text-center">Score Breakdown</h4>
       <div className="space-y-1">
         <ScoreItem label={`21s Cleared (${gameState.clears})`} value={estimatedClearPoints} isBonus />
