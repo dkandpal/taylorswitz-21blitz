@@ -455,6 +455,9 @@ All colors MUST be HSL.
   .tsw-hero__title{
     display:flex; align-items:center; justify-content:center;
     padding:24px clamp(16px,4vw,36px);
+    background:linear-gradient(135deg, var(--swift-pink) 0%, var(--swift-magenta) 50%, var(--swift-lav) 100%);
+    border-radius:16px;
+    margin:16px;
   }
   .tsw-hero__title h1{
     font-weight:800; font-size:clamp(28px,5vw,48px);
