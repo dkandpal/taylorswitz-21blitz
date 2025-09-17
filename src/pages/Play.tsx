@@ -111,7 +111,7 @@ const Play = () => {
       <section className="tsw-hero">
         <div className="tsw-hero__inner">
           <div className="tsw-hero__title">
-            <h1>TSWIZZLE<br/>21BLITZ</h1>
+            <h1>Stack your cards like Taylor stacks her eras.</h1>
           </div>
           <div className="tsw-hero__image">
             <img src="/TSWIZBANNER.png" alt="Taylor QB pose"/>
