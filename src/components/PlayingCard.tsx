@@ -92,8 +92,8 @@ export function PlayingCard({
   return (
     <div 
       className={cn(
-        "game-card flex flex-col justify-between",
-        "border border-gray-300",
+        "flex flex-col justify-between bg-white",
+        "border border-gray-300 rounded-lg shadow-sm",
         "relative overflow-hidden",
         small ? "w-16 h-24 p-1 text-sm" : "w-24 h-32 p-2 text-base",
         onClick && "cursor-pointer hover:scale-105 focus-ring",
