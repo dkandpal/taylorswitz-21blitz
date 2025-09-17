@@ -46,7 +46,7 @@ const Index = () => {
             <img 
               src="/TSWIZBANNER.png" 
               alt="Taylor's Wiz Banner" 
-              className="max-w-full h-auto max-h-48 object-contain rounded-lg"
+              className="max-w-full h-auto max-h-48 sm:max-h-64 lg:max-h-80 xl:max-h-96 object-contain rounded-lg"
             />
           </div>
           
