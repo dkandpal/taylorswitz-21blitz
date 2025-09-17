@@ -374,7 +374,7 @@ All colors MUST be HSL.
   /* Stats: centered block stacked vertically */
   .tsw-card__stats{
     display:flex; flex-direction:column; align-items:center;
-    gap:2px;
+    gap:0px;
     margin:4px 0 8px;
     min-height:44px; /* stabilize row for 2 lines */
   }
