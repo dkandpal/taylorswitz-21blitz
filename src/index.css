@@ -500,7 +500,22 @@ All colors MUST be HSL.
   @media (max-width:700px){
     .tsw-hero__inner{ grid-template-columns:1fr; min-height:280px; }
     .tsw-hero__image{ height:44vw; } /* banner ratio */
-    .tsw-hud{ flex-wrap:wrap; justify-content:center; }
-    .hud-quit{ margin-left:0; }
+    .tsw-hud{ 
+      flex-wrap:wrap; justify-content:space-between; 
+      gap:8px; padding:12px;
+    }
+    .hud-chip:nth-child(1), .hud-chip:nth-child(2) { 
+      order: 2; 
+      flex: 1 1 calc(50% - 4px);
+    }
+    .hud-chip:nth-child(3) { 
+      order: 1; 
+      flex: 1 1 auto;
+    }
+    .hud-quit{ 
+      order: 1; 
+      margin-left:0; 
+      flex: 0 0 auto;
+    }
   }
 }
