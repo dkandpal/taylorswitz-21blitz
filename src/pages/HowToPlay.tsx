@@ -59,7 +59,7 @@ const HowToPlay = () => {
 
         {/* Instructions Grid */}
         <div className="grid md:grid-cols-2 gap-6">
-          <Card className="p-6 bg-card border-border">
+          <Card className="p-6 border-border">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-lg bg-hotPink/10 flex items-center justify-center">
                 <Target className="w-5 h-5 text-hotPink" />
@@ -71,7 +71,7 @@ const HowToPlay = () => {
             </p>
           </Card>
 
-          <Card className="p-6 bg-card border-border">
+          <Card className="p-6 border-border">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-lg bg-hotPink/10 flex items-center justify-center">
                 <Spade className="w-5 h-5 text-hotPink" />
@@ -85,7 +85,7 @@ const HowToPlay = () => {
             </ul>
           </Card>
 
-          <Card className="p-6 bg-card border-border">
+          <Card className="p-6 border-border">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-lg bg-hotPink/10 flex items-center justify-center">
                 <Gamepad2 className="w-5 h-5 text-hotPink" />
@@ -100,7 +100,7 @@ const HowToPlay = () => {
             </ul>
           </Card>
 
-          <Card className="p-6 bg-card border-border">
+          <Card className="p-6 border-border">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-lg bg-hotPink/10 flex items-center justify-center">
                 <Trophy className="w-5 h-5 text-hotPink" />

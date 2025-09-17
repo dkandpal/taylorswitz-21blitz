@@ -115,7 +115,7 @@ const Leaderboard = () => {
 
         {/* Stats overview */}
         <div className="grid md:grid-cols-3 gap-4">
-          <Card className="p-4 text-center bg-card border-border">
+          <Card className="p-4 text-center border-border">
             <Trophy className="w-8 h-8 mx-auto mb-2 text-hotPink" />
             <div className="text-2xl font-bold text-gray-900">
               {allTimeScores[0]?.score || 0}
@@ -123,7 +123,7 @@ const Leaderboard = () => {
             <div className="text-sm text-gray-600">Best Score</div>
           </Card>
           
-          <Card className="p-4 text-center bg-card border-border">
+          <Card className="p-4 text-center border-border">
             <Timer className="w-8 h-8 mx-auto mb-2 text-hotPink" />
             <div className="text-2xl font-bold text-gray-900">
               {scores.length}
@@ -131,7 +131,7 @@ const Leaderboard = () => {
             <div className="text-sm text-gray-600">Games Played</div>
           </Card>
           
-          <Card className="p-4 text-center bg-card border-border">
+          <Card className="p-4 text-center border-border">
             <Target className="w-8 h-8 mx-auto mb-2 text-hotPink" />
             <div className="text-2xl font-bold text-gray-900">
               {scores.reduce((sum, s) => sum + s.clears, 0)}
@@ -141,7 +141,7 @@ const Leaderboard = () => {
         </div>
 
         {/* Leaderboard tabs */}
-        <Card className="p-6 bg-card border-border">
+        <Card className="p-6 border-border">
           <Tabs defaultValue="all-time" className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-6 bg-muted text-muted-foreground">
               <TabsTrigger value="all-time" className="data-[state=active]:bg-card data-[state=active]:text-foreground">All-Time</TabsTrigger>
