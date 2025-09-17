@@ -339,4 +339,52 @@ All colors MUST be HSL.
   .animate-float {
     animation: float 3s ease-in-out infinite;
   }
+
+  /* Stack card layout system for consistent alignment */
+  .tsw-card{
+    display:flex;flex-direction:column;
+    padding:12px;border-radius:12px;
+  }
+  .tsw-card__title{
+    /* Reserve exactly 3 lines on mobile */
+    min-height: calc(1.2em * 3);
+    max-height: calc(1.2em * 3);
+    line-height:1.2;
+    font-weight:700;
+    color:#0A0A0A; /* keep black title */
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-bottom:8px;
+  }
+  .tsw-card__stats{
+    display:flex;justify-content:space-between;align-items:center;
+    gap:12px;margin-bottom:10px;
+    min-height: 24px; /* stabilizes row height */
+  }
+  .tsw-card__score{color:#16a34a;font-weight:600;}     /* green */
+  .tsw-card__fumbles{color:#ef4444;font-weight:600;}   /* red */
+  .tsw-card__body{margin-top:6px;}
+  /* Ensure all cards share the same inner grid width so columns align */
+  .tsw-card { width: 100%; }
+  .tsw-card > * { max-width: 100%; }
+
+  /* Responsive: enforce the 3-line reserve on small screens */
+  @media (max-width: 430px){
+    .tsw-card__title{ font-size:16px; line-height:1.2; }
+  }
+
+  /* Optional: if cards sit in a CSS grid, standardize column widths */
+  .tsw-card-grid{
+    display:grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap:16px;
+  }
+  @media (max-width: 900px){
+    .tsw-card-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+  }
+  @media (max-width: 500px){
+    .tsw-card-grid{ grid-template-columns: 1fr; }
+  }
 }

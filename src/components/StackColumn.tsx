@@ -78,7 +78,7 @@ export function StackColumn({
       
       <div 
         className={cn(
-          "arcade-container relative flex flex-col items-center space-y-3 p-4 bg-white border border-gray-200",
+          "tsw-card arcade-container relative bg-white border border-gray-200",
           "neon-outline inner-shadow h-64 transition-all duration-300",
           focused && "focused",
           dimmed && "dimmed",
@@ -119,38 +119,32 @@ export function StackColumn({
             )}
           </Badge>
         )}
-        {/* Stack label and clear count */}
-        <div className="text-center min-h-[4rem] flex flex-col justify-center">
-          <div className="text-sm font-medium text-gray-700 leading-tight px-1">
-            {(() => {
-              const stackNames = [
-                '💅❤️ Red Zone',
-                '🖊️📖 Blank Space\nPlaybook', 
-                '👠🌟 Style Points',
-                '✨🤍 Fearless\nFormation'
-              ];
-              return stackNames[stackIndex].split('\n').map((line, idx) => (
-                <div key={idx}>{line}</div>
-              ));
-            })()}
-            {stack.locked && (
-              <span className="ml-1" aria-label="locked">🔒</span>
-            )}
-          </div>
-          
-          {/* Clear count */}
-          <div className="text-xs text-primary font-medium mt-1">
-            Scores: {clearCount}
-          </div>
-          
-          {/* Fumble count */}
-          <div className="text-xs text-red-500 font-medium">
-            Fumbles: {bustCount}
-          </div>
+        {/* Title block - fixed 3 lines */}
+        <div className="tsw-card__title">
+          {(() => {
+            const stackNames = [
+              '💅❤️ Red Zone',
+              '🖊️📖 Blank Space Playbook', 
+              '👠🌟 Style Points',
+              '✨🤍 Fearless Formation'
+            ];
+            return stackNames[stackIndex];
+          })()}
+          {stack.locked && ' 🔒'}
+        </div>
+        
+        {/* Stats row - aligned horizontally */}
+        <div className="tsw-card__stats">
+          <span className="tsw-card__score">
+            Scores: <span className="num">{clearCount}</span>
+          </span>
+          <span className="tsw-card__fumbles">
+            Fumbles: <span className="num">{bustCount}</span>
+          </span>
         </div>
       
         {/* Cards fan */}
-        <div className="relative flex flex-col items-center">
+        <div className="tsw-card__body relative flex flex-col items-center">
           {stack.cards.length === 0 ? (
             <PlayingCard />
           ) : (
