@@ -89,6 +89,9 @@ const Play = () => {
       {/* Swiftie Hero */}
       <section className="tsw-hero">
         <div className="tsw-hero__inner">
+          <div className="tsw-hero__title">
+            <h1 className="text-left text-3xl font-extralight py-0 mx-0 my-[2px]">Stack your cards like Taylor stacks her eras.</h1>
+          </div>
           <div className="tsw-hero__image">
             <img src="/TSWIZBANNER.png" alt="Taylor QB pose" />
           </div>
@@ -159,11 +162,6 @@ const Play = () => {
               </Button>
             </div>
           </div>}
-      </div>
-      
-      {/* Moved h1 to bottom */}
-      <div className="text-center py-4">
-        <h1 className="text-3xl font-extralight">Stack your cards like Taylor stacks her eras.</h1>
       </div>
     </div>;
 };
