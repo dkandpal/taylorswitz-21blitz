@@ -133,14 +133,16 @@ export function StackColumn({
           {stack.locked && ' 🔒'}
         </div>
         
-        {/* Stats row - aligned horizontally */}
+        {/* Stats row - centered as a unit */}
         <div className="tsw-card__stats">
-          <span className="tsw-card__score">
-            Scores: <span className="num">{clearCount}</span>
-          </span>
-          <span className="tsw-card__fumbles">
-            Fumbles: <span className="num">{bustCount}</span>
-          </span>
+          <div className="stat">
+            <span className="label">Scores:</span>
+            <span className="num">{clearCount}</span>
+          </div>
+          <div className="stat">
+            <span className="label">Fumbles:</span>
+            <span className="num">{bustCount}</span>
+          </div>
         </div>
       
         {/* Cards fan */}

@@ -342,34 +342,75 @@ All colors MUST be HSL.
 
   /* Stack card layout system for consistent alignment */
   .tsw-card{
-    display:flex;flex-direction:column;
-    padding:12px;border-radius:12px;
+    display:flex; flex-direction:column; align-items:center;
+    padding:10px 12px;
+    border-radius:14px;
+    background:#fff;
+    box-shadow:0 4px 10px rgba(0,0,0,.06);  /* softer */
+    border:1px solid rgba(0,0,0,.06);
   }
+  .tsw-card + .tsw-card{ /* keep column gaps consistent when stacked */
+    margin-top:14px;
+  }
+
+  /* Title: fixed 3 lines but centered */
   .tsw-card__title{
-    /* Reserve exactly 3 lines on mobile */
-    min-height: calc(1.2em * 3);
-    max-height: calc(1.2em * 3);
-    line-height:1.2;
+    /* reserve exactly 3 lines */
+    line-height:1.15;
+    min-height:calc(1.15em * 3);
+    max-height:calc(1.15em * 3);
+    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical;
+    overflow:hidden; text-overflow:ellipsis;
+
+    width:100%;
+    text-align:center;
     font-weight:700;
-    color:#0A0A0A; /* keep black title */
-    display:-webkit-box;
-    -webkit-line-clamp:3;
-    -webkit-box-orient:vertical;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    color:#0A0A0A;
+    font-size:16px;
     margin-bottom:8px;
+    letter-spacing:.2px;
   }
+
+  /* Stats: centered block with equal columns so all cards line up */
   .tsw-card__stats{
-    display:flex;justify-content:space-between;align-items:center;
-    gap:12px;margin-bottom:10px;
-    min-height: 24px; /* stabilizes row height */
+    display:grid; grid-template-columns:repeat(2, 100px); /* fixed widths = consistent alignment */
+    justify-content:center; align-items:center;
+    column-gap:16px;
+    margin:4px 0 8px;
+    min-height:22px; /* stabilize row */
   }
-  .tsw-card__score{color:#16a34a;font-weight:600;}     /* green */
-  .tsw-card__fumbles{color:#ef4444;font-weight:600;}   /* red */
-  .tsw-card__body{margin-top:6px;}
-  /* Ensure all cards share the same inner grid width so columns align */
-  .tsw-card { width: 100%; }
-  .tsw-card > * { max-width: 100%; }
+  .tsw-card__stats .label{ font-weight:600; font-size:14px; }
+  .tsw-card__stats .num{ font-weight:700; font-size:14px; margin-left:4px; }
+  .tsw-card__stats .stat{ text-align:center; white-space:nowrap; }
+  .tsw-card__stats .stat:first-child{ color:#16a34a; } /* Scores = green */
+  .tsw-card__stats .stat:last-child{ color:#ef4444; }  /* Fumbles = red */
+
+  /* Play area spacing tightened */
+  .tsw-card__body{
+    margin-top:6px;
+  }
+
+  /* Card grid: add breathing room and center cards */
+  .tsw-card-grid{
+    display:grid; gap:16px;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    justify-items:center;
+  }
+  @media (min-width:900px){
+    .tsw-card-grid{ grid-template-columns:repeat(4, minmax(0, 1fr)); gap:18px; }
+  }
+
+  /* Tone down the dotted drop target if needed */
+  .tsw-card__body .drop-target{
+    border:2px dashed rgba(0,0,0,.25);
+    background:linear-gradient(0deg, rgba(255,255,255,.9), rgba(255,255,255,.9));
+  }
+
+  /* Optional Swiftie polish */
+  :root{
+    --swift-pink:#FFC6E6;
+    --swift-lav:#A970FF;
+  }
 
   /* Responsive: enforce the 3-line reserve on small screens */
   @media (max-width: 430px){
