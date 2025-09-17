@@ -458,7 +458,7 @@ All colors MUST be HSL.
     background:linear-gradient(90deg, var(--swift-pink) 0%, #f1b0ce 100%);
   }
   .tsw-hero__title h1{
-    font-weight:800; font-size:clamp(28px,5vw,48px);
+    font-size:clamp(28px,5vw,48px);
     line-height:1; letter-spacing:.5px; color:#fff;
     text-align:center; text-shadow:0 2px 8px rgba(0,0,0,.18);
   }
