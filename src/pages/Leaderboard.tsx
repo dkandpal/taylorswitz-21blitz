@@ -115,7 +115,7 @@ const Leaderboard = () => {
 
         {/* Stats overview */}
         <div className="grid md:grid-cols-3 gap-4">
-          <Card className="p-4 text-center bg-white border-gray-200">
+          <Card className="p-4 text-center bg-card border-border">
             <Trophy className="w-8 h-8 mx-auto mb-2 text-hotPink" />
             <div className="text-2xl font-bold text-gray-900">
               {allTimeScores[0]?.score || 0}
@@ -123,7 +123,7 @@ const Leaderboard = () => {
             <div className="text-sm text-gray-600">Best Score</div>
           </Card>
           
-          <Card className="p-4 text-center bg-white border-gray-200">
+          <Card className="p-4 text-center bg-card border-border">
             <Timer className="w-8 h-8 mx-auto mb-2 text-hotPink" />
             <div className="text-2xl font-bold text-gray-900">
               {scores.length}
@@ -131,7 +131,7 @@ const Leaderboard = () => {
             <div className="text-sm text-gray-600">Games Played</div>
           </Card>
           
-          <Card className="p-4 text-center bg-white border-gray-200">
+          <Card className="p-4 text-center bg-card border-border">
             <Target className="w-8 h-8 mx-auto mb-2 text-hotPink" />
             <div className="text-2xl font-bold text-gray-900">
               {scores.reduce((sum, s) => sum + s.clears, 0)}
@@ -141,16 +141,16 @@ const Leaderboard = () => {
         </div>
 
         {/* Leaderboard tabs */}
-        <Card className="p-6 bg-white border-gray-200">
+        <Card className="p-6 bg-card border-border">
           <Tabs defaultValue="all-time" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6 bg-gray-100 text-gray-700">
-              <TabsTrigger value="all-time" className="data-[state=active]:bg-white data-[state=active]:text-gray-900">All-Time</TabsTrigger>
-              <TabsTrigger value="today" className="data-[state=active]:bg-white data-[state=active]:text-gray-900">Today</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 mb-6 bg-muted text-muted-foreground">
+              <TabsTrigger value="all-time" className="data-[state=active]:bg-card data-[state=active]:text-foreground">All-Time</TabsTrigger>
+              <TabsTrigger value="today" className="data-[state=active]:bg-card data-[state=active]:text-foreground">Today</TabsTrigger>
             </TabsList>
             
             <TabsContent value="all-time" className="space-y-4">
               <h3 className="text-lg font-semibold text-gray-900">Top Scores of All Time</h3>
-              <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
+              <div className="border border-border rounded-lg overflow-hidden bg-card">
                 {allTimeScores.length > 0 ? (
                   allTimeScores.map((score, index) => (
                     <ScoreRow key={score.id} score={score} rank={index + 1} />
@@ -165,7 +165,7 @@ const Leaderboard = () => {
             
             <TabsContent value="today" className="space-y-4">
               <h3 className="text-lg font-semibold text-gray-900">Today's Best</h3>
-              <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
+              <div className="border border-border rounded-lg overflow-hidden bg-card">
                 {todayScores.length > 0 ? (
                   todayScores.map((score, index) => (
                     <ScoreRow key={score.id} score={score} rank={index + 1} />

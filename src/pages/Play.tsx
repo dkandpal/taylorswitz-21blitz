@@ -140,7 +140,7 @@ const Play = () => {
           </div>}
 
         {gameState.ended && <div className="text-center space-y-4">
-            <div className="inline-block bg-white text-foreground px-6 py-4 rounded-lg max-w-sm border border-gray-200">
+            <div className="inline-block bg-card text-card-foreground px-6 py-4 rounded-lg max-w-sm border border-border">
               <h3 className="text-lg font-bold mb-2 text-gray-800">Game Over!</h3>
               <p className="text-sm text-gray-600">
                 Reason: {gameState.endReason === 'TIME' ? 'Time expired' : 'Deck exhausted'}
