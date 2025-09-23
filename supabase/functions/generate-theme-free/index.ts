@@ -23,23 +23,24 @@ async function generateImage(prompt: string): Promise<string> {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: 'gpt-image-1',
+      model: 'dall-e-3',
       prompt: prompt,
       n: 1,
       size: '1024x1024',
-      quality: 'high',
-      output_format: 'png'
+      quality: 'hd',
+      response_format: 'b64_json'
     }),
   });
 
   if (!response.ok) {
-    throw new Error(`OpenAI Image API error: ${response.status} ${response.statusText}`);
+    const errorBody = await response.text();
+    console.error('OpenAI API error response:', errorBody);
+    throw new Error(`OpenAI Image API error: ${response.status} ${response.statusText} - ${errorBody}`);
   }
 
   const data = await response.json();
   console.log('Image generation response received');
   
-  // gpt-image-1 returns base64 data directly
   if (data.data && data.data[0] && data.data[0].b64_json) {
     return data.data[0].b64_json;
   }
