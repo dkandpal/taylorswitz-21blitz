@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Sparkles } from 'lucide-react';
+import { defaultTheme } from '@/theme/defaultTheme';
 
 // Define the type of the generated config. You can reuse ThemeConfig or accept 'any'.
 type GeneratedConfig = any;
@@ -36,7 +37,10 @@ export default function AIThemeGenerator({ onGenerated }: Props) {
         textPrimary: '#1F2937',
         textSecondary: '#6B7280',
       },
-      // Note: Images and suit icons remain undefined in this stub. Users can tweak them manually.
+      // Derive images from the default theme
+      heroTitleImageUrl: defaultTheme.heroTitleImageUrl,
+      cardBackUrl: defaultTheme.cardBackUrl,
+      suitIcons: defaultTheme.suitIcons,
     };
   }
 

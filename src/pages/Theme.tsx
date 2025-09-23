@@ -268,331 +268,276 @@ const Theme = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left Panel - Controls */}
           <div className="space-y-6">
-            <Tabs defaultValue="colors" className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="colors">
-                  <Palette className="w-4 h-4 mr-2" />
-                  Colors
-                </TabsTrigger>
-                <TabsTrigger value="images">
-                  <Upload className="w-4 h-4 mr-2" />
-                  Images
-                </TabsTrigger>
-                <TabsTrigger value="labels">
-                  <Type className="w-4 h-4 mr-2" />
-                  Labels
-                </TabsTrigger>
-                <TabsTrigger value="style">
-                  <Settings className="w-4 h-4 mr-2" />
-                  Style
-                </TabsTrigger>
-              </TabsList>
+            {/* Color Presets */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Color Presets</CardTitle>
+                <CardDescription>Quick apply popular color schemes</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 gap-2">
+                  {themePresets.map((preset) => (
+                    <Button 
+                      key={preset.name}
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => applyPreset(preset)}
+                      className="justify-start"
+                    >
+                      <div 
+                        className="w-4 h-4 rounded-full mr-2"
+                        style={{ backgroundColor: preset.config.colors?.primary }}
+                      />
+                      {preset.name}
+                    </Button>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
-              <TabsContent value="colors" className="space-y-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Color Presets</CardTitle>
-                    <CardDescription>Quick apply popular color schemes</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-2 gap-2">
-                      {themePresets.map((preset) => (
+            {/* Images */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Images</CardTitle>
+                <CardDescription>Upload custom images for your theme</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {/* Hero Image */}
+                <div>
+                  <Label className="block mb-2 font-medium">Hero Image</Label>
+                  <div className="space-y-3">
+                    <input
+                      ref={heroImageRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) handleFileUpload(file, 'hero');
+                      }}
+                      className="hidden"
+                    />
+                    <Button 
+                      variant="outline" 
+                      onClick={() => heroImageRef.current?.click()}
+                      className="w-full"
+                    >
+                      <Upload className="w-4 h-4 mr-2" />
+                      Upload Hero Image
+                    </Button>
+                    {workingTheme.heroTitleImageUrl && (
+                      <div className="aspect-video bg-muted rounded-lg overflow-hidden">
+                        <img 
+                          src={workingTheme.heroTitleImageUrl} 
+                          alt="Hero preview"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Card Back */}
+                <div>
+                  <Label className="block mb-2 font-medium">Card Back</Label>
+                  <div className="space-y-3">
+                    <input
+                      ref={cardBackRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) handleFileUpload(file, 'cardBack');
+                      }}
+                      className="hidden"
+                    />
+                    <Button 
+                      variant="outline" 
+                      onClick={() => cardBackRef.current?.click()}
+                      className="w-full"
+                    >
+                      <Upload className="w-4 h-4 mr-2" />
+                      Upload Card Back
+                    </Button>
+                    {workingTheme.cardBackUrl && (
+                      <div className="aspect-[3/4] bg-muted rounded-lg overflow-hidden max-w-32">
+                        <img 
+                          src={workingTheme.cardBackUrl} 
+                          alt="Card back preview"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Suit Icons */}
+                <div>
+                  <Label className="block mb-2 font-medium">Suit Icons</Label>
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { key: 'hearts', label: 'Hearts ❤️', ref: heartsIconRef },
+                      { key: 'diamonds', label: 'Diamonds ✨', ref: diamondsIconRef },
+                      { key: 'clubs', label: 'Clubs ✍️', ref: clubsIconRef },
+                      { key: 'spades', label: 'Spades 🎤', ref: spadesIconRef },
+                    ].map(({ key, label, ref }) => (
+                      <div key={key} className="space-y-2">
+                        <input
+                          ref={ref}
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) handleFileUpload(file, key as any);
+                          }}
+                          className="hidden"
+                        />
                         <Button 
-                          key={preset.name}
                           variant="outline" 
                           size="sm"
-                          onClick={() => applyPreset(preset)}
-                          className="justify-start"
+                          onClick={() => ref.current?.click()}
+                          className="w-full"
                         >
-                          <div 
-                            className="w-4 h-4 rounded-full mr-2"
-                            style={{ backgroundColor: preset.config.colors?.primary }}
-                          />
-                          {preset.name}
+                          {label}
                         </Button>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Custom Colors</CardTitle>
-                    <CardDescription>Fine-tune your color palette</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    {[
-                      { key: 'background' as const, label: 'Background' },
-                      { key: 'surface' as const, label: 'Surface' },
-                      { key: 'primary' as const, label: 'Primary' },
-                      { key: 'secondary' as const, label: 'Secondary' },
-                      { key: 'accent' as const, label: 'Accent' },
-                      { key: 'textPrimary' as const, label: 'Text Primary' },
-                      { key: 'textSecondary' as const, label: 'Text Secondary' },
-                    ].map(({ key, label }) => (
-                      <div key={key} className="flex items-center gap-3">
-                        <Label className="w-24">{label}</Label>
-                        <Input
-                          type="color"
-                          value={workingTheme.colors?.[key] || '#000000'}
-                          onChange={(e) => handleColorChange(key, e.target.value)}
-                          className="w-16 h-8"
-                        />
-                        <Input
-                          value={workingTheme.colors?.[key] || ''}
-                          onChange={(e) => handleColorChange(key, e.target.value)}
-                          placeholder="hsl(330, 81%, 60%)"
-                          className="flex-1"
-                        />
+                        {workingTheme.suitIcons?.[key as keyof typeof workingTheme.suitIcons] && (
+                          <div className="text-center text-2xl">
+                            {workingTheme.suitIcons[key as keyof typeof workingTheme.suitIcons]}
+                          </div>
+                        )}
                       </div>
                     ))}
-                  </CardContent>
-                </Card>
-              </TabsContent>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Note: If you upload any suit icon, you should upload all four for consistency.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
 
-              <TabsContent value="images" className="space-y-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Hero Image</CardTitle>
-                    <CardDescription>16:9 aspect ratio recommended</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <input
-                        ref={heroImageRef}
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) handleFileUpload(file, 'hero');
-                        }}
-                        className="hidden"
+            {/* Labels */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Labels</CardTitle>
+                <CardDescription>Customize stack and scoring labels</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label className="block mb-2 font-medium">Stack Labels</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {(workingTheme.stackLabels || ['Stack 1', 'Stack 2', 'Stack 3', 'Stack 4']).map((label, index) => (
+                      <Input
+                        key={index}
+                        value={label}
+                        onChange={(e) => handleLabelChange(index, e.target.value)}
+                        placeholder={`Stack ${index + 1}`}
                       />
-                      <Button 
-                        variant="outline" 
-                        onClick={() => heroImageRef.current?.click()}
-                        className="w-full"
-                      >
-                        <Upload className="w-4 h-4 mr-2" />
-                        Upload Hero Image
-                      </Button>
-                      {workingTheme.heroTitleImageUrl && (
-                        <div className="aspect-video bg-muted rounded-lg overflow-hidden">
-                          <img 
-                            src={workingTheme.heroTitleImageUrl} 
-                            alt="Hero preview"
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Card Back</CardTitle>
-                    <CardDescription>3:4 aspect ratio recommended</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <input
-                        ref={cardBackRef}
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) handleFileUpload(file, 'cardBack');
-                        }}
-                        className="hidden"
-                      />
-                      <Button 
-                        variant="outline" 
-                        onClick={() => cardBackRef.current?.click()}
-                        className="w-full"
-                      >
-                        <Upload className="w-4 h-4 mr-2" />
-                        Upload Card Back
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Suit Icons</CardTitle>
-                    <CardDescription>SVG or PNG recommended, 128-256px</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-2 gap-3">
-                      {[
-                        { key: 'hearts', label: 'Hearts ❤️', ref: heartsIconRef },
-                        { key: 'diamonds', label: 'Diamonds ✨', ref: diamondsIconRef },
-                        { key: 'clubs', label: 'Clubs ✍️', ref: clubsIconRef },
-                        { key: 'spades', label: 'Spades 🎤', ref: spadesIconRef },
-                      ].map(({ key, label, ref }) => (
-                        <div key={key} className="space-y-2">
-                          <input
-                            ref={ref}
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => {
-                              const file = e.target.files?.[0];
-                              if (file) handleFileUpload(file, key as any);
-                            }}
-                            className="hidden"
-                          />
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => ref.current?.click()}
-                            className="w-full"
-                          >
-                            {label}
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-2">
-                      Note: If you upload any suit icon, you should upload all four for consistency.
-                    </p>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="labels" className="space-y-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Stack Labels</CardTitle>
-                    <CardDescription>Customize the four stack category names</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    {[0, 1, 2, 3].map((index) => (
-                      <div key={index} className="flex items-center gap-3">
-                        <Label className="w-16">Stack {index + 1}</Label>
-                        <Input
-                          value={workingTheme.stackLabels?.[index] || `Stack ${index + 1}`}
-                          onChange={(e) => handleLabelChange(index, e.target.value)}
-                          placeholder={`Stack ${index + 1}`}
-                        />
-                      </div>
                     ))}
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Scoring Labels</CardTitle>
-                    <CardDescription>Customize score and fumble labels</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <Label className="w-16">Score</Label>
+                  </div>
+                </div>
+                
+                <div>
+                  <Label className="block mb-2 font-medium">Scoring Labels</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <Label className="text-sm text-muted-foreground">Score Label</Label>
                       <Input
                         value={workingTheme.scoringLabels?.score || 'Score'}
                         onChange={(e) => handleScoringLabelChange('score', e.target.value)}
                         placeholder="Score"
                       />
                     </div>
-                    <div className="flex items-center gap-3">
-                      <Label className="w-16">Fumbles</Label>
+                    <div>
+                      <Label className="text-sm text-muted-foreground">Fumbles Label</Label>
                       <Input
                         value={workingTheme.scoringLabels?.fumble || 'Fumbles'}
                         onChange={(e) => handleScoringLabelChange('fumble', e.target.value)}
                         placeholder="Fumbles"
                       />
                     </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
-              <TabsContent value="style" className="space-y-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Theme Settings</CardTitle>
-                    <CardDescription>Name and general styling options</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                      <Label>Theme Name</Label>
+            {/* Style */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Style</CardTitle>
+                <CardDescription>Typography and visual styling options</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label className="block mb-2 font-medium">Theme Settings</Label>
+                  <div className="space-y-3">
+                    <div>
+                      <Label className="text-sm text-muted-foreground">Theme Name</Label>
                       <Input
                         value={workingTheme.name || ''}
                         onChange={(e) => setWorkingTheme(prev => ({ ...prev, name: e.target.value }))}
                         placeholder="My Custom Theme"
                       />
                     </div>
-                    
-                    <div className="space-y-2">
-                      <Label>Tagline</Label>
+                    <div>
+                      <Label className="text-sm text-muted-foreground">Tagline</Label>
                       <Input
                         value={workingTheme.tagline || ''}
                         onChange={(e) => setWorkingTheme(prev => ({ ...prev, tagline: e.target.value }))}
-                        placeholder="Stack your cards like Taylor stacks her eras."
+                        placeholder="A magical gaming experience"
                       />
-                      <p className="text-xs text-muted-foreground">This appears on the game screen and How to Play page</p>
                     </div>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Typography</CardTitle>
-                    <CardDescription>Font family and styling options</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                      <Label>Font Family</Label>
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="block mb-2 font-medium">Typography</Label>
+                  <div className="space-y-3">
+                    <div>
+                      <Label className="text-sm text-muted-foreground">Font Family</Label>
                       <Select 
-                        value={workingTheme.fontFamily || 'Inter'}
+                        value={workingTheme.fontFamily || 'Inter'} 
                         onValueChange={(value) => setWorkingTheme(prev => ({ ...prev, fontFamily: value }))}
                       >
                         <SelectTrigger>
-                          <SelectValue />
+                          <SelectValue placeholder="Select font" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="Inter">Inter</SelectItem>
+                          <SelectItem value="Roboto">Roboto</SelectItem>
                           <SelectItem value="Poppins">Poppins</SelectItem>
-                          <SelectItem value="Fredoka">Fredoka</SelectItem>
-                          <SelectItem value="Baloo 2">Baloo 2</SelectItem>
+                          <SelectItem value="Playfair Display">Playfair Display</SelectItem>
+                          <SelectItem value="Georgia">Georgia</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
-
-                    <div className="space-y-2">
-                      <Label>Emoji Prefix</Label>
+                    <div>
+                      <Label className="text-sm text-muted-foreground">Emoji Prefix</Label>
                       <Input
                         value={workingTheme.emojiPrefix || ''}
                         onChange={(e) => setWorkingTheme(prev => ({ ...prev, emojiPrefix: e.target.value }))}
                         placeholder="✨"
-                        maxLength={2}
+                        maxLength={10}
                       />
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Border Radius</CardTitle>
-                    <CardDescription>Adjust the roundness of UI elements</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <Slider
-                        value={[workingTheme.borderRadius || 12]}
-                        onValueChange={([value]) => setWorkingTheme(prev => ({ ...prev, borderRadius: value }))}
-                        min={8}
-                        max={24}
-                        step={1}
-                        className="w-full"
-                      />
-                      <div className="text-center text-sm text-muted-foreground">
-                        {workingTheme.borderRadius || 12}px
-                      </div>
+                <div>
+                  <Label className="block mb-2 font-medium">Border Radius</Label>
+                  <div className="space-y-2">
+                    <Slider
+                      value={[workingTheme.borderRadius || 12]}
+                      onValueChange={([value]) => setWorkingTheme(prev => ({ ...prev, borderRadius: value }))}
+                      max={24}
+                      step={1}
+                      className="w-full"
+                    />
+                    <div className="text-sm text-muted-foreground text-center">
+                      {workingTheme.borderRadius || 12}px
                     </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
             {/* Action Buttons */}
             <Card>
