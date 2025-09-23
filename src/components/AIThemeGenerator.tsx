@@ -3,8 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Copy } from 'lucide-react';
 import { defaultTheme } from '@/theme/defaultTheme';
+import { buildAiPrompt } from '@/lib/aiPrompt';
 
 // Define the type of the generated config. You can reuse ThemeConfig or accept 'any'.
 type GeneratedConfig = any;
@@ -44,8 +45,23 @@ export default function AIThemeGenerator({ onGenerated }: Props) {
     };
   }
 
+  const handleCopyPrompt = () => {
+    const prompt = buildAiPrompt(title, description);
+    // Copy to clipboard
+    if (navigator && navigator.clipboard) {
+      navigator.clipboard.writeText(prompt).then(() => {
+        alert('AI prompt copied to clipboard! Paste it into ChatGPT and copy the JSON back.');
+      });
+    } else {
+      console.log('AI Prompt:', prompt);
+      alert('Prompt logged to console. Copy it from there.');
+    }
+  };
+
   async function handleGenerate() {
     if (!title) return;
+    const prompt = buildAiPrompt(title, description);
+    console.log('AI Prompt:', prompt);
     setIsGenerating(true);
     setError(null);
     try {
@@ -82,14 +98,24 @@ export default function AIThemeGenerator({ onGenerated }: Props) {
           onChange={(e) => setDescription(e.target.value)}
           rows={3}
         />
-        <Button
-          onClick={handleGenerate}
-          disabled={!title || isGenerating}
-          className="w-full"
-        >
-          <Sparkles className="w-4 h-4 mr-2" />
-          {isGenerating ? 'Generating…' : 'Generate Theme'}
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            onClick={handleGenerate}
+            disabled={!title || isGenerating}
+            className="flex-1"
+          >
+            <Sparkles className="w-4 h-4 mr-2" />
+            {isGenerating ? 'Generating…' : 'Generate Theme'}
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={handleCopyPrompt}
+            disabled={!title}
+          >
+            <Copy className="w-4 h-4 mr-2" />
+            Copy AI Prompt
+          </Button>
+        </div>
         {error && <p className="text-sm text-destructive">{error}</p>}
       </CardContent>
     </Card>
