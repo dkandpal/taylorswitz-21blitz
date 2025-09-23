@@ -16,16 +16,28 @@ export type Database = {
     Tables: {
       themes: {
         Row: {
+          config: Json
+          created_at: string
           id: string
+          name: string
           owner_id: string | null
+          updated_at: string
         }
         Insert: {
+          config?: Json
+          created_at?: string
           id?: string
+          name?: string
           owner_id?: string | null
+          updated_at?: string
         }
         Update: {
+          config?: Json
+          created_at?: string
           id?: string
+          name?: string
           owner_id?: string | null
+          updated_at?: string
         }
         Relationships: []
       }

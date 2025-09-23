@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,17 +8,26 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Slider } from '@/components/ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Upload, Palette, Type, Settings } from 'lucide-react';
+import { ArrowLeft, Upload, Palette, Type, Settings, Save, RefreshCw } from 'lucide-react';
 import { useTheme } from '@/theme/ThemeContext';
 import { ThemeConfig } from '@/theme/types';
 import { themePresets } from '@/theme/presets';
 import { PlayingCard } from '@/components/PlayingCard';
 import { cn } from '@/lib/utils';
+import { uploadThemeAsset, createTheme, updateTheme, listThemes, getTheme, ThemeRow } from '@/lib/themeStorage';
+import { supabase } from '@/integrations/supabase/client';
+import AuthMini from '@/components/AuthMini';
+import { useToast } from '@/hooks/use-toast';
 
 const Theme = () => {
   const navigate = useNavigate();
   const { theme, setTheme, resetTheme } = useTheme();
+  const { toast } = useToast();
   const [workingTheme, setWorkingTheme] = useState<ThemeConfig>(theme);
+  const [activeThemeId, setActiveThemeId] = useState<string | null>(null);
+  const [savedThemes, setSavedThemes] = useState<ThemeRow[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const [saving, setSaving] = useState(false);
   
   // File upload refs
   const heroImageRef = useRef<HTMLInputElement>(null);
@@ -27,6 +36,24 @@ const Theme = () => {
   const diamondsIconRef = useRef<HTMLInputElement>(null);
   const clubsIconRef = useRef<HTMLInputElement>(null);
   const spadesIconRef = useRef<HTMLInputElement>(null);
+
+  // Load saved themes on mount
+  useEffect(() => {
+    loadSavedThemes();
+    const savedId = localStorage.getItem('activeThemeId');
+    if (savedId) {
+      setActiveThemeId(savedId);
+    }
+  }, []);
+
+  const loadSavedThemes = async () => {
+    try {
+      const themes = await listThemes();
+      setSavedThemes(themes);
+    } catch (error) {
+      console.error('Failed to load themes:', error);
+    }
+  };
 
   const handleColorChange = (colorKey: keyof NonNullable<ThemeConfig['colors']>, value: string) => {
     setWorkingTheme(prev => ({
@@ -57,28 +84,49 @@ const Theme = () => {
     }));
   };
 
-  const handleFileUpload = (file: File, type: 'hero' | 'cardBack' | 'hearts' | 'diamonds' | 'clubs' | 'spades') => {
-    const url = URL.createObjectURL(file);
-    
-    switch (type) {
-      case 'hero':
-        setWorkingTheme(prev => ({ ...prev, heroTitleImageUrl: url }));
-        break;
-      case 'cardBack':
-        setWorkingTheme(prev => ({ ...prev, cardBackUrl: url }));
-        break;
-      case 'hearts':
-      case 'diamonds':
-      case 'clubs':
-      case 'spades':
-        setWorkingTheme(prev => ({
-          ...prev,
-          suitIcons: {
-            ...prev.suitIcons,
-            [type]: url
-          }
-        }));
-        break;
+  const handleFileUpload = async (file: File, type: 'hero' | 'cardBack' | 'hearts' | 'diamonds' | 'clubs' | 'spades') => {
+    setUploading(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      let url: string;
+      
+      switch (type) {
+        case 'hero':
+          url = await uploadThemeAsset(file, 'hero', user?.id);
+          setWorkingTheme(prev => ({ ...prev, heroTitleImageUrl: url }));
+          break;
+        case 'cardBack':
+          url = await uploadThemeAsset(file, 'card-back', user?.id);
+          setWorkingTheme(prev => ({ ...prev, cardBackUrl: url }));
+          break;
+        case 'hearts':
+        case 'diamonds':
+        case 'clubs':
+        case 'spades':
+          url = await uploadThemeAsset(file, `suits/${type}`, user?.id);
+          setWorkingTheme(prev => ({
+            ...prev,
+            suitIcons: {
+              ...prev.suitIcons,
+              [type]: url
+            }
+          }));
+          break;
+      }
+      
+      toast({
+        title: "Upload successful",
+        description: "Image uploaded and applied to theme",
+      });
+    } catch (error) {
+      console.error('Upload failed:', error);
+      toast({
+        title: "Upload failed",
+        description: "Failed to upload image. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -89,10 +137,58 @@ const Theme = () => {
     }));
   };
 
-  const saveTheme = () => {
-    setTheme(workingTheme);
-    // TODO: Save to Supabase when integrated
-    console.log('Theme saved:', workingTheme);
+  const saveTheme = async () => {
+    setSaving(true);
+    try {
+      if (!activeThemeId) {
+        const row = await createTheme(workingTheme.name || 'Custom Theme', workingTheme);
+        setActiveThemeId(row.id);
+        localStorage.setItem('activeThemeId', row.id);
+      } else {
+        await updateTheme(activeThemeId, workingTheme);
+      }
+      
+      setTheme(workingTheme);
+      window.dispatchEvent(new CustomEvent('theme:updated'));
+      await loadSavedThemes(); // Refresh the list
+      
+      toast({
+        title: "Theme saved",
+        description: "Your theme has been saved successfully",
+      });
+    } catch (error) {
+      console.error('Save failed:', error);
+      toast({
+        title: "Save failed",
+        description: "Failed to save theme. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const loadTheme = async (themeId: string) => {
+    try {
+      const themeData = await getTheme(themeId);
+      if (themeData) {
+        setWorkingTheme(themeData.config);
+        setActiveThemeId(themeData.id);
+        localStorage.setItem('activeThemeId', themeData.id);
+        
+        toast({
+          title: "Theme loaded",
+          description: `Loaded theme: ${themeData.name}`,
+        });
+      }
+    } catch (error) {
+      console.error('Load failed:', error);
+      toast({
+        title: "Load failed",
+        description: "Failed to load theme. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const previewTheme = () => {
@@ -117,6 +213,34 @@ const Theme = () => {
             Back to Home
           </Button>
           <h1 className="text-3xl font-bold">Theme Customizer</h1>
+        </div>
+
+        {/* Auth and Saved Themes */}
+        <div className="mb-6 space-y-4">
+          <AuthMini />
+          
+          {savedThemes.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Saved Themes</CardTitle>
+                <CardDescription>Load your previously saved themes</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Select onValueChange={loadTheme}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a saved theme..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {savedThemes.map((theme) => (
+                      <SelectItem key={theme.id} value={theme.id}>
+                        {theme.name} - {new Date(theme.updated_at).toLocaleDateString()}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -363,6 +487,23 @@ const Theme = () => {
               <TabsContent value="style" className="space-y-4">
                 <Card>
                   <CardHeader>
+                    <CardTitle>Theme Settings</CardTitle>
+                    <CardDescription>Name and general styling options</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                      <Label>Theme Name</Label>
+                      <Input
+                        value={workingTheme.name || ''}
+                        onChange={(e) => setWorkingTheme(prev => ({ ...prev, name: e.target.value }))}
+                        placeholder="My Custom Theme"
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardHeader>
                     <CardTitle>Typography</CardTitle>
                     <CardDescription>Font family and styling options</CardDescription>
                   </CardHeader>
@@ -428,8 +569,18 @@ const Theme = () => {
                   <Button onClick={previewTheme} variant="outline">
                     Preview Theme
                   </Button>
-                  <Button onClick={saveTheme}>
-                    Save Theme
+                  <Button onClick={saveTheme} disabled={saving || uploading}>
+                    {saving ? (
+                      <>
+                        <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                        Saving...
+                      </>
+                    ) : (
+                      <>
+                        <Save className="w-4 h-4 mr-2" />
+                        Save Theme
+                      </>
+                    )}
                   </Button>
                   <Button onClick={resetTheme} variant="outline">
                     Reset to Default

@@ -54,7 +54,7 @@ export async function listThemes(limit = 50) {
 }
 
 export async function getTheme(id: string) {
-  const { data, error } = await supabase.from('themes').select('*').eq('id', id).single();
+  const { data, error } = await supabase.from('themes').select('*').eq('id', id).maybeSingle();
   if (error) throw error;
-  return data as ThemeRow;
+  return data as ThemeRow | null;
 }

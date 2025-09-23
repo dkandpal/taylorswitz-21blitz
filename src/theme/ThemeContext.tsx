@@ -52,15 +52,38 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [theme, setThemeState] = useState<ThemeConfig>(defaultTheme);
 
   useEffect(() => {
-    // Load theme from localStorage on mount
-    const savedThemeId = localStorage.getItem('activeThemeId');
-    if (savedThemeId) {
-      // TODO: Load from Supabase when integrated
-      console.log('TODO: Load theme from Supabase:', savedThemeId);
-    }
-    
-    // Apply initial theme
-    applyThemeVariables(theme);
+    // Load theme from Supabase on mount
+    const loadInitialTheme = async () => {
+      const savedThemeId = localStorage.getItem('activeThemeId');
+      if (savedThemeId) {
+        try {
+          const { getTheme } = await import('@/lib/themeStorage');
+          const themeData = await getTheme(savedThemeId);
+          if (themeData) {
+            const mergedTheme = { ...defaultTheme, ...themeData.config };
+            setThemeState(mergedTheme);
+            applyThemeVariables(mergedTheme);
+            return;
+          }
+        } catch (error) {
+          console.error('Failed to load saved theme:', error);
+          localStorage.removeItem('activeThemeId');
+        }
+      }
+      
+      // Apply default theme if no saved theme
+      applyThemeVariables(theme);
+    };
+
+    loadInitialTheme();
+
+    // Listen for theme updates
+    const handleThemeUpdate = () => {
+      // Theme is already updated via setTheme, just need to refresh any UI
+    };
+
+    window.addEventListener('theme:updated', handleThemeUpdate);
+    return () => window.removeEventListener('theme:updated', handleThemeUpdate);
   }, []);
 
   const setTheme = (newTheme: ThemeConfig) => {
