@@ -4,12 +4,83 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!
+const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+// Helper function to generate image with OpenAI
+async function generateImage(prompt: string): Promise<string> {
+  console.log('Generating image for prompt:', prompt);
+  
+  const response = await fetch('https://api.openai.com/v1/images/generations', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${openAIApiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'gpt-image-1',
+      prompt: prompt,
+      n: 1,
+      size: '1024x1024',
+      quality: 'high',
+      output_format: 'png'
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`OpenAI Image API error: ${response.status} ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  console.log('Image generation response received');
+  
+  // gpt-image-1 returns base64 data directly
+  if (data.data && data.data[0] && data.data[0].b64_json) {
+    return data.data[0].b64_json;
+  }
+  
+  throw new Error('No image data received from OpenAI');
+}
+
+// Helper function to upload base64 image to Supabase storage
+async function uploadImageToStorage(base64Data: string, fileName: string, folder: string): Promise<string> {
+  const supabase = createClient(supabaseUrl, supabaseServiceKey);
+  
+  // Convert base64 to blob
+  const byteCharacters = atob(base64Data);
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+  const blob = new Blob([byteArray], { type: 'image/png' });
+  
+  const path = `anon/${folder}/${Date.now()}-${fileName}.png`;
+  
+  const { data, error } = await supabase.storage
+    .from('themes')
+    .upload(path, blob, {
+      cacheControl: '3600',
+      upsert: false,
+    });
+    
+  if (error) {
+    console.error('Storage upload error:', error);
+    throw error;
+  }
+  
+  const { data: publicUrl } = supabase.storage
+    .from('themes')
+    .getPublicUrl(data.path);
+    
+  console.log('Image uploaded to:', publicUrl.publicUrl);
+  return publicUrl.publicUrl;
+}
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -26,6 +97,7 @@ serve(async (req) => {
       throw new Error('OpenAI API key not configured');
     }
 
+    // Step 1: Generate theme JSON with descriptions
     const prompt = `You are a formatting-strict generator. Output ONLY valid minified JSON that matches the schema below. Do not include markdown, comments, explanations, or extra fields. Be deterministic and avoid placeholders.
 
 Schema (all keys required):
@@ -102,7 +174,7 @@ Return exactly one JSON object (minified).`;
       }
 
       const data = await response.json();
-      console.log('OpenAI response:', data);
+      console.log('OpenAI response received');
 
       if (!data.choices || !data.choices[0] || !data.choices[0].message) {
         throw new Error('No message received from OpenAI');
@@ -149,16 +221,118 @@ Return exactly one JSON object (minified).`;
       };
     }
 
-    // Return the theme exactly as generated (no transformation needed since schema matches)
-    const themeConfig = parsedTheme;
+    // Step 2: Generate actual images based on descriptions
+    console.log('Starting image generation phase...');
+    
+    try {
+      // Generate hero image
+      console.log('Generating hero image...');
+      const heroImageBase64 = await generateImage(parsedTheme.imageDescriptions.heroImage);
+      const heroImageUrl = await uploadImageToStorage(heroImageBase64, 'hero', 'hero');
+      
+      // Generate card back image
+      console.log('Generating card back image...');
+      const cardBackBase64 = await generateImage(parsedTheme.imageDescriptions.cardBack);
+      const cardBackUrl = await uploadImageToStorage(cardBackBase64, 'card-back', 'card-back');
+      
+      // Generate suit icons (we'll create a single image with all 4 icons)
+      console.log('Generating suit icons...');
+      const suitIconsPrompt = `Create 4 distinct icons in a 2x2 grid layout on transparent background: ${parsedTheme.imageDescriptions.suitIcons.hearts}, ${parsedTheme.imageDescriptions.suitIcons.diamonds}, ${parsedTheme.imageDescriptions.suitIcons.clubs}, ${parsedTheme.imageDescriptions.suitIcons.spades}. Each icon should be clearly separated and themed to ${title}.`;
+      const suitIconsBase64 = await generateImage(suitIconsPrompt);
+      const suitIconsUrl = await uploadImageToStorage(suitIconsBase64, 'suit-icons', 'suit-icons');
+      
+      // Step 3: Build final theme config with actual image URLs
+      const finalThemeConfig = {
+        name: parsedTheme.name,
+        tagline: parsedTheme.tagline,
+        heroTitleImageUrl: heroImageUrl,
+        cardBackUrl: cardBackUrl,
+        stackLabels: parsedTheme.stackLabels,
+        scoringLabels: {
+          score: parsedTheme.scoringLabels.score,
+          fumble: parsedTheme.scoringLabels.fumble
+        },
+        colors: {
+          background: parsedTheme.colors.background,
+          surface: parsedTheme.colors.surface,
+          primary: parsedTheme.colors.primary,
+          secondary: parsedTheme.colors.secondary,
+          accent: parsedTheme.colors.accent,
+          textPrimary: parsedTheme.colors.textPrimary,
+          textSecondary: parsedTheme.colors.textSecondary,
+          gradientFrom: parsedTheme.colors.primary,
+          gradientTo: parsedTheme.colors.secondary
+        },
+        // For now, we'll use emoji fallbacks for suit icons since they're complex to extract from the generated image
+        suitIcons: {
+          hearts: '❤️',
+          diamonds: '💎', 
+          clubs: '♣️',
+          spades: '♠️'
+        },
+        emojiPrefix: '✨',
+        fontFamily: 'Inter',
+        borderRadius: 12
+      };
 
-    return new Response(JSON.stringify({ 
-      success: true, 
-      theme: themeConfig,
-      rawAiResponse: parsedTheme 
-    }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
+      console.log('Theme generation completed successfully');
+
+      return new Response(JSON.stringify({ 
+        success: true, 
+        theme: finalThemeConfig,
+        rawAiResponse: parsedTheme,
+        generatedImages: {
+          heroImage: heroImageUrl,
+          cardBack: cardBackUrl,
+          suitIcons: suitIconsUrl
+        }
+      }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+      
+    } catch (imageError) {
+      console.error('Image generation error:', imageError);
+      
+      // Fallback: return theme without generated images
+      const fallbackThemeConfig = {
+        name: parsedTheme.name,
+        tagline: parsedTheme.tagline,
+        stackLabels: parsedTheme.stackLabels,
+        scoringLabels: {
+          score: parsedTheme.scoringLabels.score,
+          fumble: parsedTheme.scoringLabels.fumble
+        },
+        colors: {
+          background: parsedTheme.colors.background,
+          surface: parsedTheme.colors.surface,
+          primary: parsedTheme.colors.primary,
+          secondary: parsedTheme.colors.secondary,
+          accent: parsedTheme.colors.accent,
+          textPrimary: parsedTheme.colors.textPrimary,
+          textSecondary: parsedTheme.colors.textSecondary,
+          gradientFrom: parsedTheme.colors.primary,
+          gradientTo: parsedTheme.colors.secondary
+        },
+        suitIcons: {
+          hearts: '❤️',
+          diamonds: '💎', 
+          clubs: '♣️',
+          spades: '♠️'
+        },
+        emojiPrefix: '✨',
+        fontFamily: 'Inter',
+        borderRadius: 12
+      };
+
+      return new Response(JSON.stringify({ 
+        success: true, 
+        theme: fallbackThemeConfig,
+        rawAiResponse: parsedTheme,
+        imageGenerationError: imageError.message
+      }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
 
   } catch (error) {
     console.error('Error in generate-theme-free function:', error);
