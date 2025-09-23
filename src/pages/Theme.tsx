@@ -17,6 +17,7 @@ import { cn } from '@/lib/utils';
 import { uploadThemeAsset, createTheme, updateTheme, listThemes, getTheme, ThemeRow } from '@/lib/themeStorage';
 import { supabase } from '@/integrations/supabase/client';
 import AuthMini from '@/components/AuthMini';
+import AIThemeGenerator from '@/components/AIThemeGenerator';
 import { useToast } from '@/hooks/use-toast';
 
 const Theme = () => {
@@ -200,6 +201,12 @@ const Theme = () => {
     setTheme(workingTheme);
   };
 
+  // Add a handler to merge the generated config into the draft
+  const handleGeneratedTheme = (config: any) => {
+    // Merge the generated fields into your draft state.
+    setWorkingTheme((prev) => ({ ...prev, ...config }));
+  };
+
   // Mock card for preview
   const mockCard = {
     rank: 'A' as const,
@@ -254,6 +261,9 @@ const Theme = () => {
             </Card>
           )}
         </div>
+
+        {/* New AI generator section */}
+        <AIThemeGenerator onGenerated={handleGeneratedTheme} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left Panel - Controls */}
@@ -640,6 +650,9 @@ const Theme = () => {
                         className="w-full h-full object-cover"
                       />
                     )}
+                  </div>
+                  <div className="mt-2 text-center italic text-sm" style={{ color: workingTheme.colors?.textSecondary }}>
+                    {workingTheme.tagline || theme.tagline || ''}
                   </div>
                 </div>
 
