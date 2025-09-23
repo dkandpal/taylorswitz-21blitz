@@ -84,13 +84,7 @@ export default function AIThemeGenerator({ onGenerated }: Props) {
       setJsonResponse(data);
       
       if (data.success && data.theme) {
-        onGenerated({
-          ...data.theme,
-          // Keep default images for now
-          heroTitleImageUrl: defaultTheme.heroTitleImageUrl,
-          cardBackUrl: defaultTheme.cardBackUrl,
-          suitIcons: defaultTheme.suitIcons,
-        });
+        onGenerated(data.theme);
       } else {
         throw new Error(data.error || 'Failed to generate theme');
       }
