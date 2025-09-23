@@ -142,10 +142,15 @@ const Theme = () => {
     try {
       if (!activeThemeId) {
         const row = await createTheme(workingTheme.name || 'Custom Theme', workingTheme);
-        setActiveThemeId(row.id);
-        localStorage.setItem('activeThemeId', row.id);
+        if (row) {
+          setActiveThemeId(row.id);
+          localStorage.setItem('activeThemeId', row.id);
+        }
       } else {
-        await updateTheme(activeThemeId, workingTheme);
+        const result = await updateTheme(activeThemeId, workingTheme);
+        if (!result) {
+          throw new Error('Theme not found or permission denied');
+        }
       }
       
       setTheme(workingTheme);
@@ -206,13 +211,20 @@ const Theme = () => {
   return (
     <div className="min-h-screen bg-background p-4">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center gap-4 mb-6">
-          <Button variant="ghost" size="sm" onClick={() => navigate('/')}>
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Home
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="sm" onClick={() => navigate('/')}>
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Home
+            </Button>
+            <h1 className="text-3xl font-bold">Theme Customizer</h1>
+          </div>
+          <Button 
+            onClick={() => navigate('/play')}
+            className="bg-gradient-to-r from-primary to-secondary text-white font-semibold px-6 py-2 rounded-lg hover:shadow-lg transition-all"
+          >
+            Play Game →
           </Button>
-          <h1 className="text-3xl font-bold">Theme Customizer</h1>
         </div>
 
         {/* Auth and Saved Themes */}
