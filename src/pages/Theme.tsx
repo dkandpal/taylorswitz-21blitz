@@ -204,7 +204,10 @@ const Theme = () => {
   // Add a handler to merge the generated config into the draft
   const handleGeneratedTheme = (config: any) => {
     // Merge the generated fields into your draft state.
-    setWorkingTheme((prev) => ({ ...prev, ...config }));
+    const newTheme = { ...workingTheme, ...config };
+    setWorkingTheme(newTheme);
+    // Automatically apply the theme to see changes immediately
+    setTheme(newTheme);
   };
 
   // Mock card for preview
