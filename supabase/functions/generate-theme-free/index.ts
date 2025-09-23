@@ -1,10 +1,11 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { HfInference } from 'https://esm.sh/@huggingface/inference@2.3.2';
 
-const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
+const huggingFaceApiKey = Deno.env.get('HUGGINGFACE_API_KEY');
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -22,8 +23,8 @@ serve(async (req) => {
     
     console.log('Generating theme for:', { title, description });
 
-    if (!openAIApiKey) {
-      throw new Error('OpenAI API key not configured');
+    if (!huggingFaceApiKey) {
+      throw new Error('Hugging Face API key not configured');
     }
 
     const prompt = `Act as a creative design assistant for a 21‑Blitz card game.
@@ -62,38 +63,29 @@ Now generate the theme specification for the following:
 Game Title: ${title}
 Description: ${description}`;
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${openAIApiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: [
-          { role: 'user', content: prompt }
-        ],
+    const hf = new HfInference(huggingFaceApiKey);
+
+    const response = await hf.textGeneration({
+      model: 'microsoft/DialoGPT-large',
+      inputs: prompt,
+      parameters: {
+        max_new_tokens: 1000,
         temperature: 0.7,
-        max_tokens: 1000,
-      }),
+        return_full_text: false,
+      },
     });
 
-    const data = await response.json();
-    console.log('OpenAI response:', data);
+    console.log('Hugging Face response:', response);
 
-    if (!response.ok) {
-      throw new Error(`OpenAI API error: ${data.error?.message || 'Unknown error'}`);
-    }
-
-    const generatedContent = data.choices[0].message.content;
+    const generatedContent = response.generated_text;
     console.log('Generated content:', generatedContent);
 
-    // Parse the JSON response from OpenAI
+    // Parse the JSON response from Hugging Face
     let parsedTheme;
     try {
       parsedTheme = JSON.parse(generatedContent);
     } catch (e) {
-      console.error('Failed to parse OpenAI response as JSON:', generatedContent);
+      console.error('Failed to parse Hugging Face response as JSON:', generatedContent);
       throw new Error('Failed to parse AI response as JSON');
     }
 
