@@ -59,15 +59,15 @@ Content constraints:
 
 Theme: ${title}; mood: ${description}.
 
-Use a Nets palette (black/white/silver + Nets blue #0072CE).
+Choose colors that match the theme perfectly. For sports teams, use their official colors. For other themes, pick appropriate colors.
 
-No generic labels like "Stack 1". Keep phrases short, punchy, game-y.
+No generic labels like "Stack 1". Keep phrases short, punchy, theme-appropriate.
 
-Card back: mention central emblem/motif and repeatable pattern.
+Card back: describe central emblem/motif that fits the theme and works as repeating pattern.
 
-Suit icons: four emoji-like symbols tied to basketball, consistent style.
+Suit icons: four emoji-like symbols tied to the theme, consistent style.
 
-Hero image: dynamic arena moment; integrate the game title visually.
+Hero image: dynamic scene that captures the energy of the theme; integrate the game title "${title}" visually.
 
 Generate now for:
 Title: ${title}
@@ -123,27 +123,27 @@ Return exactly one JSON object (minified).`;
       console.error('AI API error:', aiError);
       // Return the exact schema format as fallback
       parsedTheme = {
-        name: title || 'Brooklyn Nets',
-        tagline: 'Stack cards, score wins, feel the net rush!',
-        stackLabels: ['Dunk Zone', 'Fast Break', 'Triple Threat', 'Buzzer Beat'],
-        scoringLabels: { score: 'Buckets', fumble: 'Turnovers' },
+        name: title || 'Default Theme',
+        tagline: `Experience the thrill of ${title || 'card stacking'}!`,
+        stackLabels: ['Stack A', 'Stack B', 'Stack C', 'Stack D'],
+        scoringLabels: { score: 'Points', fumble: 'Misses' },
         colors: {
           background: '#F8F9FA',
           surface: '#FFFFFF',
-          primary: '#0072CE',
-          secondary: '#000000',
-          accent: '#C0C0C0',
-          textPrimary: '#000000',
+          primary: '#3B82F6',
+          secondary: '#6B7280',
+          accent: '#10B981',
+          textPrimary: '#1F2937',
           textSecondary: '#6B7280'
         },
         imageDescriptions: {
-          heroImage: 'Dynamic Brooklyn Nets arena with electric atmosphere, players in mid-action with game title "Brooklyn Nets Blitz 21" prominently displayed in arena lighting',
-          cardBack: 'Repeating pattern of interlocking Brooklyn Nets logos in black and silver with blue #0072CE accents, geometric basketball court lines creating modern tessellation',
+          heroImage: `Dynamic scene capturing the essence of ${title} with energetic atmosphere and the game title "${title} Blitz 21" prominently displayed`,
+          cardBack: `Themed pattern featuring elements related to ${title}, designed as a repeating motif with appropriate colors`,
           suitIcons: {
-            hearts: 'Basketball emoji-style icon in Nets colors',
-            diamonds: 'Championship trophy emoji-style icon in gold',
-            clubs: 'Basketball hoop emoji-style icon in black/silver',
-            spades: 'Player jersey emoji-style icon in team colors'
+            hearts: `Heart-themed icon related to ${title}`,
+            diamonds: `Diamond-themed icon related to ${title}`,
+            clubs: `Club-themed icon related to ${title}`,
+            spades: `Spade-themed icon related to ${title}`
           }
         }
       };
