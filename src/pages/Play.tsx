@@ -102,7 +102,7 @@ const Play = () => {
       <div className="tsw-hud">
         <div className="hud-chip">
           <span className="label">Score</span>
-          <span className="value green" id="hudScore">{gameState.score}</span>
+          <span className="value green text-2xl font-bold" id="hudScore">{gameState.score}</span>
         </div>
         <div className="hud-chip">
           <span className="label">Timer</span>
