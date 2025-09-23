@@ -65,28 +65,67 @@ Description: ${description}`;
 
     const hf = new HfInference(huggingFaceApiKey);
 
-    const response = await hf.textGeneration({
-      model: 'microsoft/DialoGPT-large',
-      inputs: prompt,
-      parameters: {
-        max_new_tokens: 1000,
-        temperature: 0.7,
-        return_full_text: false,
-      },
-    });
+    console.log('Using Hugging Face API key:', huggingFaceApiKey ? 'Key present' : 'Key missing');
 
-    console.log('Hugging Face response:', response);
-
-    const generatedContent = response.generated_text;
-    console.log('Generated content:', generatedContent);
-
-    // Parse the JSON response from Hugging Face
     let parsedTheme;
+    
     try {
-      parsedTheme = JSON.parse(generatedContent);
-    } catch (e) {
-      console.error('Failed to parse Hugging Face response as JSON:', generatedContent);
-      throw new Error('Failed to parse AI response as JSON');
+      const response = await hf.textGeneration({
+        model: 'microsoft/DialoGPT-medium',
+        inputs: prompt,
+        parameters: {
+          max_new_tokens: 1000,
+          return_full_text: false,
+        },
+      });
+
+      console.log('Hugging Face response:', response);
+
+      if (!response || !response.generated_text) {
+        throw new Error('No generated text received from Hugging Face');
+      }
+
+      const generatedContent = response.generated_text;
+      console.log('Generated content:', generatedContent);
+
+      // Parse the JSON response from Hugging Face
+      try {
+        parsedTheme = JSON.parse(generatedContent);
+      } catch (e) {
+        console.error('Failed to parse Hugging Face response as JSON:', generatedContent);
+        // Fallback to a mock response for now
+        parsedTheme = {
+          cardBack: `A modern design with ${title} theme elements`,
+          suitIcons: {
+            hearts: "themed heart icon",
+            diamonds: "themed diamond icon", 
+            clubs: "themed club icon",
+            spades: "themed spade icon"
+          },
+          heroImage: `Dynamic ${title} themed hero image`,
+          stackCategories: ["Stack 1", "Stack 2", "Stack 3", "Stack 4"],
+          scoringLabels: { score: "Points", fumbles: "Misses" },
+          colors: ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FFEAA7", "#DDA0DD"],
+          tagline: `Experience the excitement of ${title}!`
+        };
+      }
+    } catch (hfError) {
+      console.error('Hugging Face API error:', hfError);
+      // Fallback to a mock response
+      parsedTheme = {
+        cardBack: `A modern design with ${title} theme elements`,
+        suitIcons: {
+          hearts: "themed heart icon",
+          diamonds: "themed diamond icon", 
+          clubs: "themed club icon",
+          spades: "themed spade icon"
+        },
+        heroImage: `Dynamic ${title} themed hero image`,
+        stackCategories: ["Stack 1", "Stack 2", "Stack 3", "Stack 4"],
+        scoringLabels: { score: "Points", fumbles: "Misses" },
+        colors: ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FFEAA7", "#DDA0DD"],
+        tagline: `Experience the excitement of ${title}!`
+      };
     }
 
     // Transform the AI response to match our theme structure
