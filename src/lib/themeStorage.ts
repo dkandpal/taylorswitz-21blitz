@@ -38,9 +38,9 @@ export async function updateTheme(id: string, config: any) {
     .update({ config, updated_at: new Date().toISOString() })
     .eq('id', id)
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw error;
-  return data as ThemeRow;
+  return data as ThemeRow | null;
 }
 
 export async function listThemes(limit = 50) {
