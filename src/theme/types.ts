@@ -1,5 +1,6 @@
 export interface ThemeConfig {
   name?: string;
+  tagline?: string;
   cardBackUrl?: string;
   suitIcons?: {
     hearts?: string;

@@ -511,6 +511,16 @@ const Theme = () => {
                         placeholder="My Custom Theme"
                       />
                     </div>
+                    
+                    <div className="space-y-2">
+                      <Label>Tagline</Label>
+                      <Input
+                        value={workingTheme.tagline || ''}
+                        onChange={(e) => setWorkingTheme(prev => ({ ...prev, tagline: e.target.value }))}
+                        placeholder="Stack your cards like Taylor stacks her eras."
+                      />
+                      <p className="text-xs text-muted-foreground">This appears on the game screen and How to Play page</p>
+                    </div>
                   </CardContent>
                 </Card>
                 

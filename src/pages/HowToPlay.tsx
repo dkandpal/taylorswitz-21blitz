@@ -3,10 +3,13 @@ import { Card } from '@/components/ui/card';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PlayingCard } from '@/components/PlayingCard';
 import { GAME_CONSTANTS } from '@/lib/constants';
+import { useTheme } from '@/theme/ThemeContext';
 import { Play, ArrowLeft, Target, Spade, Gamepad2, Trophy } from 'lucide-react';
+
 const HowToPlay = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { theme } = useTheme();
   const seed = searchParams.get('seed');
 
   // Sample cards for demonstration
@@ -26,6 +29,7 @@ const HowToPlay = () => {
     value10: 10,
     isAce: false
   }] as const;
+
   const handleStartGame = () => {
     if (seed) {
       navigate(`/play?seed=${seed}`);
@@ -33,22 +37,26 @@ const HowToPlay = () => {
       navigate('/play');
     }
   };
-  return <div className="min-h-screen flex flex-col items-center justify-center p-4">
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center p-4">
       <div className="max-w-4xl w-full space-y-8">
         {/* Header */}
         <div className="text-center space-y-4">
           <div className="flex justify-center items-center space-x-4 mb-4">
-            {sampleCards.map((card, index) => <div key={index} className="animate-float" style={{
-            animationDelay: `${index * 0.2}s`
-          }}>
+            {sampleCards.map((card, index) => (
+              <div key={index} className="animate-float" style={{
+                animationDelay: `${index * 0.2}s`
+              }}>
                 <PlayingCard card={card} />
-              </div>)}
+              </div>
+            ))}
           </div>
           
           <h1 className="text-4xl font-bold text-gray-900">
             How to Play Blitz 21
           </h1>
-          <p className="text-lg text-gray-900">Channel your inner mastermind 💅 stack your cards like Taylor stacks her eras.</p>
+          <p className="text-lg text-gray-900">Channel your inner mastermind 💅 {theme.tagline || "stack your cards like Taylor stacks her eras."}</p>
         </div>
 
         {/* Instructions Grid */}
@@ -125,6 +133,8 @@ const HowToPlay = () => {
           </Button>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default HowToPlay;

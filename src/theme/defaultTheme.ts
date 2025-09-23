@@ -1,7 +1,8 @@
 import { ThemeConfig } from './types';
 
 export const defaultTheme: ThemeConfig = {
-  cardBackUrl: '/card-back-taylor-swift.jpg',
+  name: 'Default Theme',
+  tagline: 'Stack your cards like Taylor stacks her eras.',
   suitIcons: {
     hearts: '❤️',
     diamonds: '✨', 
