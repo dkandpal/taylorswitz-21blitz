@@ -3,9 +3,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Sparkles, Copy } from 'lucide-react';
+import { Sparkles, Copy, Eye } from 'lucide-react';
 import { defaultTheme } from '@/theme/defaultTheme';
 import { buildAiPrompt } from '@/lib/aiPrompt';
+import { supabase } from '@/integrations/supabase/client';
 
 // Define the type of the generated config. You can reuse ThemeConfig or accept 'any'.
 type GeneratedConfig = any;
@@ -19,6 +20,8 @@ export default function AIThemeGenerator({ onGenerated }: Props) {
   const [description, setDescription] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [jsonResponse, setJsonResponse] = useState<any | null>(null);
+  const [showResponse, setShowResponse] = useState(false);
 
   async function simulateAIResponse(t: string, d: string): Promise<GeneratedConfig> {
     // This is a stub. Phase 2/3 will replace this with a real API call.
@@ -64,10 +67,33 @@ export default function AIThemeGenerator({ onGenerated }: Props) {
     console.log('AI Prompt:', prompt);
     setIsGenerating(true);
     setError(null);
+    setJsonResponse(null);
+    
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API delay
-      const config = await simulateAIResponse(title.trim(), description.trim());
-      onGenerated(config);
+      const { data, error: functionError } = await supabase.functions.invoke('generate-theme-free', {
+        body: {
+          title: title.trim(),
+          description: description.trim()
+        }
+      });
+
+      if (functionError) {
+        throw new Error(functionError.message);
+      }
+
+      setJsonResponse(data);
+      
+      if (data.success && data.theme) {
+        onGenerated({
+          ...data.theme,
+          // Keep default images for now
+          heroTitleImageUrl: defaultTheme.heroTitleImageUrl,
+          cardBackUrl: defaultTheme.cardBackUrl,
+          suitIcons: defaultTheme.suitIcons,
+        });
+      } else {
+        throw new Error(data.error || 'Failed to generate theme');
+      }
     } catch (e) {
       setError((e as Error).message ?? 'Failed to generate theme');
     } finally {
@@ -115,8 +141,25 @@ export default function AIThemeGenerator({ onGenerated }: Props) {
             <Copy className="w-4 h-4 mr-2" />
             Copy AI Prompt
           </Button>
+          {jsonResponse && (
+            <Button
+              variant="outline"
+              onClick={() => setShowResponse(!showResponse)}
+            >
+              <Eye className="w-4 h-4 mr-2" />
+              {showResponse ? 'Hide' : 'Show'} JSON
+            </Button>
+          )}
         </div>
         {error && <p className="text-sm text-destructive">{error}</p>}
+        {jsonResponse && showResponse && (
+          <div className="mt-4 p-3 bg-muted rounded-md">
+            <h4 className="text-sm font-semibold mb-2">API Response:</h4>
+            <pre className="text-xs overflow-auto max-h-48 whitespace-pre-wrap">
+              {JSON.stringify(jsonResponse, null, 2)}
+            </pre>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
