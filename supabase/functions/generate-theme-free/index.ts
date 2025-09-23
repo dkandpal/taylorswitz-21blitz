@@ -1,9 +1,8 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-import { HfInference } from 'https://esm.sh/@huggingface/inference@2.3.2';
 
-const huggingFaceApiKey = Deno.env.get('HUGGINGFACE_API_KEY');
+const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
 const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!
 
@@ -23,136 +22,135 @@ serve(async (req) => {
     
     console.log('Generating theme for:', { title, description });
 
-    if (!huggingFaceApiKey) {
-      throw new Error('Hugging Face API key not configured');
+    if (!openAIApiKey) {
+      throw new Error('OpenAI API key not configured');
     }
 
-    const prompt = `Act as a creative design assistant for a 21‑Blitz card game.
-You will receive a game title and a short description of the game's theme and mood.
-Your task is to produce a complete theme specification for the game, covering images, labels, colors, and a tagline.
+    const prompt = `You are a formatting-strict generator. Output ONLY valid minified JSON that matches the schema below. Do not include markdown, comments, explanations, or extra fields. Be deterministic and avoid placeholders.
 
-Respond **strictly in JSON** with the following keys:
+Schema (all keys required):
 {
-  "cardBack": "…",      // description of the card back image
-  "suitIcons": {             // four simple icons, one per suit
-    "hearts": "…",
-    "diamonds": "…",
-    "clubs": "…",
-    "spades": "…"
-  },
-  "heroImage": "…",      // description of the hero/banner image
-  "stackCategories": ["…","…","…","…"],  // four stack names
-  "scoringLabels": {         // playful names for score & fumbles
-    "score": "…",
-    "fumbles": "…"
-  },
-  "colors": ["…","…","…"], // up to six hex codes that match the theme
-  "tagline": "…"        // a short, catchy tagline
+"name": "<string>",
+"tagline": "<string>",
+"stackLabels": ["<string>","<string>","<string>","<string>"],
+"scoringLabels": { "score": "<string>", "fumble": "<string>" },
+"colors": {
+"background": "<#RRGGBB>",
+"surface": "<#RRGGBB>",
+"primary": "<#RRGGBB>",
+"secondary": "<#RRGGBB>",
+"accent": "<#RRGGBB>",
+"textPrimary": "<#RRGGBB>",
+"textSecondary": "<#RRGGBB>"
+},
+"imageDescriptions": {
+"heroImage": "<string>",
+"cardBack": "<string>",
+"suitIcons": {
+"hearts": "<string>",
+"diamonds": "<string>",
+"clubs": "<string>",
+"spades": "<string>"
+}
+}
 }
 
-Guidelines:
-1. **Card back** – Describe the central emblem or motif for the backs of all cards. It should encapsulate the theme and work well as a repeating pattern. Mention style and palette.
-2. **Suit icons** – Describe four emoji‑like symbols that replace hearts, diamonds, clubs and spades. Each icon should connect directly to the theme and be rendered in a consistent style.
-3. **Hero image** – Describe an eye‑catching hero/banner image for the main screen. It should show the energy of Blitz 21 and include the game title integrated into the design.
-4. **Stack categories** – Provide four playful stack names (1–2 words) relevant to the theme.
-5. **Scoring labels** – Provide two short, energetic phrases for score and fumbles counters.
-6. **Colors** – Suggest up to six hex color codes that reflect the theme and work well together for UI elements.
-7. **Tagline** – Craft a short, motivational tagline (1–2 sentences) encouraging players to stack cards in the spirit of the theme.
+Content constraints:
 
-Now generate the theme specification for the following:
-Game Title: ${title}
-Description: ${description}`;
+Theme: ${title}; mood: ${description}.
 
-    const hf = new HfInference(huggingFaceApiKey);
+Use a Nets palette (black/white/silver + Nets blue #0072CE).
 
-    console.log('Using Hugging Face API key:', huggingFaceApiKey ? 'Key present' : 'Key missing');
+No generic labels like "Stack 1". Keep phrases short, punchy, game-y.
+
+Card back: mention central emblem/motif and repeatable pattern.
+
+Suit icons: four emoji-like symbols tied to basketball, consistent style.
+
+Hero image: dynamic arena moment; integrate the game title visually.
+
+Generate now for:
+Title: ${title}
+Mood: ${description}
+
+Return exactly one JSON object (minified).`;
+
+    console.log('Using OpenAI API key:', openAIApiKey ? 'Key present' : 'Key missing');
 
     let parsedTheme;
     
     try {
-      const response = await hf.textGeneration({
-        model: 'microsoft/DialoGPT-medium',
-        inputs: prompt,
-        parameters: {
-          max_new_tokens: 1000,
-          return_full_text: false,
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${openAIApiKey}`,
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: [
+            { role: 'system', content: 'You are a strict JSON generator. Output only valid minified JSON with no additional text, comments, or markdown.' },
+            { role: 'user', content: prompt }
+          ],
+          max_tokens: 1000,
+          temperature: 0.1,
+        }),
       });
 
-      console.log('Hugging Face response:', response);
-
-      if (!response || !response.generated_text) {
-        throw new Error('No generated text received from Hugging Face');
+      if (!response.ok) {
+        throw new Error(`OpenAI API error: ${response.status} ${response.statusText}`);
       }
 
-      const generatedContent = response.generated_text;
+      const data = await response.json();
+      console.log('OpenAI response:', data);
+
+      if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+        throw new Error('No message received from OpenAI');
+      }
+
+      const generatedContent = data.choices[0].message.content.trim();
       console.log('Generated content:', generatedContent);
 
-      // Parse the JSON response from Hugging Face
+      // Parse the JSON response from OpenAI
       try {
         parsedTheme = JSON.parse(generatedContent);
+        console.log('Successfully parsed AI response:', parsedTheme);
       } catch (e) {
-        console.error('Failed to parse Hugging Face response as JSON:', generatedContent);
-        // Fallback to a mock response for now
-        parsedTheme = {
-          cardBack: `A modern design with ${title} theme elements`,
-          suitIcons: {
-            hearts: "themed heart icon",
-            diamonds: "themed diamond icon", 
-            clubs: "themed club icon",
-            spades: "themed spade icon"
-          },
-          heroImage: `Dynamic ${title} themed hero image`,
-          stackCategories: ["Stack 1", "Stack 2", "Stack 3", "Stack 4"],
-          scoringLabels: { score: "Points", fumbles: "Misses" },
-          colors: ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FFEAA7", "#DDA0DD"],
-          tagline: `Experience the excitement of ${title}!`
-        };
+        console.error('Failed to parse OpenAI response as JSON:', generatedContent);
+        throw new Error(`Failed to parse AI response as JSON: ${e.message}`);
       }
-    } catch (hfError) {
-      console.error('Hugging Face API error:', hfError);
-      // Fallback to a mock response
+    } catch (aiError) {
+      console.error('AI API error:', aiError);
+      // Return the exact schema format as fallback
       parsedTheme = {
-        cardBack: `A modern design with ${title} theme elements`,
-        suitIcons: {
-          hearts: "themed heart icon",
-          diamonds: "themed diamond icon", 
-          clubs: "themed club icon",
-          spades: "themed spade icon"
+        name: title || 'Brooklyn Nets',
+        tagline: 'Stack cards, score wins, feel the net rush!',
+        stackLabels: ['Dunk Zone', 'Fast Break', 'Triple Threat', 'Buzzer Beat'],
+        scoringLabels: { score: 'Buckets', fumble: 'Turnovers' },
+        colors: {
+          background: '#F8F9FA',
+          surface: '#FFFFFF',
+          primary: '#0072CE',
+          secondary: '#000000',
+          accent: '#C0C0C0',
+          textPrimary: '#000000',
+          textSecondary: '#6B7280'
         },
-        heroImage: `Dynamic ${title} themed hero image`,
-        stackCategories: ["Stack 1", "Stack 2", "Stack 3", "Stack 4"],
-        scoringLabels: { score: "Points", fumbles: "Misses" },
-        colors: ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FFEAA7", "#DDA0DD"],
-        tagline: `Experience the excitement of ${title}!`
+        imageDescriptions: {
+          heroImage: 'Dynamic Brooklyn Nets arena with electric atmosphere, players in mid-action with game title "Brooklyn Nets Blitz 21" prominently displayed in arena lighting',
+          cardBack: 'Repeating pattern of interlocking Brooklyn Nets logos in black and silver with blue #0072CE accents, geometric basketball court lines creating modern tessellation',
+          suitIcons: {
+            hearts: 'Basketball emoji-style icon in Nets colors',
+            diamonds: 'Championship trophy emoji-style icon in gold',
+            clubs: 'Basketball hoop emoji-style icon in black/silver',
+            spades: 'Player jersey emoji-style icon in team colors'
+          }
+        }
       };
     }
 
-    // Transform the AI response to match our theme structure
-    const themeConfig = {
-      name: title || 'Generated Theme',
-      tagline: parsedTheme.tagline,
-      stackLabels: parsedTheme.stackCategories || ['Stack A', 'Stack B', 'Stack C', 'Stack D'],
-      scoringLabels: {
-        score: parsedTheme.scoringLabels?.score || 'Score',
-        fumble: parsedTheme.scoringLabels?.fumbles || 'Fumbles'
-      },
-      colors: {
-        background: parsedTheme.colors?.[0] || '#FFF5F8',
-        surface: parsedTheme.colors?.[1] || '#FFFFFF',
-        primary: parsedTheme.colors?.[2] || '#D946EF',
-        secondary: parsedTheme.colors?.[3] || '#F9A8D4',
-        accent: parsedTheme.colors?.[4] || '#F472B6',
-        textPrimary: parsedTheme.colors?.[5] || '#1F2937',
-        textSecondary: '#6B7280',
-      },
-      // Store image descriptions for future use
-      imageDescriptions: {
-        heroImage: parsedTheme.heroImage,
-        cardBack: parsedTheme.cardBack,
-        suitIcons: parsedTheme.suitIcons
-      }
-    };
+    // Return the theme exactly as generated (no transformation needed since schema matches)
+    const themeConfig = parsedTheme;
 
     return new Response(JSON.stringify({ 
       success: true, 
