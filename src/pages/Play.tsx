@@ -13,11 +13,13 @@ import { ArrowLeft } from 'lucide-react';
 import { bestTotal } from '@/lib/blackjack';
 import { GAME_CONSTANTS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
+import { useTheme } from '@/theme/ThemeContext';
 const Play = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const seed = searchParams.get('seed') || undefined;
   const settings = loadSettings();
+  const { theme } = useTheme();
   const [focusedElement, setFocusedElement] = useState<string | number | null>(null);
   const [hoveredStack, setHoveredStack] = useState<number | null>(null);
   const [gameEffects, setGameEffects] = useState<{
@@ -93,7 +95,7 @@ const Play = () => {
             <h1 className="text-3xl font-extralight text-left">Stack your cards like Taylor stacks her eras.</h1>
           </div>
           <div className="tsw-hero__image">
-            <img src="/TSWIZBANNER.png" alt="Taylor QB pose" />
+            <img src={theme.heroTitleImageUrl || "/TSWIZBANNER.png"} alt="Taylor QB pose" />
           </div>
         </div>
       </section>
@@ -101,7 +103,7 @@ const Play = () => {
       {/* Floating HUD */}
       <div className="tsw-hud">
         <div className="hud-chip">
-          <span className="label">Score</span>
+          <span className="label">{theme.scoringLabels?.score || 'Score'}</span>
           <span className="value green text-2xl font-bold" id="hudScore">{gameState.score}</span>
         </div>
         <div className="hud-chip">
@@ -148,7 +150,7 @@ const Play = () => {
               <div className="mt-4 space-y-1 text-gray-700">
                 <div><span className="font-bold">Final Score:</span> <span className="font-bold text-primary">{gameState.score}</span></div>
                 <div>Scores: {gameState.clears}</div>
-                <div>Fumbles: {gameState.busts}</div>
+                <div>{theme.scoringLabels?.fumble || 'Fumbles'}: {gameState.busts}</div>
               </div>
               <ScoreBreakdown gameState={gameState} />
             </div>

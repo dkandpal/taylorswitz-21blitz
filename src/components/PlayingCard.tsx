@@ -1,7 +1,8 @@
 import { Card } from '@/lib/types';
 import { getCardName } from '@/lib/blackjack';
 import { cn } from '@/lib/utils';
-const cardBackImage = '/card-back-taylor-swift.jpg';
+import { useTheme } from '@/theme/ThemeContext';
+import { useSuitIcon } from '@/theme/useSuitIcon';
 
 interface PlayingCardProps {
   card?: Card;
@@ -18,6 +19,9 @@ export function PlayingCard({
   className,
   onClick 
 }: PlayingCardProps) {
+  const { theme } = useTheme();
+  const { iconFor } = useSuitIcon();
+  
   // Get suit-specific color class
   const getSuitColor = (suit: string) => {
     switch (suit) {
@@ -30,6 +34,7 @@ export function PlayingCard({
   };
   
   const suitColor = card ? getSuitColor(card.suit) : 'text-card-foreground';
+  const cardBackImage = theme.cardBackUrl || '/card-back-taylor-swift.jpg';
   
   if (faceDown) {
     console.log('Rendering face down card with image:', cardBackImage);
@@ -115,7 +120,7 @@ export function PlayingCard({
         suitColor
       )}>
         <div className="font-bold truncate">{card.rank}</div>
-        <div className={small ? "text-xs" : "text-sm"}>{card.suit}</div>
+        <div className={small ? "text-xs" : "text-sm"}>{iconFor(card.suit)}</div>
       </div>
       
       {/* Center suit (larger cards only) */}
@@ -125,7 +130,7 @@ export function PlayingCard({
           small ? "text-lg" : "text-xl",
           suitColor
         )}>
-          {card.suit}
+          {iconFor(card.suit)}
         </div>
       )}
       
@@ -135,7 +140,7 @@ export function PlayingCard({
         suitColor
       )}>
         <div className="font-bold truncate">{card.rank}</div>
-        <div className={small ? "text-xs" : "text-sm"}>{card.suit}</div>
+        <div className={small ? "text-xs" : "text-sm"}>{iconFor(card.suit)}</div>
       </div>
     </div>
   );

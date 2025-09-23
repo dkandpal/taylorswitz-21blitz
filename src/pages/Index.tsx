@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PlayingCard } from '@/components/PlayingCard';
 import { GAME_CONSTANTS } from '@/lib/constants';
-import { Play, HelpCircle, Settings as SettingsIcon, Trophy, Timer, Infinity } from 'lucide-react';
+import { Play, HelpCircle, Settings as SettingsIcon, Trophy, Timer, Infinity, Palette } from 'lucide-react';
 const Index = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -36,6 +36,10 @@ const Index = () => {
     } else {
       navigate('/how-to-play');
     }
+  };
+
+  const handleQuickPlay = () => {
+    navigate('/play');
   };
   return <div className="min-h-screen flex flex-col items-center justify-center p-4">
       <div className="max-w-4xl w-full space-y-8">
@@ -71,10 +75,31 @@ const Index = () => {
 
         {/* Main CTA */}
         <div className="text-center">
-          <Button onClick={handlePlay} size="lg" className="text-xl px-8 py-6 bg-hotPink text-hotPink-foreground hover:scale-105 transition-transform hover:bg-hotPink/90">
-            <Play className="w-6 h-6 mr-2" />
-            Play Now
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              onClick={handleQuickPlay} 
+              size="lg" 
+              className="bg-hotPink text-hotPink-foreground hover:bg-hotPink/90"
+            >
+              <Play className="mr-2 h-5 w-5" />
+              Quick Play
+            </Button>
+            
+            <div className="flex gap-2 justify-center">
+              <Button onClick={() => navigate('/how-to-play')} variant="outline" size="lg">
+                <HelpCircle className="mr-2 h-4 w-4" />
+                How to Play
+              </Button>
+              <Button onClick={() => navigate('/leaderboard')} variant="outline" size="lg">
+                <Trophy className="mr-2 h-4 w-4" />
+                Leaderboard
+              </Button>
+              <Button onClick={() => navigate('/theme')} variant="outline" size="lg">
+                <Palette className="mr-2 h-4 w-4" />
+                Customize Theme
+              </Button>
+            </div>
+          </div>
         </div>
 
 
