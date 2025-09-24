@@ -55,7 +55,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     // Load theme from Supabase on mount
     const loadInitialTheme = async () => {
       const savedThemeId = localStorage.getItem('activeThemeId');
-      if (savedThemeId) {
+      
+      // Only load saved theme if user has explicitly set one
+      // For brand new sessions, start with default theme
+      if (savedThemeId && savedThemeId !== 'default') {
         try {
           const { getTheme } = await import('@/lib/themeStorage');
           const themeData = await getTheme(savedThemeId);
@@ -71,8 +74,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         }
       }
       
-      // Apply default theme if no saved theme
-      applyThemeVariables(theme);
+      // Apply default theme for new sessions or if saved theme fails
+      setThemeState(defaultTheme);
+      applyThemeVariables(defaultTheme);
     };
 
     loadInitialTheme();
