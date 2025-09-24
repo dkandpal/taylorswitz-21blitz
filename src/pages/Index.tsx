@@ -43,12 +43,30 @@ const Index = () => {
   };
   return <div className="min-h-screen flex flex-col items-center justify-center p-4">
       <div className="max-w-4xl w-full space-y-8">
-        {/* Header with banner image */}
+        {/* Header with side-by-side layout */}
         <div className="text-center space-y-6">
-          <div className="flex justify-center mb-6">
-            <img src="/hero-diagram.png" alt="21 Blitz Game Diagram" className="max-w-full h-auto max-h-48 sm:max-h-64 lg:max-h-80 xl:max-h-96 object-contain rounded-lg" />
+          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-8 mb-6">
+            {/* Headline Box - stacks on top on mobile, left side on desktop */}
+            <div className="flex-1 lg:max-w-md">
+              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-8 shadow-lg border border-gray-200">
+                <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">21 Blitz Maker</h1>
+                <p className="text-lg lg:text-xl text-gray-700">
+                  Create stacks of 21 without busting!
+                </p>
+              </div>
+            </div>
+            
+            {/* Hero Image - bottom on mobile, right side on desktop */}
+            <div className="flex-1 flex justify-center mt-6 lg:mt-0">
+              <img 
+                src="/hero-diagram.png" 
+                alt="21 Blitz Game Diagram" 
+                className="max-w-full h-auto max-h-48 sm:max-h-64 lg:max-h-80 xl:max-h-96 object-contain rounded-lg shadow-lg" 
+              />
+            </div>
           </div>
           
+          {/* Sample Cards */}
           <div className="flex justify-center items-center space-x-4 mb-6">
             {sampleCards.map((card, index) => <div key={index} className="animate-float" style={{
             animationDelay: `${index * 0.2}s`
@@ -64,10 +82,6 @@ const Index = () => {
               </div>
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">21 Blitz Maker</h1>
-          <p className="text-xl text-gray-900 max-w-2xl mx-auto">
-            Create stacks of 21 without busting!
-          </p>
           
           {seed && <Badge variant="outline" className="text-lg px-4 py-2">
               Replaying Seed: {seed}
