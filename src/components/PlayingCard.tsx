@@ -22,9 +22,14 @@ export function PlayingCard({
   const { theme } = useTheme();
   const { iconFor } = useSuitIcon();
   
-  // Get suit-specific color class
+  // Get suit-specific color class - hearts and diamonds are red by default
   const getSuitColor = (suit: string) => {
     switch (suit) {
+      case '♥': return 'text-red-500'; // Red hearts
+      case '♦': return 'text-red-500'; // Red diamonds
+      case '♠': return 'text-gray-900'; // Black spades
+      case '♣': return 'text-gray-900'; // Black clubs
+      // Legacy emoji suits for backward compatibility
       case '🎤': return 'text-yellow-600'; // Golden microphone
       case '❤️': return 'text-red-500'; // Red heart
       case '✍️': return 'text-amber-700'; // Sepia quill
