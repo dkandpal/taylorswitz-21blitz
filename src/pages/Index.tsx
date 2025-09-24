@@ -65,7 +65,7 @@ const Index = () => {
             </div>
           </div>
           <p className="text-xl text-gray-900 max-w-2xl mx-auto">
-            Create stacks of 21 without fumbling!
+            Create stacks of 21 without busting!
           </p>
           
           {seed && <Badge variant="outline" className="text-lg px-4 py-2">
