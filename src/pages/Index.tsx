@@ -52,7 +52,7 @@ const Index = () => {
       <div className="max-w-4xl w-full space-y-8">
         {/* Header with side-by-side layout */}
         <div className="text-center space-y-6">
-          <div className="flex flex-col lg:flex-row lg:items-stretch mb-6">
+          <div className="flex flex-col lg:flex-row lg:items-stretch lg:justify-center lg:gap-4 mb-6">
             {/* Headline Box - stacks on top on mobile, left side on desktop */}
             <div className="flex-1 lg:max-w-md">
               <div className="bg-white/80 backdrop-blur-sm rounded-xl p-8 shadow-lg border border-gray-200 h-full flex flex-col justify-center text-right">
@@ -64,7 +64,7 @@ const Index = () => {
             </div>
             
             {/* Hero Image - bottom on mobile, right side on desktop */}
-            <div className="flex-1 flex justify-start mt-6 lg:mt-0">
+            <div className="flex justify-start mt-6 lg:mt-0">
               <img 
                 src="/lovable-uploads/5fe48950-002d-4922-acd1-a62494376a34.png" 
                 alt="21 Blitz Game Diagram" 
