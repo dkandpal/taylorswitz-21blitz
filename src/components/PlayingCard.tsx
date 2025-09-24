@@ -33,7 +33,7 @@ export function PlayingCard({
       case '🎤': return 'text-yellow-600'; // Golden microphone
       case '❤️': return 'text-red-500'; // Red heart
       case '✍️': return 'text-amber-700'; // Sepia quill
-      case '✨': return 'text-pink-400'; // Pastel pink sparkle
+      case '✨': return 'text-green-400'; // Light green sparkle
       default: return 'text-card-foreground';
     }
   };

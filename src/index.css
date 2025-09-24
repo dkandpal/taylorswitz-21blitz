@@ -49,9 +49,13 @@ All colors MUST be HSL.
     --accent: 217 33% 17%;
     --accent-foreground: 210 40% 98%;
     
-    /* Hot Pink Button */
-    --hot-pink: 322 100% 61%;
+    /* Green Button (was Hot Pink) */
+    --hot-pink: 142 76% 36%;
     --hot-pink-foreground: 0 0% 100%;
+    
+    /* Light Green variant */
+    --light-green: 142 76% 60%;
+    --light-green-foreground: 0 0% 100%;
     
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
