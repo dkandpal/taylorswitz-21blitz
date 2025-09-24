@@ -48,7 +48,7 @@ const Index = () => {
           <div className="flex flex-col lg:flex-row lg:items-stretch mb-6">
             {/* Headline Box - stacks on top on mobile, left side on desktop */}
             <div className="flex-1 lg:max-w-md">
-              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-8 shadow-lg border border-gray-200 h-full flex flex-col justify-center">
+              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-8 shadow-lg border border-gray-200 h-full flex flex-col justify-center text-right">
                 <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">21 Blitz Maker</h1>
                 <p className="text-lg lg:text-xl text-gray-700">
                   Create stacks of 21 without busting!
