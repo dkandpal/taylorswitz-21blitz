@@ -41,10 +41,13 @@ const Index = () => {
   const handleQuickPlay = () => {
     navigate('/play');
   };
-  return <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-green-800 via-green-700 to-green-900" style={{
-    backgroundImage: `radial-gradient(circle at 25% 25%, rgba(255,255,255,0.02) 1px, transparent 1px),
-                      radial-gradient(circle at 75% 75%, rgba(255,255,255,0.02) 1px, transparent 1px)`,
-    backgroundSize: '24px 24px, 32px 32px'
+  return <div className="min-h-screen flex flex-col items-center justify-center p-4" style={{
+    background: `
+      radial-gradient(circle at 25% 25%, rgba(255,255,255,0.02) 1px, transparent 1px),
+      radial-gradient(circle at 75% 75%, rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(135deg, #1a472a, #22543d, #2d5a41, #1e3a2e)
+    `,
+    backgroundSize: '24px 24px, 32px 32px, 100% 100%'
   }}>
       <div className="max-w-4xl w-full space-y-8">
         {/* Header with side-by-side layout */}
