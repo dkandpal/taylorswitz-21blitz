@@ -15,17 +15,17 @@ const HowToPlay = () => {
   // Sample cards for demonstration
   const sampleCards = [{
     rank: 'A',
-    suit: '🎤',
+    suit: '♠',
     value10: 1,
     isAce: true
   }, {
     rank: 'K',
-    suit: '❤️',
+    suit: '♥',
     value10: 10,
     isAce: false
   }, {
     rank: '10',
-    suit: '✨',
+    suit: '♦',
     value10: 10,
     isAce: false
   }] as const;
@@ -54,9 +54,9 @@ const HowToPlay = () => {
           </div>
           
           <h1 className="text-4xl font-bold text-gray-900">
-            How to Play Blitz 21
+            How to Play 21 Blitz
           </h1>
-          <p className="text-lg text-gray-900">Channel your inner mastermind 💅 {theme.tagline || "stack your cards like Taylor stacks her eras."}</p>
+          <p className="text-lg text-gray-900">Master the art of stacking cards to 21 without busting!</p>
         </div>
 
         {/* Instructions Grid */}

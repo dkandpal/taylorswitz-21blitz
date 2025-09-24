@@ -92,10 +92,10 @@ const Play = () => {
       <section className="tsw-hero">
         <div className="tsw-hero__inner">
           <div className="tsw-hero__title">
-            <h1 className="text-3xl font-extralight text-left">{theme.tagline || "Stack your cards like Taylor stacks her eras."}</h1>
+            <h1 className="text-3xl font-extralight text-left">{theme.tagline || "Create stacks of 21 without busting!"}</h1>
           </div>
           <div className="tsw-hero__image">
-            <img src={theme.heroTitleImageUrl || "/TSWIZBANNER.png"} alt="Taylor QB pose" />
+            <img src={theme.heroTitleImageUrl || "/hero-diagram.png"} alt="21 Blitz Game Layout" />
           </div>
         </div>
       </section>

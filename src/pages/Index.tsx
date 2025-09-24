@@ -13,20 +13,20 @@ const Index = () => {
   const seed = searchParams.get('seed');
   const [showHowToPlay, setShowHowToPlay] = useState(false);
 
-  // Sample cards for visual appeal
+  // Sample cards for visual appeal with traditional suits
   const sampleCards = [{
     rank: 'A',
-    suit: '🎤',
+    suit: '♠',
     value10: 1,
     isAce: true
   }, {
     rank: 'K',
-    suit: '❤️',
+    suit: '♥',
     value10: 10,
     isAce: false
   }, {
     rank: '10',
-    suit: '✨',
+    suit: '♦',
     value10: 10,
     isAce: false
   }] as const;
@@ -46,7 +46,7 @@ const Index = () => {
         {/* Header with banner image */}
         <div className="text-center space-y-6">
           <div className="flex justify-center mb-6">
-            <img src="/TSWIZBANNER.png" alt="Taylor's Wiz Banner" className="max-w-full h-auto max-h-48 sm:max-h-64 lg:max-h-80 xl:max-h-96 object-contain rounded-lg" />
+            <img src="/hero-diagram.png" alt="21 Blitz Game Diagram" className="max-w-full h-auto max-h-48 sm:max-h-64 lg:max-h-80 xl:max-h-96 object-contain rounded-lg" />
           </div>
           
           <div className="flex justify-center items-center space-x-4 mb-6">
@@ -60,10 +60,11 @@ const Index = () => {
             animationDelay: `${sampleCards.length * 0.2}s`
           }}>
               <div className="w-24 h-32 rounded-lg overflow-hidden shadow-lg">
-                <img src="/card-back-taylor-swift.jpg" alt="Card Back" className="w-full h-full object-cover" />
+                <img src="/generic-card-back.png" alt="Generic Card Back" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">21 Blitz Maker</h1>
           <p className="text-xl text-gray-900 max-w-2xl mx-auto">
             Create stacks of 21 without busting!
           </p>

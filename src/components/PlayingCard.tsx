@@ -34,7 +34,7 @@ export function PlayingCard({
   };
   
   const suitColor = card ? getSuitColor(card.suit) : 'text-card-foreground';
-  const cardBackImage = theme.cardBackUrl || '/card-back-taylor-swift.jpg';
+  const cardBackImage = theme.cardBackUrl || '/generic-card-back.png';
   
   if (faceDown) {
     console.log('Rendering face down card with image:', cardBackImage);
@@ -59,7 +59,7 @@ export function PlayingCard({
       >
         <img 
           src={cardBackImage} 
-          alt="Card back - Ghibli style Taylor Swift"
+          alt="Generic Card Back"
           className="w-full h-full object-cover rounded-lg opacity-0"
           onError={(e) => {
             console.error('Failed to load card back image:', e);

@@ -1,15 +1,16 @@
 import { ThemeConfig } from './types';
 
 export const defaultTheme: ThemeConfig = {
-  name: 'Default Theme',
-  tagline: 'Stack your cards like Taylor stacks her eras.',
+  name: '21 Blitz Maker',
+  tagline: 'Create stacks of 21 without busting!',
   suitIcons: {
-    hearts: '❤️',
-    diamonds: '✨', 
-    clubs: '✍️',
-    spades: '🎤'
+    hearts: '♥',
+    diamonds: '♦', 
+    clubs: '♣',
+    spades: '♠'
   },
-  heroTitleImageUrl: '/TSWIZBANNER.png',
+  heroTitleImageUrl: '/hero-diagram.png',
+  cardBackUrl: '/generic-card-back.png',
   stackLabels: ['Stack 1', 'Stack 2', 'Stack 3', 'Stack 4'],
   scoringLabels: {
     score: 'Score',

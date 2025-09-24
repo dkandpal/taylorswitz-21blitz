@@ -213,7 +213,7 @@ const Theme = () => {
   // Mock card for preview
   const mockCard = {
     rank: 'A' as const,
-    suit: '❤️' as const,
+    suit: '♠' as const,
     value10: 1,
     isAce: true
   };
