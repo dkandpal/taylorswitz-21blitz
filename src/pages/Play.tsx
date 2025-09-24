@@ -95,7 +95,7 @@ const Play = () => {
             <h1 className="text-3xl font-extralight text-left">{theme.tagline || "Create stacks of 21 without busting!"}</h1>
           </div>
           <div className="tsw-hero__image">
-            <img src={theme.heroTitleImageUrl || "/hero-diagram.png"} alt="21 Blitz Game Layout" />
+            <img src={theme.heroTitleImageUrl || "/lovable-uploads/5fe48950-002d-4922-acd1-a62494376a34.png"} alt="21 Blitz Game Layout" />
           </div>
         </div>
       </section>

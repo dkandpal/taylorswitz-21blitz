@@ -59,7 +59,7 @@ const Index = () => {
             {/* Hero Image - bottom on mobile, right side on desktop */}
             <div className="flex-1 flex justify-center mt-6 lg:mt-0">
               <img 
-                src="/hero-diagram.png" 
+                src="/lovable-uploads/5fe48950-002d-4922-acd1-a62494376a34.png" 
                 alt="21 Blitz Game Diagram" 
                 className="max-w-full h-auto max-h-48 sm:max-h-64 lg:max-h-80 xl:max-h-96 object-contain rounded-lg shadow-lg" 
               />

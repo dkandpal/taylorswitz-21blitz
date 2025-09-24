@@ -9,7 +9,7 @@ export const defaultTheme: ThemeConfig = {
     clubs: '♣',
     spades: '♠'
   },
-  heroTitleImageUrl: '/hero-diagram.png',
+  heroTitleImageUrl: '/lovable-uploads/5fe48950-002d-4922-acd1-a62494376a34.png',
   cardBackUrl: '/generic-card-back.png',
   stackLabels: ['Stack 1', 'Stack 2', 'Stack 3', 'Stack 4'],
   scoringLabels: {
