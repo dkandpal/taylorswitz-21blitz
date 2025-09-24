@@ -80,7 +80,14 @@ const Play = () => {
   const handleElementFocus = (element: string | number | null) => {
     setFocusedElement(element);
   };
-  return <div className={cn("min-h-screen flex flex-col transition-all duration-300", gameEffects.shakeContainer && "container-shake", gameEffects.showRedFlash && "red-flash")}>
+  return <div className={cn("min-h-screen flex flex-col transition-all duration-300", gameEffects.shakeContainer && "container-shake", gameEffects.showRedFlash && "red-flash")} style={{
+    background: `
+      radial-gradient(circle at 25% 25%, rgba(255,255,255,0.02) 1px, transparent 1px),
+      radial-gradient(circle at 75% 75%, rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(135deg, #1a472a, #22543d, #2d5a41, #1e3a2e)
+    `,
+    backgroundSize: '24px 24px, 32px 32px, 100% 100%'
+  }}>
       {/* Confetti overlay */}
       {gameEffects.showConfetti && <div className="fixed inset-0 pointer-events-none z-50">
           <div className="confetti-burst text-6xl text-center pt-20">
