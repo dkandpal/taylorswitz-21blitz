@@ -103,67 +103,6 @@ const Index = () => {
         </div>
 
 
-        {/* Action buttons */}
-        <div className="flex flex-wrap justify-center gap-4">
-          <Dialog open={showHowToPlay} onOpenChange={setShowHowToPlay}>
-            <DialogTrigger asChild>
-              <Button variant="outline" className="focus-ring">
-                <HelpCircle className="w-4 h-4 mr-2" />
-                How to Play
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle className="text-foreground">How to T-Swizzle 21 Blitz
-              </DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4 text-sm">
-                <div>
-                  <h4 className="font-semibold mb-2 text-foreground">🎯 Objective</h4>
-                  <p className="text-muted-foreground">Draw cards and place them on 4 stacks to make exactly 21. Avoid going over (fumbling)!</p>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold mb-2 text-foreground">🃏 Card Values</h4>
-                  <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                    <li>Numbers 2-10: Face value</li>
-                    <li>Jack, Queen, King: 10 points</li>
-                    <li>Ace: 1 or 11 (automatically optimized)</li>
-                  </ul>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold mb-2 text-foreground">🎮 Gameplay</h4>
-                  <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                    <li>Draw one card at a time from the deck</li>
-                    <li>Place each card on one of 4 stacks (or waste if enabled)</li>
-                    <li>Stack totaling exactly 21 clears and scores points</li>
-                    <li>Stack over 21 fumbles (penalty) and clears</li>
-                  </ul>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold mb-2 text-foreground">🏆 Scoring</h4>
-                  <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                    <li>2-card 21 (Blackjack): +{GAME_CONSTANTS.TWO_CARD_21}</li>
-                    <li>3-card 21: +{GAME_CONSTANTS.THREE_CARD_21}</li>
-                    <li>4+ card 21: +{GAME_CONSTANTS.FOUR_PLUS_CARD_21}</li>
-                    <li>Streak bonus: +{GAME_CONSTANTS.STREAK_BONUS} per consecutive clear</li>
-                    <li>Time bonus: +{GAME_CONSTANTS.TIME_BONUS_PER_SECOND} per second remaining</li>
-                    <li>Bust penalty: {GAME_CONSTANTS.BUST_PENALTY}</li>
-                  </ul>
-                </div>
-                
-              </div>
-            </DialogContent>
-          </Dialog>
-
-          <Button variant="outline" onClick={() => navigate('/leaderboard')} className="focus-ring">
-            <Trophy className="w-4 h-4 mr-2" />
-            Leaderboard
-          </Button>
-          
-        </div>
       </div>
     </div>;
 };
