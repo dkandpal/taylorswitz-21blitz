@@ -97,36 +97,32 @@ const Index = () => {
 
         {/* Main CTA */}
         <div className="text-center">
-          <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
             {/* Top row: Quick Play and Customize Theme */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                onClick={handleQuickPlay} 
-                size="lg" 
-                className="bg-hotPink text-hotPink-foreground hover:bg-hotPink/90"
-              >
-                <Play className="mr-2 h-5 w-5" />
-                Quick Play
-              </Button>
-              
-              <Button onClick={() => navigate('/theme')} variant="outline" size="lg">
-                <Palette className="mr-2 h-4 w-4" />
-                Customize Theme
-              </Button>
-            </div>
+            <Button 
+              onClick={handleQuickPlay} 
+              size="lg" 
+              className="bg-hotPink text-hotPink-foreground hover:bg-hotPink/90 w-full"
+            >
+              <Play className="mr-2 h-5 w-5" />
+              Quick Play
+            </Button>
+            
+            <Button onClick={() => navigate('/theme')} variant="outline" size="lg" className="w-full">
+              <Palette className="mr-2 h-4 w-4" />
+              Customize Theme
+            </Button>
             
             {/* Bottom row: How to Play and Leaderboard */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button onClick={() => navigate('/how-to-play')} variant="outline" size="lg">
-                <HelpCircle className="mr-2 h-4 w-4" />
-                How to Play
-              </Button>
-              
-              <Button onClick={() => navigate('/leaderboard')} variant="outline" size="lg">
-                <Trophy className="mr-2 h-4 w-4" />
-                Leaderboard
-              </Button>
-            </div>
+            <Button onClick={() => navigate('/how-to-play')} variant="outline" size="lg" className="w-full">
+              <HelpCircle className="mr-2 h-4 w-4" />
+              How to Play
+            </Button>
+            
+            <Button onClick={() => navigate('/leaderboard')} variant="outline" size="lg" className="w-full">
+              <Trophy className="mr-2 h-4 w-4" />
+              Leaderboard
+            </Button>
           </div>
         </div>
 
