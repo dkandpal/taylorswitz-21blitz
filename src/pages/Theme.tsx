@@ -244,33 +244,6 @@ const Theme = () => {
           </Button>
         </div>
 
-        {/* Auth and Saved Themes */}
-        <div className="mb-6 space-y-4">
-          <AuthMini />
-          
-          {savedThemes.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Saved Themes</CardTitle>
-                <CardDescription>Load your previously saved themes</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Select onValueChange={loadTheme}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a saved theme..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {savedThemes.map((theme) => (
-                      <SelectItem key={theme.id} value={theme.id}>
-                        {theme.name} - {new Date(theme.updated_at).toLocaleDateString()}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </CardContent>
-            </Card>
-          )}
-        </div>
 
         {/* New AI generator section */}
         <AIThemeGenerator onGenerated={handleGeneratedTheme} />
