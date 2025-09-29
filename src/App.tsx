@@ -10,6 +10,7 @@ import HowToPlay from "./pages/HowToPlay";
 import Leaderboard from "./pages/Leaderboard";
 import NotFound from "./pages/NotFound";
 import Theme from "./pages/Theme";
+import ThemeCustomize from "./pages/ThemeCustomize";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/play" element={<Play />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/theme" element={<Theme />} />
+            <Route path="/theme/customize" element={<ThemeCustomize />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
