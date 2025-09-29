@@ -33,7 +33,7 @@ const Theme = () => {
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Home
             </Button>
-            <h1 className="text-4xl font-bold">Build Your 21 Blitz Game</h1>
+            <h1 className="text-4xl font-bold">21 Blitz Builder</h1>
           </div>
           <Button onClick={() => navigate('/play')} className="bg-gradient-to-r from-primary to-secondary text-white font-semibold px-6 py-2 rounded-lg hover:shadow-lg transition-all">
             Play Game →
