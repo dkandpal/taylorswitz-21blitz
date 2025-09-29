@@ -39,7 +39,7 @@ const HowToPlay = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-brand-gradient">
       <div className="max-w-4xl w-full space-y-8">
         {/* Header */}
         <div className="text-center space-y-4">
@@ -53,48 +53,48 @@ const HowToPlay = () => {
             ))}
           </div>
           
-          <h1 className="text-4xl font-bold text-gray-900">
+          <h1 className="text-4xl font-bold text-brand-text">
             How to Play 21 Blitz
           </h1>
-          <p className="text-lg text-gray-900">Master the art of stacking cards to 21 without busting!</p>
+          <p className="text-lg text-brand-muted">Master the art of stacking cards to 21 without busting!</p>
         </div>
 
         {/* Instructions Grid */}
         <div className="grid md:grid-cols-2 gap-6">
-          <Card className="p-6 border-border">
+          <Card className="p-6 bg-brand-surface border-brand-border shadow-brand-card">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-hotPink/10 flex items-center justify-center">
-                <Target className="w-5 h-5 text-hotPink" />
+              <div className="w-10 h-10 rounded-lg bg-brand-surface2 border border-brand-border flex items-center justify-center">
+                <Target className="w-5 h-5 text-brand-accent" />
               </div>
-              <h3 className="text-xl font-semibold text-black">Objective</h3>
+              <h3 className="text-xl font-semibold text-brand-text">Objective</h3>
             </div>
-            <p className="text-muted-foreground">
+            <p className="text-brand-muted">
               Draw cards and place them on 4 stacks to make exactly 21. Avoid going over (fumbling)!
             </p>
           </Card>
 
-          <Card className="p-6 border-border">
+          <Card className="p-6 bg-brand-surface border-brand-border shadow-brand-card">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-hotPink/10 flex items-center justify-center">
-                <Spade className="w-5 h-5 text-hotPink" />
+              <div className="w-10 h-10 rounded-lg bg-brand-surface2 border border-brand-border flex items-center justify-center">
+                <Spade className="w-5 h-5 text-brand-accent" />
               </div>
-              <h3 className="text-xl font-semibold text-black">Card Values</h3>
+              <h3 className="text-xl font-semibold text-brand-text">Card Values</h3>
             </div>
-            <ul className="space-y-2 text-muted-foreground">
+            <ul className="space-y-2 text-brand-muted">
               <li>• Numbers 2-10: Face value</li>
               <li>• Jack, Queen, King: 10 points</li>
               <li>• Ace: 1 or 11 (automatically optimized)</li>
             </ul>
           </Card>
 
-          <Card className="p-6 border-border">
+          <Card className="p-6 bg-brand-surface border-brand-border shadow-brand-card">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-hotPink/10 flex items-center justify-center">
-                <Gamepad2 className="w-5 h-5 text-hotPink" />
+              <div className="w-10 h-10 rounded-lg bg-brand-surface2 border border-brand-border flex items-center justify-center">
+                <Gamepad2 className="w-5 h-5 text-brand-accent" />
               </div>
-              <h3 className="text-xl font-semibold text-black">Gameplay</h3>
+              <h3 className="text-xl font-semibold text-brand-text">Gameplay</h3>
             </div>
-            <ul className="space-y-2 text-muted-foreground">
+            <ul className="space-y-2 text-brand-muted">
               <li>• Draw one card at a time from the deck</li>
               <li>• Place each card on one of 4 stacks</li>
               <li>• Stack totaling exactly 21 clears and scores points</li>
@@ -102,14 +102,14 @@ const HowToPlay = () => {
             </ul>
           </Card>
 
-          <Card className="p-6 border-border">
+          <Card className="p-6 bg-brand-surface border-brand-border shadow-brand-card">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-hotPink/10 flex items-center justify-center">
-                <Trophy className="w-5 h-5 text-hotPink" />
+              <div className="w-10 h-10 rounded-lg bg-brand-surface2 border border-brand-border flex items-center justify-center">
+                <Trophy className="w-5 h-5 text-brand-accent" />
               </div>
-              <h3 className="text-xl font-semibold text-black">Scoring</h3>
+              <h3 className="text-xl font-semibold text-brand-text">Scoring</h3>
             </div>
-            <ul className="space-y-2 text-muted-foreground">
+            <ul className="space-y-2 text-brand-muted">
               <li>• 2-card 21 (Blackjack): +{GAME_CONSTANTS.TWO_CARD_21}</li>
               <li>• 3-card 21: +{GAME_CONSTANTS.THREE_CARD_21}</li>
               <li>• 4+ card 21: +{GAME_CONSTANTS.FOUR_PLUS_CARD_21}</li>
@@ -122,7 +122,7 @@ const HowToPlay = () => {
 
         {/* Action buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Button onClick={handleStartGame} size="lg" className="text-xl px-8 py-6 bg-hotPink text-hotPink-foreground hover:scale-105 transition-transform hover:bg-hotPink/90">
+          <Button onClick={handleStartGame} size="lg" className="text-xl px-8 py-6 bg-btn-primary text-btn-primaryText hover:brightness-95 transition-all">
             <Play className="w-6 h-6 mr-2" />
             Start Playing
           </Button>

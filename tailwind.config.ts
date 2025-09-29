@@ -19,6 +19,29 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        
+        // Brand color system
+        brand: {
+          bg: "hsl(var(--brand-bg))",
+          surface: "hsl(var(--brand-surface))",
+          surface2: "hsl(var(--brand-surface-2))",
+          accent: "hsl(var(--brand-accent))",
+          accent2: "hsl(var(--brand-accent-2))",
+          text: "hsl(var(--brand-text))",
+          muted: "hsl(var(--brand-muted))",
+          border: "hsl(var(--brand-border))",
+        },
+        
+        // Button tokens
+        btn: {
+          primary: "hsl(var(--btn-primary-bg))",
+          primaryText: "hsl(var(--btn-primary-text))",
+          danger: "hsl(var(--btn-danger-bg))",
+          dangerText: "hsl(var(--btn-danger-text))",
+          neutral: "hsl(var(--btn-neutral-bg))",
+          neutralText: "hsl(var(--btn-neutral-text))",
+        },
+        
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -114,12 +137,14 @@ export default {
         "gradient-primary": "var(--gradient-primary)",
         "gradient-surface": "var(--gradient-surface)",
         "gradient-card": "var(--gradient-card)",
+        "brand-gradient": "linear-gradient(180deg, hsl(var(--brand-gradient-from)), hsl(var(--brand-gradient-to)))",
       },
       boxShadow: {
         "card": "var(--shadow-card)",
         "success": "var(--shadow-success)",
         "danger": "var(--shadow-danger)",
         "warning": "var(--shadow-warning)",
+        "brand-card": "0 8px 20px hsl(var(--brand-bg) / 0.25)",
       },
     },
   },

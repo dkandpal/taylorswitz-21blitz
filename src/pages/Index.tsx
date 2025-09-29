@@ -40,23 +40,16 @@ const Index = () => {
   const handleQuickPlay = () => {
     navigate('/play');
   };
-  return <div className="min-h-screen flex flex-col items-center justify-center p-4" style={{
-    background: `
-      radial-gradient(circle at 25% 25%, rgba(255,255,255,0.02) 1px, transparent 1px),
-      radial-gradient(circle at 75% 75%, rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(135deg, #1a472a, #22543d, #2d5a41, #1e3a2e)
-    `,
-    backgroundSize: '24px 24px, 32px 32px, 100% 100%'
-  }}>
+  return <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-brand-gradient">
       <div className="max-w-4xl w-full space-y-8">
         {/* Header with side-by-side layout */}
         <div className="text-center space-y-6">
           <div className="flex flex-col lg:flex-row lg:items-stretch lg:justify-center mb-6">
             {/* Headline Box - stacks on top on mobile, left side on desktop */}
             <div className="flex-1 lg:max-w-md">
-              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-8 shadow-lg border border-gray-200 h-full flex flex-col justify-center text-right">
-                <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">21 Blitz Builder</h1>
-                <p className="text-lg lg:text-xl text-gray-700">
+              <div className="bg-brand-surface/90 backdrop-blur-sm rounded-xl p-8 shadow-brand-card border border-brand-border h-full flex flex-col justify-center text-right">
+                <h1 className="text-3xl lg:text-4xl font-bold text-brand-text mb-4">21 Blitz Builder</h1>
+                <p className="text-lg lg:text-xl text-brand-muted">
                   Create stacks of 21 without busting!
                 </p>
               </div>
@@ -94,7 +87,7 @@ const Index = () => {
         <div className="text-center">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
             {/* Top row: Quick Play and Customize Theme */}
-            <Button onClick={handleQuickPlay} size="lg" className="bg-hotPink text-hotPink-foreground hover:bg-hotPink/90 w-full">
+            <Button onClick={handleQuickPlay} size="lg" className="bg-btn-primary text-btn-primaryText hover:brightness-95 transition-all w-full">
               <Play className="mr-2 h-5 w-5" />
               Quick Play
             </Button>
