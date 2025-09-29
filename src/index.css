@@ -8,32 +8,14 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Brand Color System */
-    --brand-bg: 166 100% 7%;        /* #0b1d17 - page background */
-    --brand-surface: 166 64% 17%;   /* #0f2a22 - cards/panels */
-    --brand-surface-2: 166 50% 20%; /* #123227 - subtle alt surface */
-    --brand-accent: 175 91% 34%;    /* #0ea5a3 - accent (replaces pinks) */
-    --brand-accent-2: 168 76% 52%;  /* #2dd4bf - lighter accent for chips/badges */
-    --brand-text: 160 58% 91%;      /* #e6f7f3 - default text on surfaces */
-    --brand-muted: 160 47% 72%;     /* #9fd9cf - secondary text */
-    --brand-border: 166 46% 28%;    /* #1c4c3d */
-    --brand-gradient-from: 166 64% 17%; /* #0f2a22 */
-    --brand-gradient-to: 166 100% 7%;   /* #0b1d17 */
+    /* Game Background */
+    --background: 330 100% 95%;
+    --foreground: 222 47% 11%;
     
-    /* Button tokens */
-    --btn-primary-bg: 142 76% 52%;    /* #22c55e - keep current green */
-    --btn-primary-text: 137 72% 13%;  /* #06210f - near-black on green */
-    --btn-danger-bg: 0 84% 60%;       /* #ef4444 */
-    --btn-danger-text: 0 0% 100%;     /* #fff */
-    --btn-neutral-bg: 215 16% 25%;    /* #374151 */
-    --btn-neutral-text: 0 0% 100%;    /* #fff */
-
-    /* Legacy mappings for compatibility */
-    --background: var(--brand-bg);
-    --foreground: var(--brand-text);
-    --card: var(--brand-surface);
-    --card-foreground: var(--brand-text);
-    --card-shadow: 0 0% 0% / 0.25;
+    /* Game Surface Colors */
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --card-shadow: 222 47% 11% / 0.15;
     
     /* Game Table */
     --game-surface: 220 26% 14%;
@@ -67,13 +49,13 @@ All colors MUST be HSL.
     --accent: 217 33% 17%;
     --accent-foreground: 210 40% 98%;
     
-    /* Brand colors mapped to existing tokens */
-    --hot-pink: var(--brand-accent);
-    --hot-pink-foreground: 0 0% 0%;
+    /* Green Button (was Hot Pink) */
+    --hot-pink: 142 76% 36%;
+    --hot-pink-foreground: 0 0% 100%;
     
-    /* Light brand accent variant */
-    --light-green: var(--brand-accent-2);
-    --light-green-foreground: 0 0% 0%;
+    /* Light Green variant */
+    --light-green: 142 76% 60%;
+    --light-green-foreground: 0 0% 100%;
     
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
@@ -129,16 +111,16 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground font-sans antialiased;
     background: 
-      radial-gradient(circle at 20% 30%, hsl(var(--brand-accent) / 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 70%, hsl(var(--brand-accent-2) / 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 20% 30%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(255, 192, 203, 0.4) 0%, transparent 50%),
       repeating-conic-gradient(from 0deg at 50% 50%, 
         transparent 0deg, 
-        hsl(var(--brand-surface) / 0.8) 15deg, 
+        rgba(139, 69, 19, 0.1) 15deg, 
         transparent 30deg, 
-        hsl(var(--brand-accent) / 0.1) 45deg, 
+        rgba(255, 20, 147, 0.2) 45deg, 
         transparent 60deg
       ),
-      linear-gradient(135deg, hsl(var(--brand-gradient-from)), hsl(var(--brand-gradient-to)));
+      linear-gradient(135deg, hsl(var(--background)), hsl(330 100% 92%));
     background-size: 300px 300px, 400px 400px, 80px 80px, 100% 100%;
     background-position: 0 0, 100px 100px, 40px 40px, 0 0;
     min-height: 100vh;
@@ -428,10 +410,10 @@ All colors MUST be HSL.
     background:linear-gradient(0deg, rgba(255,255,255,.9), rgba(255,255,255,.9));
   }
 
-  /* Brand theme polish */
+  /* Optional Swiftie polish */
   :root{
-    --swift-pink: var(--brand-accent);
-    --swift-lav: var(--brand-accent-2);
+    --swift-pink:#FFC6E6;
+    --swift-lav:#A970FF;
   }
 
   /* Responsive: enforce the 3-line reserve on small screens */
@@ -451,15 +433,15 @@ All colors MUST be HSL.
     .tsw-card-grid{ grid-template-columns: 1fr; }
   }
 
-  /* BRAND HERO & HUD STYLES */
+  /* SWIFTIE HERO & HUD STYLES */
   :root{
-    --swift-pink: var(--brand-accent);
-    --swift-magenta: var(--brand-accent);
-    --swift-lav: var(--brand-accent-2);
-    --ink: var(--brand-bg);
-    --hud-bg: var(--brand-surface);
-    --card: var(--brand-surface);
-    --shadow: 0 10px 30px hsl(var(--brand-bg) / 0.4);
+    --swift-pink:#FF3EB5;
+    --swift-magenta:#E72A8B;
+    --swift-lav:#A970FF;
+    --ink:#0B0F14;
+    --hud-bg:#111820;
+    --card:#FFFFFF;
+    --shadow:0 10px 30px rgba(0,0,0,.12);
   }
 
   /* HERO */
@@ -467,7 +449,7 @@ All colors MUST be HSL.
     width:min(1100px,92vw);
     margin:12px auto 32px;
     border-radius:20px; overflow:hidden;
-    background:linear-gradient(90deg, hsl(var(--brand-accent-2)) 0%, hsl(var(--brand-accent)) 35%, hsl(var(--brand-accent)) 70%, hsl(var(--brand-accent)) 100%);
+    background:linear-gradient(90deg,var(--swift-lav) 0%,#C56BFF 35%,#FF6FB1 70%,var(--swift-pink) 100%);
     box-shadow:var(--shadow);
   }
   .tsw-hero__inner{
@@ -511,7 +493,7 @@ All colors MUST be HSL.
   .hud-chip.code .copy{background:transparent; border:0; cursor:pointer; font-size:16px; line-height:1;}
   .hud-quit{
     margin-left:auto; border:0; color:#fff; font-weight:800; letter-spacing:.3px;
-    background:linear-gradient(180deg, hsl(var(--btn-danger-bg)) 0%, hsl(var(--btn-danger-bg) / 0.8) 100%);
+    background:linear-gradient(180deg,#FF6B82 0%,#FF3B57 100%);
     border-radius:10px; padding:10px 14px;
     box-shadow:0 4px 12px rgba(255,59,87,.35);
     cursor:pointer;
