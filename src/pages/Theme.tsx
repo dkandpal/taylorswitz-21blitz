@@ -5,10 +5,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ArrowLeft } from 'lucide-react';
 import { useTheme } from '@/theme/ThemeContext';
 import AIThemeGenerator from '@/components/AIThemeGenerator';
-
 const Theme = () => {
   const navigate = useNavigate();
-  const { setTheme } = useTheme();
+  const {
+    setTheme
+  } = useTheme();
 
   // Handler to merge the generated config and navigate to customize page
   const handleGeneratedTheme = (config: any) => {
@@ -17,16 +18,14 @@ const Theme = () => {
     // Navigate to the customize page
     navigate('/theme/customize');
   };
-
-  return (
-    <div className="min-h-screen p-4" style={{
-      background: `
+  return <div className="min-h-screen p-4" style={{
+    background: `
         radial-gradient(circle at 25% 25%, rgba(255,255,255,0.02) 1px, transparent 1px),
         radial-gradient(circle at 75% 75%, rgba(255,255,255,0.02) 1px, transparent 1px),
         linear-gradient(135deg, hsl(330, 81%, 96%), hsl(0, 0%, 100%), hsl(330, 81%, 80%))
       `,
-      backgroundSize: '24px 24px, 32px 32px, 100% 100%'
-    }}>
+    backgroundSize: '24px 24px, 32px 32px, 100% 100%'
+  }}>
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
@@ -34,12 +33,9 @@ const Theme = () => {
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Home
             </Button>
-            <h1 className="text-4xl font-bold">Generate Your Theme</h1>
+            <h1 className="text-4xl font-bold">Build Your 21 Blitz Game</h1>
           </div>
-          <Button 
-            onClick={() => navigate('/play')}
-            className="bg-gradient-to-r from-primary to-secondary text-white font-semibold px-6 py-2 rounded-lg hover:shadow-lg transition-all"
-          >
+          <Button onClick={() => navigate('/play')} className="bg-gradient-to-r from-primary to-secondary text-white font-semibold px-6 py-2 rounded-lg hover:shadow-lg transition-all">
             Play Game →
           </Button>
         </div>
@@ -61,18 +57,12 @@ const Theme = () => {
             <p className="text-muted-foreground mb-4">
               After generating your theme, you'll be able to customize images, labels, and styles.
             </p>
-            <Button 
-              variant="outline" 
-              onClick={() => navigate('/theme/customize')}
-              className="text-sm"
-            >
+            <Button variant="outline" onClick={() => navigate('/theme/customize')} className="text-sm">
               Skip to Manual Customization →
             </Button>
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Theme;
