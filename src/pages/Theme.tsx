@@ -219,7 +219,14 @@ const Theme = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4">
+    <div className="min-h-screen p-4" style={{
+      background: `
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,0.02) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(135deg, ${workingTheme.colors?.background || 'hsl(330, 81%, 96%)'}, ${workingTheme.colors?.surface || 'hsl(0, 0%, 100%)'}, ${workingTheme.colors?.secondary || 'hsl(330, 81%, 80%)'})
+      `,
+      backgroundSize: '24px 24px, 32px 32px, 100% 100%'
+    }}>
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
