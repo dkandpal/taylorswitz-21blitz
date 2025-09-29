@@ -43,7 +43,7 @@ const Theme = () => {
         <div className="max-w-2xl mx-auto">
           <Card className="mb-6">
             <CardHeader className="text-center">
-              <CardTitle className="text-2xl">Create with AI</CardTitle>
+              <CardTitle className="text-2xl"></CardTitle>
               <CardDescription className="text-lg">
                 Describe your perfect theme and let AI generate it for you
               </CardDescription>
