@@ -53,14 +53,6 @@ const Theme = () => {
             </CardContent>
           </Card>
 
-          <div className="text-center">
-            <p className="text-muted-foreground mb-4">
-              After generating your theme, you'll be able to customize images, labels, and styles.
-            </p>
-            <Button variant="outline" onClick={() => navigate('/theme/customize')} className="text-sm">
-              Skip to Manual Customization →
-            </Button>
-          </div>
         </div>
       </div>
     </div>;
