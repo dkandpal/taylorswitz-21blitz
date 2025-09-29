@@ -108,9 +108,9 @@ const Index = () => {
               Quick Play
             </Button>
             
-            <Button onClick={() => navigate('/theme')} variant="outline" size="lg" className="w-full">
+            <Button onClick={() => navigate('/theme')} variant="destructive" size="lg" className="w-full">
               <Palette className="mr-2 h-4 w-4" />
-              Customize Theme
+              Build Game
             </Button>
             
             {/* Bottom row: How to Play and Leaderboard */}
