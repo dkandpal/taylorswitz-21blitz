@@ -44,9 +44,7 @@ const Theme = () => {
           <Card className="mb-6">
             <CardHeader className="text-center">
               <CardTitle className="text-2xl"></CardTitle>
-              <CardDescription className="text-lg">
-                Describe your perfect theme and let AI generate it for you
-              </CardDescription>
+              <CardDescription className="text-lg"></CardDescription>
             </CardHeader>
             <CardContent>
               <AIThemeGenerator onGenerated={handleGeneratedTheme} />
