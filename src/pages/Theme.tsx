@@ -251,32 +251,6 @@ const Theme = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left Panel - Controls */}
           <div className="space-y-6">
-            {/* Color Presets */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Color Presets</CardTitle>
-                <CardDescription>Quick apply popular color schemes</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 gap-2">
-                  {themePresets.map((preset) => (
-                    <Button 
-                      key={preset.name}
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => applyPreset(preset)}
-                      className="justify-start"
-                    >
-                      <div 
-                        className="w-4 h-4 rounded-full mr-2"
-                        style={{ backgroundColor: preset.config.colors?.primary }}
-                      />
-                      {preset.name}
-                    </Button>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
 
             {/* Images */}
             <Card>
