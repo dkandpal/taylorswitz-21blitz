@@ -42,11 +42,11 @@ const Theme = () => {
 
         <div className="max-w-2xl mx-auto">
           <Card className="mb-6">
-            <CardHeader className="text-center">
+            <CardHeader className="text-center bg-slate-700">
               <CardTitle className="text-2xl"></CardTitle>
               <CardDescription className="text-lg"></CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="bg-slate-700">
               <AIThemeGenerator onGenerated={handleGeneratedTheme} />
             </CardContent>
           </Card>
