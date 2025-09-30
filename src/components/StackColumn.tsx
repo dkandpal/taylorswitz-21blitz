@@ -4,7 +4,6 @@ import { GAME_CONSTANTS } from '@/lib/constants';
 import { PlayingCard } from './PlayingCard';
 import { Badge } from './ui/badge';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/theme/ThemeContext';
 
 interface StackColumnProps {
   stack: Stack;
@@ -35,14 +34,10 @@ export function StackColumn({
   onHover,
   shouldHighlight = false
 }: StackColumnProps) {
-  const { theme } = useTheme();
   const { total, soft } = bestTotal(stack.cards);
   const isBusted = total > GAME_CONSTANTS.BLACKJACK_TARGET;
   const is21 = total === GAME_CONSTANTS.BLACKJACK_TARGET;
   const isEmpty = stack.cards.length === 0;
-  
-  // Get stack label from theme or fallback to default
-  const stackLabel = theme.stackLabels?.[stackIndex] || `Stack ${stackIndex + 1}`;
   
   // Calculate predicted total if next card is placed
   const predictedTotal = nextCard && !isEmpty ? 
@@ -126,7 +121,15 @@ export function StackColumn({
         )}
         {/* Title block - fixed 3 lines */}
         <div className="tsw-card__title">
-          {stackLabel}
+          {(() => {
+            const stackNames = [
+              '💅❤️ Red Zone',
+              '🖊️📖 Blank Space Playbook', 
+              '👠🌟 Style Points',
+              '✨🤍 Fearless Formation'
+            ];
+            return stackNames[stackIndex];
+          })()}
           {stack.locked && ' 🔒'}
         </div>
         

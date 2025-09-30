@@ -13,13 +13,11 @@ import { ArrowLeft } from 'lucide-react';
 import { bestTotal } from '@/lib/blackjack';
 import { GAME_CONSTANTS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/theme/ThemeContext';
 const Play = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const seed = searchParams.get('seed') || undefined;
   const settings = loadSettings();
-  const { theme } = useTheme();
   const [focusedElement, setFocusedElement] = useState<string | number | null>(null);
   const [hoveredStack, setHoveredStack] = useState<number | null>(null);
   const [gameEffects, setGameEffects] = useState<{
@@ -80,14 +78,7 @@ const Play = () => {
   const handleElementFocus = (element: string | number | null) => {
     setFocusedElement(element);
   };
-  return <div className={cn("min-h-screen flex flex-col transition-all duration-300", gameEffects.shakeContainer && "container-shake", gameEffects.showRedFlash && "red-flash")} style={{
-    background: `
-      radial-gradient(circle at 25% 25%, rgba(255,255,255,0.02) 1px, transparent 1px),
-      radial-gradient(circle at 75% 75%, rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(135deg, #1a472a, #22543d, #2d5a41, #1e3a2e)
-    `,
-    backgroundSize: '24px 24px, 32px 32px, 100% 100%'
-  }}>
+  return <div className={cn("min-h-screen flex flex-col transition-all duration-300", gameEffects.shakeContainer && "container-shake", gameEffects.showRedFlash && "red-flash")}>
       {/* Confetti overlay */}
       {gameEffects.showConfetti && <div className="fixed inset-0 pointer-events-none z-50">
           <div className="confetti-burst text-6xl text-center pt-20">
@@ -99,10 +90,10 @@ const Play = () => {
       <section className="tsw-hero">
         <div className="tsw-hero__inner">
           <div className="tsw-hero__title">
-            <h1 className="text-3xl font-extralight text-left">{theme.tagline || "Create stacks of 21 without busting!"}</h1>
+            <h1 className="text-3xl font-extralight text-left">Stack your cards like Taylor stacks her eras.</h1>
           </div>
           <div className="tsw-hero__image">
-            <img src={theme.heroTitleImageUrl || "/lovable-uploads/5fe48950-002d-4922-acd1-a62494376a34.png"} alt="21 Blitz Game Layout" />
+            <img src="/TSWIZBANNER.png" alt="Taylor QB pose" />
           </div>
         </div>
       </section>
@@ -110,7 +101,7 @@ const Play = () => {
       {/* Floating HUD */}
       <div className="tsw-hud">
         <div className="hud-chip">
-          <span className="label">{theme.scoringLabels?.score || 'Score'}</span>
+          <span className="label">Score</span>
           <span className="value green text-2xl font-bold" id="hudScore">{gameState.score}</span>
         </div>
         <div className="hud-chip">
@@ -157,7 +148,7 @@ const Play = () => {
               <div className="mt-4 space-y-1 text-gray-700">
                 <div><span className="font-bold">Final Score:</span> <span className="font-bold text-primary">{gameState.score}</span></div>
                 <div>Scores: {gameState.clears}</div>
-                <div>{theme.scoringLabels?.fumble || 'Fumbles'}: {gameState.busts}</div>
+                <div>Fumbles: {gameState.busts}</div>
               </div>
               <ScoreBreakdown gameState={gameState} />
             </div>

@@ -49,13 +49,9 @@ All colors MUST be HSL.
     --accent: 217 33% 17%;
     --accent-foreground: 210 40% 98%;
     
-    /* Green Button (was Hot Pink) */
-    --hot-pink: 142 76% 36%;
+    /* Hot Pink Button */
+    --hot-pink: 322 100% 61%;
     --hot-pink-foreground: 0 0% 100%;
-    
-    /* Light Green variant */
-    --light-green: 142 76% 60%;
-    --light-green-foreground: 0 0% 100%;
     
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
@@ -459,7 +455,7 @@ All colors MUST be HSL.
   .tsw-hero__title{
     display:flex; align-items:center; justify-content:center;
     padding:24px clamp(16px,4vw,36px);
-    background:linear-gradient(90deg, #1a472a 0%, #48cc6c 100%);
+    background:linear-gradient(90deg, var(--swift-pink) 0%, #f1b0ce 100%);
   }
   .tsw-hero__title h1{
     font-size:clamp(28px,5vw,48px);

@@ -1,8 +1,7 @@
 import { Card } from '@/lib/types';
 import { getCardName } from '@/lib/blackjack';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/theme/ThemeContext';
-import { useSuitIcon } from '@/theme/useSuitIcon';
+const cardBackImage = '/card-back-taylor-swift.jpg';
 
 interface PlayingCardProps {
   card?: Card;
@@ -19,27 +18,18 @@ export function PlayingCard({
   className,
   onClick 
 }: PlayingCardProps) {
-  const { theme } = useTheme();
-  const { iconFor } = useSuitIcon();
-  
-  // Get suit-specific color class - hearts and diamonds are red by default
+  // Get suit-specific color class
   const getSuitColor = (suit: string) => {
     switch (suit) {
-      case '♥': return 'text-red-500'; // Red hearts
-      case '♦': return 'text-red-500'; // Red diamonds
-      case '♠': return 'text-gray-900'; // Black spades
-      case '♣': return 'text-gray-900'; // Black clubs
-      // Legacy emoji suits for backward compatibility
       case '🎤': return 'text-yellow-600'; // Golden microphone
       case '❤️': return 'text-red-500'; // Red heart
       case '✍️': return 'text-amber-700'; // Sepia quill
-      case '✨': return 'text-green-400'; // Light green sparkle
+      case '✨': return 'text-pink-400'; // Pastel pink sparkle
       default: return 'text-card-foreground';
     }
   };
   
   const suitColor = card ? getSuitColor(card.suit) : 'text-card-foreground';
-  const cardBackImage = theme.cardBackUrl || '/generic-card-back.png';
   
   if (faceDown) {
     console.log('Rendering face down card with image:', cardBackImage);
@@ -64,7 +54,7 @@ export function PlayingCard({
       >
         <img 
           src={cardBackImage} 
-          alt="Generic Card Back"
+          alt="Card back - Ghibli style Taylor Swift"
           className="w-full h-full object-cover rounded-lg opacity-0"
           onError={(e) => {
             console.error('Failed to load card back image:', e);
@@ -125,7 +115,7 @@ export function PlayingCard({
         suitColor
       )}>
         <div className="font-bold truncate">{card.rank}</div>
-        <div className={small ? "text-xs" : "text-sm"}>{iconFor(card.suit)}</div>
+        <div className={small ? "text-xs" : "text-sm"}>{card.suit}</div>
       </div>
       
       {/* Center suit (larger cards only) */}
@@ -135,7 +125,7 @@ export function PlayingCard({
           small ? "text-lg" : "text-xl",
           suitColor
         )}>
-          {iconFor(card.suit)}
+          {card.suit}
         </div>
       )}
       
@@ -145,7 +135,7 @@ export function PlayingCard({
         suitColor
       )}>
         <div className="font-bold truncate">{card.rank}</div>
-        <div className={small ? "text-xs" : "text-sm"}>{iconFor(card.suit)}</div>
+        <div className={small ? "text-xs" : "text-sm"}>{card.suit}</div>
       </div>
     </div>
   );

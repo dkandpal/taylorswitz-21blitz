@@ -35,8 +35,8 @@ export function DeckPanel({
         return 'text-amber-700';
       // Sepia quill
       case '✨':
-        return 'text-green-400';
-      // Light green sparkle
+        return 'text-pink-400';
+      // Pastel pink sparkle
       default:
         return 'text-slate-900';
     }

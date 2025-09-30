@@ -6,27 +6,27 @@ import { Badge } from '@/components/ui/badge';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PlayingCard } from '@/components/PlayingCard';
 import { GAME_CONSTANTS } from '@/lib/constants';
-import { Play, HelpCircle, Settings as SettingsIcon, Trophy, Timer, Infinity, Palette } from 'lucide-react';
+import { Play, HelpCircle, Settings as SettingsIcon, Trophy, Timer, Infinity } from 'lucide-react';
 const Index = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const seed = searchParams.get('seed');
   const [showHowToPlay, setShowHowToPlay] = useState(false);
 
-  // Sample cards for visual appeal with traditional suits
+  // Sample cards for visual appeal
   const sampleCards = [{
     rank: 'A',
-    suit: '♠',
+    suit: '🎤',
     value10: 1,
     isAce: true
   }, {
     rank: 'K',
-    suit: '♥',
+    suit: '❤️',
     value10: 10,
     isAce: false
   }, {
     rank: '10',
-    suit: '♦',
+    suit: '✨',
     value10: 10,
     isAce: false
   }] as const;
@@ -37,38 +37,14 @@ const Index = () => {
       navigate('/how-to-play');
     }
   };
-  const handleQuickPlay = () => {
-    navigate('/play');
-  };
-  return <div className="min-h-screen flex flex-col items-center justify-center p-4" style={{
-    background: `
-      radial-gradient(circle at 25% 25%, rgba(255,255,255,0.02) 1px, transparent 1px),
-      radial-gradient(circle at 75% 75%, rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(135deg, #1a472a, #22543d, #2d5a41, #1e3a2e)
-    `,
-    backgroundSize: '24px 24px, 32px 32px, 100% 100%'
-  }}>
+  return <div className="min-h-screen flex flex-col items-center justify-center p-4">
       <div className="max-w-4xl w-full space-y-8">
-        {/* Header with side-by-side layout */}
+        {/* Header with banner image */}
         <div className="text-center space-y-6">
-          <div className="flex flex-col lg:flex-row lg:items-stretch lg:justify-center mb-6">
-            {/* Headline Box - stacks on top on mobile, left side on desktop */}
-            <div className="flex-1 lg:max-w-md">
-              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-8 shadow-lg border border-gray-200 h-full flex flex-col justify-center text-right">
-                <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">21 Blitz Builder</h1>
-                <p className="text-lg lg:text-xl text-gray-700">
-                  Create stacks of 21 without busting!
-                </p>
-              </div>
-            </div>
-            
-            {/* Hero Image - bottom on mobile, right side on desktop */}
-            <div className="flex justify-start mt-6 lg:mt-0">
-              <img src="/lovable-uploads/5fe48950-002d-4922-acd1-a62494376a34.png" alt="21 Blitz Game Diagram" className="max-w-full h-auto max-h-48 sm:max-h-64 lg:max-h-80 xl:max-h-96 object-contain rounded-lg shadow-lg" />
-            </div>
+          <div className="flex justify-center mb-6">
+            <img src="/TSWIZBANNER.png" alt="Taylor's Wiz Banner" className="max-w-full h-auto max-h-48 sm:max-h-64 lg:max-h-80 xl:max-h-96 object-contain rounded-lg" />
           </div>
           
-          {/* Sample Cards */}
           <div className="flex justify-center items-center space-x-4 mb-6">
             {sampleCards.map((card, index) => <div key={index} className="animate-float" style={{
             animationDelay: `${index * 0.2}s`
@@ -80,10 +56,13 @@ const Index = () => {
             animationDelay: `${sampleCards.length * 0.2}s`
           }}>
               <div className="w-24 h-32 rounded-lg overflow-hidden shadow-lg">
-                <img src="/generic-card-back.png" alt="Generic Card Back" className="w-full h-full object-cover" />
+                <img src="/card-back-taylor-swift.jpg" alt="Card Back" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
+          <p className="text-xl text-gray-900 max-w-2xl mx-auto">
+            Create stacks of 21 without fumbling!
+          </p>
           
           {seed && <Badge variant="outline" className="text-lg px-4 py-2">
               Replaying Seed: {seed}
@@ -92,32 +71,74 @@ const Index = () => {
 
         {/* Main CTA */}
         <div className="text-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-            {/* Top row: Quick Play and Customize Theme */}
-            <Button onClick={handleQuickPlay} size="lg" className="bg-hotPink text-hotPink-foreground hover:bg-hotPink/90 w-full">
-              <Play className="mr-2 h-5 w-5" />
-              Quick Play
-            </Button>
-            
-            <Button onClick={() => navigate('/theme')} variant="destructive" size="lg" className="w-full">
-              <Palette className="mr-2 h-4 w-4" />
-              Build Game
-            </Button>
-            
-            {/* Bottom row: How to Play and Leaderboard */}
-            <Button onClick={() => navigate('/how-to-play')} variant="outline" size="lg" className="w-full">
-              <HelpCircle className="mr-2 h-4 w-4" />
-              How to Play
-            </Button>
-            
-            <Button onClick={() => navigate('/leaderboard')} variant="outline" size="lg" className="w-full">
-              <Trophy className="mr-2 h-4 w-4" />
-              Leaderboard
-            </Button>
-          </div>
+          <Button onClick={handlePlay} size="lg" className="text-xl px-8 py-6 bg-hotPink text-hotPink-foreground hover:scale-105 transition-transform hover:bg-hotPink/90">
+            <Play className="w-6 h-6 mr-2" />
+            Play Now
+          </Button>
         </div>
 
 
+        {/* Action buttons */}
+        <div className="flex flex-wrap justify-center gap-4">
+          <Dialog open={showHowToPlay} onOpenChange={setShowHowToPlay}>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="focus-ring">
+                <HelpCircle className="w-4 h-4 mr-2" />
+                How to Play
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle className="text-foreground">How to T-Swizzle 21 Blitz
+              </DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 text-sm">
+                <div>
+                  <h4 className="font-semibold mb-2 text-foreground">🎯 Objective</h4>
+                  <p className="text-muted-foreground">Draw cards and place them on 4 stacks to make exactly 21. Avoid going over (fumbling)!</p>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold mb-2 text-foreground">🃏 Card Values</h4>
+                  <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                    <li>Numbers 2-10: Face value</li>
+                    <li>Jack, Queen, King: 10 points</li>
+                    <li>Ace: 1 or 11 (automatically optimized)</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold mb-2 text-foreground">🎮 Gameplay</h4>
+                  <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                    <li>Draw one card at a time from the deck</li>
+                    <li>Place each card on one of 4 stacks (or waste if enabled)</li>
+                    <li>Stack totaling exactly 21 clears and scores points</li>
+                    <li>Stack over 21 fumbles (penalty) and clears</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold mb-2 text-foreground">🏆 Scoring</h4>
+                  <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                    <li>2-card 21 (Blackjack): +{GAME_CONSTANTS.TWO_CARD_21}</li>
+                    <li>3-card 21: +{GAME_CONSTANTS.THREE_CARD_21}</li>
+                    <li>4+ card 21: +{GAME_CONSTANTS.FOUR_PLUS_CARD_21}</li>
+                    <li>Streak bonus: +{GAME_CONSTANTS.STREAK_BONUS} per consecutive clear</li>
+                    <li>Time bonus: +{GAME_CONSTANTS.TIME_BONUS_PER_SECOND} per second remaining</li>
+                    <li>Bust penalty: {GAME_CONSTANTS.BUST_PENALTY}</li>
+                  </ul>
+                </div>
+                
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          <Button variant="outline" onClick={() => navigate('/leaderboard')} className="focus-ring">
+            <Trophy className="w-4 h-4 mr-2" />
+            Leaderboard
+          </Button>
+          
+        </div>
       </div>
     </div>;
 };
